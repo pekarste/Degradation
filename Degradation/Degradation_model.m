@@ -260,7 +260,7 @@ FO = fitoptions('Method','NonLinearLeastSquares',...
            
 
 
-[curve, gof] = fit(Mayrhofer_time,Mayrhofer_dissolution_mole,FT,FO);    
+[curve, gof] = fit(Mayrhofer_time(5:end),Mayrhofer_dissolution_mole(5:end),FT,FO);    
 
 figure()
 plot(curve)
