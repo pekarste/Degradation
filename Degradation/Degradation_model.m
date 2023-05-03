@@ -259,11 +259,12 @@ FT = fittype(fun, 'independent',{'x'}, 'coefficients',{'k_3_0_plus'});
 FO = fitoptions('Method','NonLinearLeastSquares',...
            'Lower', eps,...                                                 % k_3_0_plus
            'Upper', 10^(2), ...
-           'StartPoint', 1.2*10^-5);                                              % k_3_0_plus
-           
+           'StartPoint', 1e-4,...
+           'TolFun', 1e-20);                                              % k_3_0_plus
+          
 
 
-[curve, gof] = fit(Mayrhofer_time(5:end),Mayrhofer_dissolution_mole(5:end),FT,FO);    
+[curve, gof, output,warnstr,errstr,convmsg] = fit(Mayrhofer_time(5:end),Mayrhofer_dissolution_mole(5:end),FT,FO);    
 
 figure()
 plot(curve)
