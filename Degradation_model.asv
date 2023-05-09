@@ -14,7 +14,7 @@ gamma = 8.16*10^(-6);                                                       % mo
 %% %%%%%%%%%%%%%%%% DATA for the fitting %%%%%%%%%%%%%%%%%%%% 
 
 % Guess for k_4_0_plus
-k_4_0_plus = 10^-2;
+k_4_0_plus = 10^-3;
 
 % Data used for fitting of r2
 Scohy_Ir_data = readmatrix("Scohy_activated_Ir_LSV.xlsx");                  % Potential/current density data from Scohy
@@ -63,35 +63,66 @@ Damjanovic_a_H_plus = 1;                                                    % [-
 [Damjanovic_log_curve_fit, Damjanovic_log_gof_fit] = ...                    % This is the expression with no rds, but k_4 << 1
     r_fit(Damjanovic_potential, Damjanovic_current_density, Damjanovic_a_H_plus, Damjanovic_T, "Logarithmic");
 
-% figure()
-% plot(Scohy_curve_fit)
-% hold on
-% plot(Scohy_curve)
-% plot(Scohy_potential, Scohy_current_density, "Color","blue")
-% hold off
-% legend({'Non_rds', 'rds', 'data'})
-% xlabel('E')
-% ylabel('i')
-% 
-% figure()
-% plot(Damjanovic_curve_fit)
-% hold on
-% plot(Damjanovic_curve)
-% plot(Damjanovic_potential, Damjanovic_current_density, "Color","blue")
-% hold off
-% legend({'Non_rds', 'rds', 'data'})
-% xlabel('E')
-% ylabel('i')
-% 
-% figure()
-% plot(Damjanovic_log_curve_fit)
-% hold on
-% plot(Damjanovic_log_curve)
-% plot(Damjanovic_potential, log10(Damjanovic_current_density), "Color","blue")
-% hold off
-% legend({'Non_rds', 'rds', 'data'})
-% xlabel('E')
-% ylabel('i')
+figure()                                                                    % Creates figure
+%plot(Scohy_curve_fit)
+scatter(Scohy_potential, Scohy_current_density, 45, "filled", "blue", 'o')  % Scatter plot of the sampled values from Scohy
+hold on
+fig_scohy_fit = plot(Scohy_curve, "black");                                 % Creating a fig to stor the plot of the curve fit (cfit element)
+set(fig_scohy_fit,'lineWidth',1);                                           % Changing the linewidth of the curve of the cfit
+hold off
+ax_scohy = gca; % current axes                                              % Creating an ax with gca such that the fontsize can be changed
+legend({'Data', 'Fitting'},...                                              % Creating a legend for the graphs
+    'Position', [.2 .65 .1 .1], 'Interpreter','latex', 'FontSize',15)
+str_scohy = sprintf("$R^{2}$ = %.5f", round(Scohy_gof.rsquare, 5));         % Creating a string element for the annotation
+annotation('textbox', [.15 .8 .1 .1], 'String',str_scohy,...                % Creating an annotation, textbox, with the rsquare value from the cfit
+    'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
+ax_scohy.XAxis.FontSize = 12;                                               % Changing the tick size on the x-axis
+ax_scohy.YAxis.FontSize = 12;                                               % Changing the tick size on the y-axis
+xlabel('Potential - E/[$V$] vs RHE','Interpreter','latex', 'FontSize', 15)  % Creating x-label
+ylabel('Current density - i/[$Am^{-2}$]',...                                % Creating y-label
+    'Interpreter','latex', 'FontSize', 15)                                  
+
+figure()                                                                    % Creates figure
+%plot(Damjanovic_curve_fit) 
+scatter(Damjanovic_potential, Damjanovic_current_density, 45,...            % Scatter plot of the sampled values from Damjanovic
+    "filled", "green", "square" )
+hold on
+fig_damjanovic = plot(Damjanovic_curve, "black");                           % Creating a fig to stor the plot of the curve fit (cfit element)
+set(fig_damjanovic,'lineWidth',1);                                          % Changing the linewidth of the curve of the cfit
+hold off
+ax_damjanovic = gca; % current axes                                         % Creating an ax with gca such that the fontsize can be changed
+legend({'Data', 'Fitting'},...                                              % Creating a legend for the graphs
+    'Position', [.2 .65 .1 .1], 'Interpreter','latex', 'FontSize',15)
+str_damjanovic = ...                                                        % Creating a string element for the annotation
+    sprintf("$R^{2}$ = %.5f", round(Damjanovic_gof.rsquare, 5));
+annotation('textbox', [.15 .8 .1 .1], 'String',str_damjanovic,...           % Creating an annotation, textbox, with the rsquare value from the cfit
+    'Interpreter', 'latex','FitBoxToText','on', 'FontSize',15);
+ax_damjanovic.XAxis.FontSize = 12;                                          % Changing the tick size on the x-axis
+ax_damjanovic.YAxis.FontSize = 12;                                          % Changing the tick size on the y-axis
+xlabel('Potential - E/[$V$] vs RHE','Interpreter','latex', 'FontSize',15)   % Creating x-label
+ylabel('Current density - i/[$Am^{-2}$]',...                                % Creating y-label
+    'Interpreter','latex', 'FontSize',15)
+
+figure()                                                                    % Creating figure
+%plot(Damjanovic_log_curve_fit)
+scatter(Damjanovic_potential, log10(Damjanovic_current_density), 45,...     % Scatter plot of the sampled values from Damjanovic
+    "filled", "red", "^")
+hold on
+fig_damjanovic_log = plot(Damjanovic_log_curve, "black");                   % Creating a fig to stor the plot of the curve fit (cfit element)
+set(fig_damjanovic_log_fit,'lineWidth',1);                                  % Changing the linewidth of the curve of the cfit
+hold off
+ax_damjanovic_log = gca; % current axes                                     % Creating an ax with gca such that the fontsize can be changed
+legend({'Data', 'Fitting'}, 'Position', [.175 .65 .1 .1],...                % Creating a legend for the graphs
+    'Interpreter','latex', 'FontSize',15)
+str_damjanovic_log = ...                                                    % Creating a string element for the annotation
+    sprintf("$R^{2}$ = %.5f", round(Damjanovic_log_gof.rsquare, 5));
+annotation('textbox', [.15 .8 .1 .1], 'String',str_damjanovic_log,...       % Creating an annotation, textbox, with the rsquare value from the cfit
+    'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
+ax_damjanovic_log.XAxis.FontSize = 12;                                      % Changing the tick size on the x-axis
+ax_damjanovic_log.YAxis.FontSize = 12;
+xlabel('Potential - E/[$V$] vs RHE','Interpreter','latex', 'FontSize',15)
+ylabel('$\log_{10}$ of current density - $\log{i}$/[$Am^{-2}$]',...
+    'Interpreter','latex', 'FontSize',15)
 
 %% %%%%%%%%%%% The data from the Mayrhofer article %%%%%%%%%%%%%%%%%%%%%%
 % These data is based on the highest anodic peak
@@ -228,114 +259,23 @@ ylabel('$\frac{d Ir}{dt}$ - [$\frac{mol}{cm^{2}s}$]','Interpreter','latex')
 legend(["Scohy fit ode15s", "Scohy fit interpol", "Damjanovic fit ode15s", "Damjanovic fit interpol","Damjanovic log fit ode15s", "Damjanovic log fit interpol", "r_{diss}"], Location = "best")
 
 %%   
-normalize = "yes";
-if normalize == "no"
-    fun = @(k_3_0_plus, x) gamma*k_3_0_plus*a_H2O*interp1(t_scohy,theta_scohy,x);
-    FT = fittype(fun, 'independent',{'x'}, 'coefficients',{'k_3_0_plus'});
-    
-    FO = fitoptions('Method','NonLinearLeastSquares',...
-               'Lower', eps,...                                                 % k_3_0_plus
-               'Upper', k_4_0_plus, ...
-               'StartPoint', 1e-4,...
-               'TolFun', 1e-20);                                                % k_3_0_plus
-              
-    
-    
-    [curve, gof, output,warnstr,errstr,convmsg] = fit(Mayrhofer_time,Mayrhofer_dissolution_mole,FT,FO);    
-    
-    figure()
-    plot(curve)
-    hold on
-    plot(Mayrhofer_time, Mayrhofer_dissolution_mole)
-    xlabel("Time")
-    ylabel("r_{3}")
+% Normalisation just wouldn't do
 
-elseif normalize == "yes"
-    max_y = max(Mayrhofer_dissolution_mole);
-    fun = @(k_3_0_plus, x) gamma*k_3_0_plus*a_H2O*interp1(t_scohy,theta_scohy,x)/max_y;
-    FT = fittype(fun, 'independent',{'x'}, 'coefficients',{'k_3_0_plus'});
-    
-    FO = fitoptions('Method','NonLinearLeastSquares',...
-               'Lower', eps,...                                             % k_3_0_plus
-               'Upper', k_4_0_plus,...                                     % k_3_0_plus
-               'StartPoint', 1e-4);%,...
-              
-    
-    [curve_norm, gof_norm, output_norm,warnstr_norm,errstr_norm,convmsg_norm] = fit(Mayrhofer_time,Mayrhofer_dissolution_mole,FT,FO);    
-    
-    % Extract the fitted values from curve_norm and multiply with max_y
-    curve = feval(curve_norm, Mayrhofer_time) * max_y; 
+fun = @(k_3_0_plus, x) gamma*k_3_0_plus*a_H2O*interp1(t_scohy,theta_scohy,x);
+FT = fittype(fun, 'independent',{'x'}, 'coefficients',{'k_3_0_plus'});
 
-    figure()
-    plot(curve)
-    hold on
-    plot(Mayrhofer_time, Mayrhofer_dissolution_mole)
-    xlabel("Time")
-    ylabel("r_{3}")
-end
+FO = fitoptions('Method','NonLinearLeastSquares',...
+           'Lower', eps,...                                                 % k_3_0_plus
+           'Upper', k_4_0_plus, ...
+           'StartPoint', 1e-4,...
+           'TolFun', 1e-22);                                                % k_3_0_plus
+          
 
-% fun = @(k_3_0_plus, x) gamma*k_3_0_plus*a_H2O*interp1(t_scohy,theta_scohy,x);
-% FT = fittype(fun, 'independent',{'x'}, 'coefficients',{'k_3_0_plus'});
-% 
-% FO = fitoptions('Method','NonLinearLeastSquares',...
-%            'Lower', eps,...                                                 % k_3_0_plus
-%            'Upper', k_4_0_plus, ...
-%            'StartPoint', 1e-4,...
-%            'TolFun', 1e-20);                                                % k_3_0_plus
-%           
-% 
-% 
-% [curve, gof, output,warnstr,errstr,convmsg] = fit(Mayrhofer_time,Mayrhofer_dissolution_mole,FT,FO);    
-% 
-% figure()
-% plot(curve)
-% hold on
-% plot(Mayrhofer_time, Mayrhofer_dissolution_mole)
-% xlabel("Time")
+[curve, gof, output,warnstr,errstr,convmsg] = fit(Mayrhofer_time,Mayrhofer_dissolution_mole,FT,FO);    
+
+figure()
+plot(curve)
+hold on
+plot(Mayrhofer_time, Mayrhofer_dissolution_mole)
+xlabel("Time")
 ylabel("r_{3}")
-%% Extracting the k_3_0_+ for a given value of k_4_0_+
-
-% Fitting the calculated values to the measured values
-% [scohy_degradation_curve, scohy_degradation_gof] = chi_square(theta_interpol_scohy(5:end), Mayrhofer_dissolution_mole(5:end));                     % The fitting from Scohy solution with the measured data
-% [damjanovic_degradation_curve, damjanovic_degradation_gof] = chi_square(theta_interpol_damj(5:end), Mayrhofer_dissolution_mole(5:end));            % The fitting from Damjanovic solution with the measured data
-% [damjanovic_log_degradation_curve, damjanovic_log_degradation_gof] = chi_square(theta_interpol_damj_log(5:end), Mayrhofer_dissolution_mole(5:end));% The fitting from Damjanovic log solution woth the measured data
-% 
-% % Extracting k_3_0_plus from the fitting
-% scohy_k_3_0_plus = scohy_degradation_curve.k_3_0_plus;                            % k_3_0_plus from scohy solution
-% damj_k_3_0_plus = damjanovic_degradation_curve.k_3_0_plus;                        % k_3_0_plus from damj solution
-% damj_log_k_3_0_plus = damjanovic_log_degradation_curve.k_3_0_plus;                % k_3_0_plus from damj log solution
-% 
-% % calculating the degradation rate with the value of k_3_0_plus
-% scohy_deg_rate = gamma*theta_interpol_scohy*a_H2O*scohy_k_3_0_plus;                  
-% damj_deg_rate = gamma*theta_interpol_damj*a_H2O*damj_k_3_0_plus;
-% damj_log_deg_rate = gamma*theta_interpol_damj_log*a_H2O*damj_log_k_3_0_plus;
-% 
-% figure()
-% plot(theta_scohy, scohy_k_3_0_plus*gamma*a_H2O*theta_scohy)
-% xlabel("Theta")
-% ylabel("r_{3}")
-% 
-% figure()
-% plot(t_scohy, scohy_k_3_0_plus*gamma*a_H2O*theta_scohy)
-% xlabel("t")
-% ylabel("r_{3}")
-% 
-% figure()
-% plot(t_scohy, theta_scohy)
-% xlabel("t")
-% ylabel("theta_{2}")
-% 
-% % Plotting the new degradation rate
-% figure()
-% title("$\frac{d Ir}{d t}(t)$ vs time",'Interpreter','latex')
-% plot(Mayrhofer_time, scohy_deg_rate, '-o', "Color", "blue")
-% hold on
-% %scatter(Mayrhofer_time, theta_interpol_scohy ,20,"blue" ,'o')
-% plot(Mayrhofer_time, damj_deg_rate, '-x' ,"Color","green")
-% %scatter(Mayrhofer_time, theta_interpol_damj, 20,"green" ,'+')
-% plot(Mayrhofer_time, damj_log_deg_rate, '-+', "Color", "red")
-% %scatter(Mayrhofer_time, theta_interpol_damj_log, 20,"red" ,'x')
-% plot(Mayrhofer_time, Mayrhofer_dissolution_mole, '--', "Color", "magenta")
-% hold off
-% xlabel('time - [$s$]','Interpreter','latex')
-% ylabel('$\frac{d Ir}{d t}(t)$ - [$-$]','Interpreter','latex')

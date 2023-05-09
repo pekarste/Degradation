@@ -63,35 +63,66 @@ Damjanovic_a_H_plus = 1;                                                    % [-
 [Damjanovic_log_curve_fit, Damjanovic_log_gof_fit] = ...                    % This is the expression with no rds, but k_4 << 1
     r_fit(Damjanovic_potential, Damjanovic_current_density, Damjanovic_a_H_plus, Damjanovic_T, "Logarithmic");
 
-% figure()
-% plot(Scohy_curve_fit)
-% hold on
-% plot(Scohy_curve)
-% plot(Scohy_potential, Scohy_current_density, "Color","blue")
-% hold off
-% legend({'Non_rds', 'rds', 'data'})
-% xlabel('E')
-% ylabel('i')
-% 
-% figure()
-% plot(Damjanovic_curve_fit)
-% hold on
-% plot(Damjanovic_curve)
-% plot(Damjanovic_potential, Damjanovic_current_density, "Color","blue")
-% hold off
-% legend({'Non_rds', 'rds', 'data'})
-% xlabel('E')
-% ylabel('i')
-% 
-% figure()
-% plot(Damjanovic_log_curve_fit)
-% hold on
-% plot(Damjanovic_log_curve)
-% plot(Damjanovic_potential, log10(Damjanovic_current_density), "Color","blue")
-% hold off
-% legend({'Non_rds', 'rds', 'data'})
-% xlabel('E')
-% ylabel('i')
+figure()                                                                    % Creates figure
+%plot(Scohy_curve_fit)
+scatter(Scohy_potential, Scohy_current_density, 45, "filled", "blue", 'o')  % Scatter plot of the sampled values from Scohy
+hold on
+fig_scohy_fit = plot(Scohy_curve, "black");                                 % Creating a fig to stor the plot of the curve fit (cfit element)
+set(fig_scohy_fit,'lineWidth',1);                                           % Changing the linewidth of the curve of the cfit
+hold off
+ax_scohy = gca; % current axes                                              % Creating an ax with gca such that the fontsize can be changed
+legend({'Data', 'Fitting'},...                                              % Creating a legend for the graphs
+    'Position', [.2 .65 .1 .1], 'Interpreter','latex', 'FontSize',15)
+str_scohy = sprintf("$R^{2}$ = %.5f", round(Scohy_gof.rsquare, 5));         % Creating a string element for the annotation
+annotation('textbox', [.15 .8 .1 .1], 'String',str_scohy,...                % Creating an annotation, textbox, with the rsquare value from the cfit
+    'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
+ax_scohy.XAxis.FontSize = 12;                                               % Changing the tick size on the x-axis
+ax_scohy.YAxis.FontSize = 12;                                               % Changing the tick size on the y-axis
+xlabel('Potential - E/[$V$] vs RHE','Interpreter','latex', 'FontSize', 15)  % Creating x-label
+ylabel('Current density - i/[$Am^{-2}$]',...                                % Creating y-label
+    'Interpreter','latex', 'FontSize', 15)                                  
+
+figure()                                                                    % Creates figure
+%plot(Damjanovic_curve_fit) 
+scatter(Damjanovic_potential, Damjanovic_current_density, 45,...            % Scatter plot of the sampled values from Damjanovic
+    "filled", "green", "square" )
+hold on
+fig_damjanovic = plot(Damjanovic_curve, "black");                           % Creating a fig to stor the plot of the curve fit (cfit element)
+set(fig_damjanovic,'lineWidth',1);                                          % Changing the linewidth of the curve of the cfit
+hold off
+ax_damjanovic = gca; % current axes                                         % Creating an ax with gca such that the fontsize can be changed
+legend({'Data', 'Fitting'},...                                              % Creating a legend for the graphs
+    'Position', [.2 .65 .1 .1], 'Interpreter','latex', 'FontSize',15)
+str_damjanovic = ...                                                        % Creating a string element for the annotation
+    sprintf("$R^{2}$ = %.5f", round(Damjanovic_gof.rsquare, 5));
+annotation('textbox', [.15 .8 .1 .1], 'String',str_damjanovic,...           % Creating an annotation, textbox, with the rsquare value from the cfit
+    'Interpreter', 'latex','FitBoxToText','on', 'FontSize',15);
+ax_damjanovic.XAxis.FontSize = 12;                                          % Changing the tick size on the x-axis
+ax_damjanovic.YAxis.FontSize = 12;                                          % Changing the tick size on the y-axis
+xlabel('Potential - E/[$V$] vs RHE','Interpreter','latex', 'FontSize',15)   % Creating x-label
+ylabel('Current density - i/[$Am^{-2}$]',...                                % Creating y-label
+    'Interpreter','latex', 'FontSize',15)
+
+figure()                                                                    % Creating figure
+%plot(Damjanovic_log_curve_fit)
+scatter(Damjanovic_potential, log10(Damjanovic_current_density), 45,...     % Scatter plot of the sampled values from Damjanovic
+    "filled", "red", "^")
+hold on
+fig_damjanovic_log = plot(Damjanovic_log_curve, "black");                   % Creating a fig to stor the plot of the curve fit (cfit element)
+set(fig_damjanovic_log,'lineWidth',1);                                  % Changing the linewidth of the curve of the cfit
+hold off
+ax_damjanovic_log = gca; % current axes                                     % Creating an ax with gca such that the fontsize can be changed
+legend({'Data', 'Fitting'}, 'Position', [.2 .65 .1 .1],...                % Creating a legend for the graphs
+    'Interpreter','latex', 'FontSize',15)
+str_damjanovic_log = ...                                                    % Creating a string element for the annotation
+    sprintf("$R^{2}$ = %.5f", round(Damjanovic_log_gof.rsquare, 5));
+annotation('textbox', [.15 .8 .1 .1], 'String',str_damjanovic_log,...       % Creating an annotation, textbox, with the rsquare value from the cfit
+    'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
+ax_damjanovic_log.XAxis.FontSize = 12;                                      % Changing the tick size on the x-axis
+ax_damjanovic_log.YAxis.FontSize = 12;                                      % Changing the tick size on the y-axis
+xlabel('Potential - E/[$V$] vs RHE','Interpreter','latex', 'FontSize',15)   % Creating x-label
+ylabel('$\log_{10}$ of current density - $\log{i}$/[$Am^{-2}$]',...         % Creating y-label
+    'Interpreter','latex', 'FontSize',15)
 
 %% %%%%%%%%%%% The data from the Mayrhofer article %%%%%%%%%%%%%%%%%%%%%%
 % These data is based on the highest anodic peak
