@@ -1,4 +1,4 @@
-function [k_3_0_plus_scohy, k_3_0_plus_damjanovic, k_3_0_plus_damjanovic_log] = k_3_0_plus_extraction(k_4_0_plus)
+function [k_3_0_plus_scohy, k_3_0_plus_damjanovic, k_3_0_plus_damjanovic_log, k_3_0_plus_cherevko_acidic] = k_3_0_plus_extraction(k_4_0_plus)
 % k_3_0_plus_extraction takes in a value for k_4_0_plus, and calculates a
 % value for k_3_0_plus, based on this value. It gives back a value based on
 % scohy and damjanovic. It is based on the "Degradation_model" script
@@ -16,24 +16,29 @@ gamma = 8.16*10^(-6);                                                       % mo
 %% %%%%%%%%%%%%%%%% DATA for the fitting %%%%%%%%%%%%%%%%%%%% 
 
 % Data used for fitting of r2
-Scohy_Ir_data = readmatrix("Scohy_activated_Ir_LSV.xlsx");                  % Potential/current density data from Scohy
-Damjanovic_Ir_data = readmatrix("Damjanovic_Ir_E_vs_log_i.xlsx");           % Current censity/potential data from Damjanovic
+Scohy_acidic = readmatrix("Scohy_activated_Ir_LSV.xlsx");                  % Potential/current density data from Scohy
+Damjanovic_acidic = readmatrix("Damjanovic_Ir_E_vs_log_i.xlsx");           % Current censity/potential data from Damjanovic
+Cherevko_acidic = readmatrix("Data\Acidic\Cherevko_polarisation.xlsx");     % Potential/current density data from Cherevko
 
-% Extracted data from the Excel files 
+%% Extracted data from the Excel files 
 
-% Scohy
-Scohy_potential = Scohy_Ir_data(1:end,1);                                   % [V vs RHE] - Potential
-Scohy_current_density = Scohy_Ir_data(1:end,2)*10^(-3+4);                   % [A/m^2] - Current density, originally in mA/cm^2
+% Acidic - Scohy
+Scohy_potential = Scohy_acidic(1:end,1);                                    % [V vs RHE] - Potential
+Scohy_current_density = Scohy_acidic(1:end,2)*10^(-3+4);                    % [A/m^2] - Current density, originally in mA/cm^2
 Scohy_T = 25 + 273;                                                         % [K] - Temperature
 Scohy_a_H_plus = 0.5*2;                                                     % [-] - Activity of H+
 
-
-%Damjanovic
-Damjanovic_potential = Damjanovic_Ir_data(1:end,2);                         % [V vs RHE]          
-Damjanovic_current_density = Damjanovic_Ir_data(1:end,1)*10^4;              % [A/m^2] - Originally A/cm^2 (The article contains log(i), but I converted thm
+% Acidic - Damjanovic
+Damjanovic_potential = Damjanovic_acidic(1:end,2);                          % [V vs RHE]          
+Damjanovic_current_density = Damjanovic_acidic(1:end,1)*10^4;               % [A/m^2] - Originally A/cm^2 (The article contains log(i), but I converted thm
 Damjanovic_T = 25 + 273;                                                    % [K] - Temperature
 Damjanovic_a_H_plus = 1;                                                    % [-] - Activity of H+
 
+% Acidic - Cherevko
+Cherevko_E_acidic = Cherevko_acidic(1:end,1);                               % [V vs RHE] - Potential
+Cherevko_i_acidic = Cherevko_acidic(1:end,2)*10^(-3+4);                     % [A/m^2] - Current density, originally in mA/cm^2
+Cherevko_T_acidic = 25 + 273;                                               % [K] - Temperature
+Cherevko_a_H_plus = 0.1*2;                                                  % [-] - Activity of H+
 
 %% %%%%%%%%%%%%%%%%%%%%% Fitting %%%%%%%%%%%%%%%%%%%%%%%%%%
 % Fitting the expression of the current based on r_2 to the data
@@ -44,23 +49,20 @@ Damjanovic_a_H_plus = 1;                                                    % [-
 [Scohy_curve, Scohy_gof] = ...                                              % This is the expression with rds
     r_2_fit(Scohy_potential, Scohy_current_density, Scohy_a_H_plus, Scohy_T, "Linear");
 
-%[Scohy_curve_fit, Scohy_gof_fit] = ...                                      % This is the expression with no rds, but k_4 << 1
-%    r_fit(Scohy_potential, Scohy_current_density, Scohy_a_H_plus, Scohy_T, "Linear");
 
 % Damjanovic
 [Damjanovic_curve, Damjanovic_gof] = ...                                    % This is the expression with rds
     r_2_fit(Damjanovic_potential, Damjanovic_current_density, Damjanovic_a_H_plus, Damjanovic_T, "Linear");
 
 
-%[Damjanovic_curve_fit, Damjanovic_gof_fit] = ...                            % This is the expression with no rds, but k_4 << 1
-%    r_fit(Damjanovic_potential, Damjanovic_current_density, Damjanovic_a_H_plus, Damjanovic_T, "Linear");
 
 % Damjanovic (log)
 [Damjanovic_log_curve, Damjanovic_log_gof] = ...                            % This is the expression with rds
     r_2_fit(Damjanovic_potential, Damjanovic_current_density, Damjanovic_a_H_plus, Damjanovic_T, "Logarithmic");
 
-%[Damjanovic_log_curve_fit, Damjanovic_log_gof_fit] = ...                    % This is the expression with no rds, but k_4 << 1
-%    r_fit(Damjanovic_potential, Damjanovic_current_density, Damjanovic_a_H_plus, Damjanovic_T, "Logarithmic");
+% Cherevko - Acidic
+[Cherevko_curve_acidic, Cherevko_gof_acidic] = ...                                              % This is the expression with rds
+    r_2_fit(Cherevko_E_acidic, Cherevko_i_acidic, Cherevko_a_H_plus, Cherevko_T_acidic, "Linear");
 
 %% %%%%%%%%%%% The data from the Mayrhofer article %%%%%%%%%%%%%%%%%%%%%%
 % These data is based on the highest anodic peak
@@ -80,7 +82,7 @@ Mayrhofer_T = 25 + 273.13;                                                  % ma
 [t_scohy, theta_scohy] = diff_equation_solver(Mayrhofer_time, "value", Scohy_curve, Mayrhofer_a_H_plus, Mayrhofer_T, k_4_0_plus, eps);
 [t_damj, theta_damj] = diff_equation_solver(Mayrhofer_time, "value", Damjanovic_curve, Mayrhofer_a_H_plus, Mayrhofer_T, k_4_0_plus, eps);
 [t_damj_log, theta_damj_log] = diff_equation_solver(Mayrhofer_time, "value", Damjanovic_log_curve, Mayrhofer_a_H_plus, Mayrhofer_T, k_4_0_plus, eps);
-
+[t_cherevko_acidic, theta_cherevko_acidic] = diff_equation_solver(Mayrhofer_time, "value", Cherevko_curve_acidic, Mayrhofer_a_H_plus, Mayrhofer_T, k_4_0_plus, eps);
 
 %% Extracting the k_3_0_plus value  
 % Normalisation just wouldn't do
@@ -88,11 +90,13 @@ Mayrhofer_T = 25 + 273.13;                                                  % ma
 fun_scohy = @(k_3_0_plus, x) gamma*k_3_0_plus*a_H2O*interp1(t_scohy,theta_scohy,x);
 fun_damjanovic = @(k_3_0_plus, x) gamma*k_3_0_plus*a_H2O*interp1(t_damj,theta_damj,x);
 fun_damjanovic_log = @(k_3_0_plus, x) gamma*k_3_0_plus*a_H2O*interp1(t_damj_log,theta_damj_log,x);
+fun_cherevko_acidic = @(k_3_0_plus, x) gamma*k_3_0_plus*a_H2O*interp1(t_cherevko_acidic,theta_cherevko_acidic,x);
 
 
 FT_scohy = fittype(fun_scohy, 'independent',{'x'}, 'coefficients',{'k_3_0_plus'});
 FT_damjanovic = fittype(fun_damjanovic, 'independent',{'x'}, 'coefficients',{'k_3_0_plus'});
 FT_damjanovic_log = fittype(fun_damjanovic_log, 'independent',{'x'}, 'coefficients',{'k_3_0_plus'});
+FT_cherevko_acidic = fittype(fun_cherevko_acidic, 'independent',{'x'}, 'coefficients',{'k_3_0_plus'});
 
 FO = fitoptions('Method','NonLinearLeastSquares',...
            'Lower', eps,...                                                 % k_3_0_plus
@@ -104,9 +108,11 @@ FO = fitoptions('Method','NonLinearLeastSquares',...
 [curve_scohy, gof, output,warnstr,errstr,convmsg] = fit(Mayrhofer_time,Mayrhofer_dissolution_mole,FT_scohy,FO);
 [curve_damjanovic, gof, output,warnstr,errstr,convmsg] = fit(Mayrhofer_time,Mayrhofer_dissolution_mole,FT_damjanovic,FO);
 [curve_damjanovic_log, gof, output,warnstr,errstr,convmsg] = fit(Mayrhofer_time,Mayrhofer_dissolution_mole,FT_damjanovic_log,FO);
+[curve_cherevko_acidic, gof, output,warnstr,errstr,convmsg] = fit(Mayrhofer_time,Mayrhofer_dissolution_mole,FT_cherevko_acidic,FO);
 
 k_3_0_plus_scohy = curve_scohy.k_3_0_plus;
 k_3_0_plus_damjanovic = curve_damjanovic.k_3_0_plus;
 k_3_0_plus_damjanovic_log = curve_damjanovic_log.k_3_0_plus;
+k_3_0_plus_cherevko_acidic = curve_cherevko_acidic.k_3_0_plus;
 
 end
