@@ -1,4 +1,4 @@
-%% %%%%%%%%%%%%%%%%%%%%%% Description %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% %%%%%%%%%%%%%%%%%%%%%% ACIDIC model %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % This script will couple all the different functions together and work
 % like a masterscript. 
 
@@ -16,26 +16,29 @@ gamma = 8.16*10^(-6);                                                       % mo
 % Guess for k_4_0_plus
 k_4_0_plus = 10^-3;
 
-% Data used for fitting of r2
-Scohy_Ir_data = readmatrix("Scohy_activated_Ir_LSV.xlsx");                  % Potential/current density data from Scohy
-Damjanovic_Ir_data = readmatrix("Damjanovic_Ir_E_vs_log_i.xlsx");           % Current censity/potential data from Damjanovic
+% Data used for fitting of r2_acidic
+Scohy_acidic = readmatrix("Data\Acidic\Scohy_activated_Ir_LSV.xlsx");       % Potential/current density data from Scohy
+Damjanovic_acidic = readmatrix("Data\Acidic\Damjanovic_Ir_E_vs_log_i.xlsx");% Current density/potential data from Damjanovic
+Cherevko_acidic = readmatrix("Data\Acidic\Cherevko_polarisation.xlsx");     % Potential/current density data from Cherevko
+%% Extracted data from the Excel files 
 
-% Extracted data from the Excel files 
-
-% Scohy
-Scohy_potential = Scohy_Ir_data(1:end,1);                                   % [V vs RHE] - Potential
-Scohy_current_density = Scohy_Ir_data(1:end,2)*10^(-3+4);                   % [A/m^2] - Current density, originally in mA/cm^2
+% Acidic - Scohy
+Scohy_potential = Scohy_acidic(1:end,1);                                    % [V vs RHE] - Potential
+Scohy_current_density = Scohy_acidic(1:end,2)*10^(-3+4);                    % [A/m^2] - Current density, originally in mA/cm^2
 Scohy_T = 25 + 273;                                                         % [K] - Temperature
 Scohy_a_H_plus = 0.5*2;                                                     % [-] - Activity of H+
 
-
-%Damjanovic
-Damjanovic_potential = Damjanovic_Ir_data(1:end,2);                         % [V vs RHE]          
-Damjanovic_current_density = Damjanovic_Ir_data(1:end,1)*10^4;              % [A/m^2] - Originally A/cm^2 (The article contains log(i), but I converted thm
+% Acidic - Damjanovic
+Damjanovic_potential = Damjanovic_acidic(1:end,2);                          % [V vs RHE]          
+Damjanovic_current_density = Damjanovic_acidic(1:end,1)*10^4;               % [A/m^2] - Originally A/cm^2 (The article contains log(i), but I converted thm
 Damjanovic_T = 25 + 273;                                                    % [K] - Temperature
 Damjanovic_a_H_plus = 1;                                                    % [-] - Activity of H+
 
-
+% Acidic - Cherevko
+Cherevko_E_acidic = Cherevko_acidic(1:end,1);                               % [V vs RHE] - Potential
+Cherevko_i_acidic = Cherevko_acidic(1:end,2)*10^(-3+4);                     % [A/m^2] - Current density, originally in mA/cm^2
+Cherevko_T_acidic = 25 + 273;                                               % [K] - Temperature
+Cherevko_a_H_plus = 0.1*2;                                                  % [-] - Activity of H+
 %% %%%%%%%%%%%%%%%%%%%%% Fitting %%%%%%%%%%%%%%%%%%%%%%%%%%
 % Fitting the expression of the current based on r_2 to the data
 % The r_2_fit returns the curve (fitting results) and the gof.
@@ -63,66 +66,98 @@ Damjanovic_a_H_plus = 1;                                                    % [-
 [Damjanovic_log_curve_fit, Damjanovic_log_gof_fit] = ...                    % This is the expression with no rds, but k_4 << 1
     r_fit(Damjanovic_potential, Damjanovic_current_density, Damjanovic_a_H_plus, Damjanovic_T, "Logarithmic");
 
-figure()                                                                    % Creates figure
-%plot(Scohy_curve_fit)
-scatter(Scohy_potential, Scohy_current_density, 45, "filled", "blue", 'o')  % Scatter plot of the sampled values from Scohy
-hold on
-fig_scohy_fit = plot(Scohy_curve, "black");                                 % Creating a fig to stor the plot of the curve fit (cfit element)
-set(fig_scohy_fit,'lineWidth',1);                                           % Changing the linewidth of the curve of the cfit
-hold off
-ax_scohy = gca; % current axes                                              % Creating an ax with gca such that the fontsize can be changed
-legend({'Data', 'Fitting'},...                                              % Creating a legend for the graphs
-    'Position', [.2 .65 .1 .1], 'Interpreter','latex', 'FontSize',15)
-str_scohy = sprintf("$R^{2}$ = %.5f", round(Scohy_gof.rsquare, 5));         % Creating a string element for the annotation
-annotation('textbox', [.15 .8 .1 .1], 'String',str_scohy,...                % Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
-ax_scohy.XAxis.FontSize = 12;                                               % Changing the tick size on the x-axis
-ax_scohy.YAxis.FontSize = 12;                                               % Changing the tick size on the y-axis
-xlabel('Potential - E/[$V$] vs RHE','Interpreter','latex', 'FontSize', 15)  % Creating x-label
-ylabel('Current density - i/[$Am^{-2}$]',...                                % Creating y-label
-    'Interpreter','latex', 'FontSize', 15)                                  
+% Cherevko - Acidic
+[Cherevko_curve_acidic, Cherevko_gof_acidic] = ...                                              % This is the expression with rds
+    r_2_fit(Cherevko_E_acidic, Cherevko_i_acidic, Cherevko_a_H_plus, Cherevko_T_acidic, "Linear");
 
-figure()                                                                    % Creates figure
-%plot(Damjanovic_curve_fit) 
-scatter(Damjanovic_potential, Damjanovic_current_density, 45,...            % Scatter plot of the sampled values from Damjanovic
-    "filled", "green", "square" )
-hold on
-fig_damjanovic = plot(Damjanovic_curve, "black");                           % Creating a fig to stor the plot of the curve fit (cfit element)
-set(fig_damjanovic,'lineWidth',1);                                          % Changing the linewidth of the curve of the cfit
-hold off
-ax_damjanovic = gca; % current axes                                         % Creating an ax with gca such that the fontsize can be changed
-legend({'Data', 'Fitting'},...                                              % Creating a legend for the graphs
-    'Position', [.2 .65 .1 .1], 'Interpreter','latex', 'FontSize',15)
-str_damjanovic = ...                                                        % Creating a string element for the annotation
-    sprintf("$R^{2}$ = %.5f", round(Damjanovic_gof.rsquare, 5));
-annotation('textbox', [.15 .8 .1 .1], 'String',str_damjanovic,...           % Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex','FitBoxToText','on', 'FontSize',15);
-ax_damjanovic.XAxis.FontSize = 12;                                          % Changing the tick size on the x-axis
-ax_damjanovic.YAxis.FontSize = 12;                                          % Changing the tick size on the y-axis
-xlabel('Potential - E/[$V$] vs RHE','Interpreter','latex', 'FontSize',15)   % Creating x-label
-ylabel('Current density - i/[$Am^{-2}$]',...                                % Creating y-label
-    'Interpreter','latex', 'FontSize',15)
 
-figure()                                                                    % Creating figure
-%plot(Damjanovic_log_curve_fit)
-scatter(Damjanovic_potential, log10(Damjanovic_current_density), 45,...     % Scatter plot of the sampled values from Damjanovic
-    "filled", "red", "^")
-hold on
-fig_damjanovic_log = plot(Damjanovic_log_curve, "black");                   % Creating a fig to stor the plot of the curve fit (cfit element)
-set(fig_damjanovic_log,'lineWidth',1);                                  % Changing the linewidth of the curve of the cfit
-hold off
-ax_damjanovic_log = gca; % current axes                                     % Creating an ax with gca such that the fontsize can be changed
-legend({'Data', 'Fitting'}, 'Position', [.2 .65 .1 .1],...                % Creating a legend for the graphs
-    'Interpreter','latex', 'FontSize',15)
-str_damjanovic_log = ...                                                    % Creating a string element for the annotation
-    sprintf("$R^{2}$ = %.5f", round(Damjanovic_log_gof.rsquare, 5));
-annotation('textbox', [.15 .8 .1 .1], 'String',str_damjanovic_log,...       % Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
-ax_damjanovic_log.XAxis.FontSize = 12;                                      % Changing the tick size on the x-axis
-ax_damjanovic_log.YAxis.FontSize = 12;                                      % Changing the tick size on the y-axis
-xlabel('Potential - E/[$V$] vs RHE','Interpreter','latex', 'FontSize',15)   % Creating x-label
-ylabel('$\log_{10}$ of current density - $\log{i}$/[$Am^{-2}$]',...         % Creating y-label
-    'Interpreter','latex', 'FontSize',15)
+%% Plotting the fitting with the data
+
+% % Scohy - Acidic
+% figure("Name", "Scohy Fitting Acidic")                                                                    % Creates figure
+% %plot(Scohy_curve_fit)
+% scatter(Scohy_potential, Scohy_current_density, 45, "filled", "blue", 'o')  % Scatter plot of the sampled values from Scohy
+% hold on
+% fig_scohy_fit = plot(Scohy_curve, "black");                                 % Creating a fig to stor the plot of the curve fit (cfit element)
+% set(fig_scohy_fit,'lineWidth',1);                                           % Changing the linewidth of the curve of the cfit
+% hold off
+% ax_scohy = gca; % current axes                                              % Creating an ax with gca such that the fontsize can be changed
+% legend({'Data', 'Fitting'},...                                              % Creating a legend for the graphs
+%     'Position', [.2 .65 .1 .1], 'Interpreter','latex', 'FontSize',15)
+% str_scohy = sprintf("$R^{2}$ = %.5f", round(Scohy_gof.rsquare, 5));         % Creating a string element for the annotation
+% annotation('textbox', [.15 .8 .1 .1], 'String',str_scohy,...                % Creating an annotation, textbox, with the rsquare value from the cfit
+%     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
+% ax_scohy.XAxis.FontSize = 12;                                               % Changing the tick size on the x-axis
+% ax_scohy.YAxis.FontSize = 12;                                               % Changing the tick size on the y-axis
+% xlabel('Potential - E/[$V$] vs RHE','Interpreter','latex', 'FontSize', 15)  % Creating x-label
+% ylabel('Current density - i/[$Am^{-2}$]',...                                % Creating y-label
+%     'Interpreter','latex', 'FontSize', 15)                                  
+% 
+% % Damjanovic - Acidic
+% figure("Name", "Damjanovic Fitting Acidic")                                                                    % Creates figure
+% %plot(Damjanovic_curve_fit) 
+% scatter(Damjanovic_potential, Damjanovic_current_density, 45,...            % Scatter plot of the sampled values from Damjanovic
+%     "filled", "green", "square" )
+% hold on
+% fig_damjanovic = plot(Damjanovic_curve, "black");                           % Creating a fig to stor the plot of the curve fit (cfit element)
+% set(fig_damjanovic,'lineWidth',1);                                          % Changing the linewidth of the curve of the cfit
+% hold off
+% ax_damjanovic = gca; % current axes                                         % Creating an ax with gca such that the fontsize can be changed
+% legend({'Data', 'Fitting'},...                                              % Creating a legend for the graphs
+%     'Position', [.2 .65 .1 .1], 'Interpreter','latex', 'FontSize',15)
+% str_damjanovic = ...                                                        % Creating a string element for the annotation
+%     sprintf("$R^{2}$ = %.5f", round(Damjanovic_gof.rsquare, 5));
+% annotation('textbox', [.15 .8 .1 .1], 'String',str_damjanovic,...           % Creating an annotation, textbox, with the rsquare value from the cfit
+%     'Interpreter', 'latex','FitBoxToText','on', 'FontSize',15);
+% ax_damjanovic.XAxis.FontSize = 12;                                          % Changing the tick size on the x-axis
+% ax_damjanovic.YAxis.FontSize = 12;                                          % Changing the tick size on the y-axis
+% xlabel('Potential - E/[$V$] vs RHE','Interpreter','latex', 'FontSize',15)   % Creating x-label
+% ylabel('Current density - i/[$Am^{-2}$]',...                                % Creating y-label
+%     'Interpreter','latex', 'FontSize',15)
+% 
+% % Damjanovic log - Acidic
+% figure("Name", "Damjanovic log Fitting Acidic")                                                                    % Creating figure
+% %plot(Damjanovic_log_curve_fit)
+% scatter(Damjanovic_potential, log10(Damjanovic_current_density), 45,...     % Scatter plot of the sampled values from Damjanovic
+%     "filled", "red", "^")
+% hold on
+% fig_damjanovic_log = plot(Damjanovic_log_curve, "black");                   % Creating a fig to stor the plot of the curve fit (cfit element)
+% set(fig_damjanovic_log,'lineWidth',1);                                      % Changing the linewidth of the curve of the cfit
+% hold off
+% ax_damjanovic_log = gca; % current axes                                     % Creating an ax with gca such that the fontsize can be changed
+% legend({'Data', 'Fitting'}, 'Position', [.2 .65 .1 .1],...                  % Creating a legend for the graphs
+%     'Interpreter','latex', 'FontSize',15)
+% str_damjanovic_log = ...                                                    % Creating a string element for the annotation
+%     sprintf("$R^{2}$ = %.5f", round(Damjanovic_log_gof.rsquare, 5));
+% annotation('textbox', [.15 .8 .1 .1], 'String',str_damjanovic_log,...       % Creating an annotation, textbox, with the rsquare value from the cfit
+%     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
+% ax_damjanovic_log.XAxis.FontSize = 12;                                      % Changing the tick size on the x-axis
+% ax_damjanovic_log.YAxis.FontSize = 12;                                      % Changing the tick size on the y-axis
+% xlabel('Potential - E/[$V$] vs RHE','Interpreter','latex', 'FontSize',15)   % Creating x-label
+% ylabel('$\log_{10}$ of current density - $\log{i}$/[$Am^{-2}$]',...         % Creating y-label
+%     'Interpreter','latex', 'FontSize',15)
+% 
+% % Cherevko - Acidic
+% figure("Name", "Cherevko Fitting Acidic")                                                                    % Creating figure
+% scatter(Cherevko_E_acidic, Cherevko_i_acidic, 45,...     % Scatter plot of the sampled values from Damjanovic
+%     [0.8500 0.3250 0.0980], "v", "filled")
+% hold on
+% xlim([Cherevko_E_acidic(1) Cherevko_E_acidic(end)])
+% fig_cherevko_acidic = plot(Cherevko_curve_acidic, "black");                   % Creating a fig to stor the plot of the curve fit (cfit element)
+% set(fig_cherevko_acidic,'lineWidth',1);                                      % Changing the linewidth of the curve of the cfit
+% hold off
+% ax_cherevko_acidic = gca; % current axes                                     % Creating an ax with gca such that the fontsize can be changed
+% legend({'Data', 'Fitting'}, 'Position', [.2 .65 .1 .1],...                  % Creating a legend for the graphs
+%     'Interpreter','latex', 'FontSize',15)
+% str_cherevko_acidic = ...                                                    % Creating a string element for the annotation
+%     sprintf("$R^{2}$ = %.5f", round(Cherevko_gof_acidic.rsquare, 5));
+% annotation('textbox', [.15 .8 .1 .1], 'String',str_cherevko_acidic,...       % Creating an annotation, textbox, with the rsquare value from the cfit
+%     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
+% ax_cherevko_acidic.XAxis.FontSize = 12;                                      % Changing the tick size on the x-axis
+% ax_cherevko_acidic.YAxis.FontSize = 12;                                      % Changing the tick size on the y-axis
+% xlabel('Potential - E/[$V$] vs RHE','Interpreter','latex', 'FontSize',15)   % Creating x-label
+% ylabel('Current density - i/[$Am^{-2}$]',...                                % Creating y-label
+%     'Interpreter','latex', 'FontSize',15)
 
 %% %%%%%%%%%%% The data from the Mayrhofer article %%%%%%%%%%%%%%%%%%%%%%
 % These data is based on the highest anodic peak
@@ -144,6 +179,7 @@ Mayrhofer_T = 25 + 273.13;                                                  % ma
 [t_scohy, theta_scohy] = diff_equation_solver(Mayrhofer_time, "value", Scohy_curve, Mayrhofer_a_H_plus, Mayrhofer_T, k_4_0_plus, eps);
 [t_damj, theta_damj] = diff_equation_solver(Mayrhofer_time, "value", Damjanovic_curve, Mayrhofer_a_H_plus, Mayrhofer_T, k_4_0_plus, eps);
 [t_damj_log, theta_damj_log] = diff_equation_solver(Mayrhofer_time, "value", Damjanovic_log_curve, Mayrhofer_a_H_plus, Mayrhofer_T, k_4_0_plus, eps);
+[t_cherevko_acidic, theta_cherevko_acidic] = diff_equation_solver(Mayrhofer_time, "value", Cherevko_curve_acidic, Mayrhofer_a_H_plus, Mayrhofer_T, k_4_0_plus, eps);
 
 
 %%  Making plots of the ode15s solution and the interpolation 
@@ -152,11 +188,14 @@ Mayrhofer_T = 25 + 273.13;                                                  % ma
 potential_scohy_ode15s = CV_potential(t_scohy, "array");
 potential_damj_ode15s = CV_potential(t_damj, "array");
 potential_damj_log_ode15s = CV_potential(t_damj_log, "array");
+potential_cherevko_ode15s_acidic = CV_potential(t_cherevko_acidic, "array");
 
 % Interpolating the solution from ode15s to find values corresponding to
 theta_interpol_scohy = interp1(t_scohy,theta_scohy,Mayrhofer_time);         % vq contains the interpolated values for theta from the
 theta_interpol_damj = interp1(t_damj,theta_damj,Mayrhofer_time);            % solution of ode15s based on a value for k4
 theta_interpol_damj_log = interp1(t_damj_log,theta_damj_log,Mayrhofer_time);% They do all contain equally many values as Mayrhofer_time has entries
+theta_interpol_cherevko_acidic = interp1(t_cherevko_acidic,theta_cherevko_acidic,Mayrhofer_time);% They do all contain equally many values as Mayrhofer_time has entries
+
 
 % Transforming time to potential fot the interpolation
 potential_interpol = CV_potential(Mayrhofer_time, "array");
@@ -171,9 +210,11 @@ hold on
 scatter(potential_interpol, theta_interpol_scohy, 20, "blue", 'o')
 plot(potential_damj_ode15s, theta_damj, "Color", "green")
 scatter(potential_interpol, theta_interpol_damj, 20, "green", '+')
-plot(potential_damj_log_ode15s, theta_damj_log, "Color", "red")
-scatter(potential_interpol, theta_interpol_damj_log, 20, "red", 'x')
-legend(["Scohy fit", "Scohy fit interpol", "Damjanovic fit", "Damjanovic fit interpol","Damjanovic log-fit", "Damjanovic log fit interpol"], Location = "best")
+%plot(potential_damj_log_ode15s, theta_damj_log, "Color", "red")
+%scatter(potential_interpol, theta_interpol_damj_log, 20, "red", 'x')
+plot(potential_cherevko_ode15s_acidic, theta_cherevko_acidic, "Color", "red")
+scatter(potential_interpol, theta_interpol_cherevko_acidic, 20, "red", 'x')
+legend(["Scohy fit", "Scohy fit interpol", "Damjanovic fit", "Damjanovic fit interpol","Cherevko-fit", "Cherevko fit interpol"], Location = "best")
 xlabel('Potential - E/[$V$]','Interpreter','latex')
 ylabel('$\theta_{2}(E)$ - [$-$]','Interpreter','latex')
 %title("Voltammogram of $\theta_{2}$",'Interpreter','latex')
@@ -185,8 +226,10 @@ hold on
 scatter(Mayrhofer_time, theta_interpol_scohy, 20,"blue", 'o')
 plot(t_damj, theta_damj, "Color", "green")
 scatter(Mayrhofer_time, theta_interpol_damj, 20,"green", '+')
-plot(t_damj_log, theta_damj_log, "Color", "red")
-scatter(Mayrhofer_time, theta_interpol_damj_log, 20, "red", 'x')
+%plot(t_damj_log, theta_damj_log, "Color", "red")
+%scatter(Mayrhofer_time, theta_interpol_damj_log, 20, "red", 'x')
+plot(t_cherevko_acidic, theta_cherevko_acidic, "Color", "red")
+scatter(Mayrhofer_time, theta_interpol_cherevko_acidic, 20, "red", 'x')
 hold off
 xlabel('Time -t [$s$]','Interpreter','latex')
 ylabel('$\theta_{2}(t)$ - [$-$]','Interpreter','latex')
@@ -197,7 +240,7 @@ yyaxis right
 plot(Mayrhofer_time, potential_interpol, 'Marker', 'o')
 ylabel('E - [$V vs RHE$]','Interpreter','latex')
 ylim([0.4 max(potential_interpol)*1.1])
-legend(["Scohy fit ode15s", "Scohy fit interpol", "Damjanovic fit ode15s", "Damjanovic fit interpol","Damjanovic log fit ode15s", "Damjanovic log fit interpol", "potential regime"], Location = "best")
+legend(["Scohy fit ode15s", "Scohy fit interpol", "Damjanovic fit ode15s", "Damjanovic fit interpol","Cherevko fit ode15s", "Cherevko fit interpol", "potential regime"], Location = "best")
 
 
 %% Plots of degradation rates and the rate and the solution from the solver
@@ -225,8 +268,10 @@ hold on
 scatter(Mayrhofer_time, theta_interpol_scohy ,20,"blue" ,'o')
 plot(t_damj, theta_damj,"Color","green")
 scatter(Mayrhofer_time, theta_interpol_damj, 20,"green" ,'+')
-plot(t_damj_log, theta_damj_log, "Color", "red")
-scatter(Mayrhofer_time, theta_interpol_damj_log, 20,"red" ,'x')
+%plot(t_damj_log, theta_damj_log, "Color", "red")
+%scatter(Mayrhofer_time, theta_interpol_damj_log, 20,"red" ,'x')
+plot(t_cherevko_acidic, theta_cherevko_acidic, "Color", "red")
+scatter(Mayrhofer_time, theta_interpol_cherevko_acidic, 20,"red" ,'x')
 hold off
 xlabel('time - [$s$]','Interpreter','latex')
 ylabel('$\theta_{2}(t)$ - [$-$]','Interpreter','latex')
@@ -234,7 +279,7 @@ ylabel('$\theta_{2}(t)$ - [$-$]','Interpreter','latex')
 yyaxis right
 plot(Mayrhofer_time, Mayrhofer_dissolution_mole, 'Marker', 'o')
 ylabel('$\frac{d Ir}{dt}$ - [$\frac{mol}{cm^{2}s}$]','Interpreter','latex')
-legend(["Scohy fit ode15s", "Scohy fit interpol", "Damjanovic fit ode15s", "Damjanovic fit interpol","Damjanovic log fit ode15s", "Damjanovic log fit interpol", "r_{diss}"], Location = "best")
+legend(["Scohy fit ode15s", "Scohy fit interpol", "Damjanovic fit ode15s", "Damjanovic fit interpol","Cherevko ode15s", "Cherevko fit interpol", "r_{diss}"], Location = "best")
 %legend('r_{diss}', Location = 'best')
 
 title("Theta and dissolution rate as a function of potential")
@@ -246,8 +291,10 @@ hold on
 scatter(potential_interpol, theta_interpol_scohy, 20, "blue", 'o')
 plot(potential_damj_ode15s, theta_damj, "Color","green")
 scatter(potential_interpol, theta_interpol_damj, 20, "green", '+')
-plot(potential_damj_log_ode15s, theta_damj_log, "Color", "red")
-scatter(potential_interpol, theta_interpol_damj_log, 20, "red", 'x')
+%plot(potential_damj_log_ode15s, theta_damj_log, "Color", "red")
+%scatter(potential_interpol, theta_interpol_damj_log, 20, "red", 'x')
+plot(potential_cherevko_ode15s_acidic, theta_cherevko_acidic, "Color", "red")
+scatter(potential_interpol, theta_interpol_cherevko_acidic, 20, "red", 'x')
 hold off
 xlabel('Potential - E [$V$]','Interpreter','latex')
 ylabel('$\theta_{2}(E)$ - [$-$]','Interpreter','latex')
@@ -256,7 +303,7 @@ title("Voltammogram of $\theta_{2}$",'Interpreter','latex')
 yyaxis right
 plot(potential_interpol, Mayrhofer_dissolution_mole, 'Marker', 'o')
 ylabel('$\frac{d Ir}{dt}$ - [$\frac{mol}{cm^{2}s}$]','Interpreter','latex')
-legend(["Scohy fit ode15s", "Scohy fit interpol", "Damjanovic fit ode15s", "Damjanovic fit interpol","Damjanovic log fit ode15s", "Damjanovic log fit interpol", "r_{diss}"], Location = "best")
+legend(["Scohy fit ode15s", "Scohy fit interpol", "Damjanovic fit ode15s", "Damjanovic fit interpol","Cherevko fit ode15s", "Cherevko fit interpol", "r_{diss}"], Location = "best")
 
 %%   
 % Normalisation just wouldn't do
