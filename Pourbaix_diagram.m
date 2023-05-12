@@ -27,7 +27,7 @@ pIr = [0 2 4 6];                                                                
 E_1 = E_1_0 - 4*((R*T)/(n_1*F))*log(10)*pH;                                 % The potential of reaction 1 as a function of pH
 E_2 = E_2_0 - 2*((R*T)/(n_2*F))*log(10)*pH;                                 % The potential of reaction 2 as a function of pH
 
-pH_3 = -pIr/2 - (Delta_G_3_0)/(2*log(10)*R*T);                              % The equilibrium pH for reaction 3
+%pH_3 = -pIr/2 - (Delta_G_3_0)/(2*log(10)*R*T);                              % The equilibrium pH for reaction 3 --- NOT USED
 
 E_HER = E_HER_0 - ((2*R*T)/(n_HER*F))*log(10)*pH;                           % The potential for the HER as a function of pH
 E_OER = E_OER_0 - ((4*R*T)/(n_OER*F))*log(10)*pH;                           % The potential for the OER as a function of pH
