@@ -14,7 +14,7 @@ gamma = 8.16*10^(-6);                                                       % mo
 %% %%%%%%%%%%%%%%%% DATA for the fitting %%%%%%%%%%%%%%%%%%%% 
 
 % Guess for k_4_0_plus
-k_4_0_plus = 10^-3;
+k_4_0_plus = 10^-2;
 
 % Data used for fitting of r2
 Scohy_Ir_data = readmatrix("Scohy_activated_Ir_LSV.xlsx");                  % Potential/current density data from Scohy
@@ -220,21 +220,23 @@ figure()
 %cla reset
 title("$\theta_{2}(t)$ and $\frac{d Ir}{d t}(t)$",'Interpreter','latex')
 %yyaxis left
-plot(t_scohy, theta_scohy, "Color", "blue")
+plot(t_scohy, theta_scohy, "Color", [0 0.4470 0.7410])
 hold on
-scatter(Mayrhofer_time, theta_interpol_scohy ,20,"blue" ,'o')
-plot(t_damj, theta_damj,"Color","green")
-scatter(Mayrhofer_time, theta_interpol_damj, 20,"green" ,'+')
-plot(t_damj_log, theta_damj_log, "Color", "red")
-scatter(Mayrhofer_time, theta_interpol_damj_log, 20,"red" ,'x')
+%scatter(Mayrhofer_time, theta_interpol_scohy ,20,"blue" ,'o')
+plot(t_damj, theta_damj,"Color",[0.8500 0.3250 0.0980])
+%scatter(Mayrhofer_time, theta_interpol_damj, 20,"green" ,'+')
+%plot(t_damj_log, theta_damj_log, "Color", [0.4940 0.1840 0.5560])
+%scatter(Mayrhofer_time, theta_interpol_damj_log, 20,"red" ,'x')
 hold off
 xlabel('time - [$s$]','Interpreter','latex')
 ylabel('$\theta_{2}(t)$ - [$-$]','Interpreter','latex')
 
 yyaxis right
-plot(Mayrhofer_time, Mayrhofer_dissolution_mole, 'Marker', 'o')
+ax = gca;
+ax.YColor = 'black'
+scatter(Mayrhofer_time, Mayrhofer_dissolution_mole, 'black', 'o')
 ylabel('$\frac{d Ir}{dt}$ - [$\frac{mol}{cm^{2}s}$]','Interpreter','latex')
-legend(["Scohy fit ode15s", "Scohy fit interpol", "Damjanovic fit ode15s", "Damjanovic fit interpol","Damjanovic log fit ode15s", "Damjanovic log fit interpol", "r_{diss}"], Location = "best")
+legend(["Scohy fit ode15s", "Damjanovic fit ode15s", "Measured r_{diss}"], Location = "best")
 %legend('r_{diss}', Location = 'best')
 
 title("Theta and dissolution rate as a function of potential")
