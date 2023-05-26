@@ -6,7 +6,9 @@
 
 R = 8.31446261815324;                                                       % J mol^-1 K^-1
 F = 96485.3329;                                                             % A s mol^-1
-E_n = 1.229;                                                                % V
+E_OER_SHE = 1.229;                                                          % Standard reduction potential for OER vs SHE - acidic
+E_REF_RHE = 0.0;                                                            % Standard redcution potential for HER vs SHE - acidic
+E_n = E_OER_SHE - E_REF_RHE;                                                % Standard reduction potential for OER vs RHE
 a_H2O = 1;                                                                  % [-]
 Mm_Ir = 192.2;                                                              % g/mol [SI]
 gamma = 8.16*10^(-6);                                                       % mol/m^2 [concentration of active sites]
@@ -14,7 +16,7 @@ gamma = 8.16*10^(-6);                                                       % mo
 %% %%%%%%%%%%%%%%%% DATA for the fitting %%%%%%%%%%%%%%%%%%%% 
 
 % Guess for k_4_0_plus
-k_4_0_plus = 10^-3;
+k_4_0_plus = 10^-2;
 
 % Data used for fitting of r2_acidic
 Scohy_acidic = readmatrix("Data\Acidic\Scohy_activated_Ir_LSV.xlsx");       % Potential/current density data from Scohy
@@ -262,7 +264,6 @@ legend(["r_{diss}", "potential regime"], Location = "best")
 figure()
 %cla reset
 title("$\theta_{2}(t)$ and $\frac{d Ir}{d t}(t)$",'Interpreter','latex')
-%yyaxis left
 plot(t_scohy, theta_scohy, "Color", "blue")
 hold on
 scatter(Mayrhofer_time, theta_interpol_scohy ,20,"blue" ,'o')
@@ -308,8 +309,17 @@ legend(["Scohy fit ode15s", "Scohy fit interpol", "Damjanovic fit ode15s", "Damj
 %%   
 % Normalisation just wouldn't do
 
-fun = @(k_3_0_plus, x) gamma*k_3_0_plus*a_H2O*interp1(t_scohy,theta_scohy,x);
-FT = fittype(fun, 'independent',{'x'}, 'coefficients',{'k_3_0_plus'});
+fun_scohy = @(k_3_0_plus, x) gamma*k_3_0_plus*a_H2O*interp1(t_scohy,theta_scohy,x);
+FT_scohy = fittype(fun_scohy, 'independent',{'x'}, 'coefficients',{'k_3_0_plus'});
+
+fun_damj = @(k_3_0_plus, x) gamma*k_3_0_plus*a_H2O*interp1(t_damj,theta_damj,x);
+FT_damj = fittype(fun_damj, 'independent',{'x'}, 'coefficients',{'k_3_0_plus'});
+
+fun_damj_log = @(k_3_0_plus, x) gamma*k_3_0_plus*a_H2O*interp1(t_damj_log,theta_damj_log,x);
+FT_damj_log = fittype(fun_damj_log, 'independent',{'x'}, 'coefficients',{'k_3_0_plus'});
+
+fun_cherevko = @(k_3_0_plus, x) gamma*k_3_0_plus*a_H2O*interp1(t_cherevko_acidic,theta_cherevko_acidic,x);
+FT_cherevko = fittype(fun_cherevko, 'independent',{'x'}, 'coefficients',{'k_3_0_plus'});
 
 FO = fitoptions('Method','NonLinearLeastSquares',...
            'Lower', eps,...                                                 % k_3_0_plus
@@ -318,10 +328,13 @@ FO = fitoptions('Method','NonLinearLeastSquares',...
            'TolFun', 1e-22);                                                % k_3_0_plus
           
 
-[curve, gof, output,warnstr,errstr,convmsg] = fit(Mayrhofer_time,Mayrhofer_dissolution_mole,FT,FO);    
+[curve_scohy_3] = fit(Mayrhofer_time,Mayrhofer_dissolution_mole,FT_scohy,FO);    
+[curve_damj_3] = fit(Mayrhofer_time,Mayrhofer_dissolution_mole,FT_damj,FO);    
+[curve_damj_log_3] = fit(Mayrhofer_time,Mayrhofer_dissolution_mole,FT_damj_log,FO);    
+[curve_cherevko_3] = fit(Mayrhofer_time,Mayrhofer_dissolution_mole,FT_cherevko,FO);    
 
 figure()
-plot(curve)
+plot(curve_cherevko_3)
 hold on
 plot(Mayrhofer_time, Mayrhofer_dissolution_mole)
 xlabel("Time")
