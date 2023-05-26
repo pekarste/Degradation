@@ -1,4 +1,4 @@
-function [curve,gof] = r_2_fit_alkaline(E_data,i_data, a_OH, T, data_type)
+function [curve, gof] = r_2_fit_alkaline(E_data,i_data, a_OH, T, data_type)
 %r_2_fit_alkaline Fiting the expressionn for r_2_alkaline to numerical data
 %   r_2_fit_alkaline takes in potential and current density and uses it to produce
 %   coefficient for the expression of current density derived from kinetics
@@ -8,7 +8,9 @@ function [curve,gof] = r_2_fit_alkaline(E_data,i_data, a_OH, T, data_type)
 R = 8.31446261815324;                                                       % J mol^-1 K^-1
 F = 96485.3329;                                                             % A s mol^-1
 n = 2;                                                                      % Number of electrons transferred
-E_n = 1.229;                                                                 % V - If it is set to 0.4 the log curve won't fit...?
+E_OER_SHE = 0.40;                                                           % Standard reduction potential for OER vs SHE - alkaline
+E_REF_RHE = -0.829;                                                         % Standard redcution potential for HER vs SHE - alkaline
+E_n = E_OER_SHE - E_REF_RHE;                                                % Standard reduction potential for OER vs RHE - alkaline
 a_H2O = 1;                                                                  % [-] - activity of water
 a_O2 = 0.21;                                                                % [-] - activity of oxygen
 gamma = 8.16*10^(-6);                                                       % mol/m^2 [concentration of active sites]
@@ -34,7 +36,7 @@ if data_type == "Linear"
     FO = fitoptions('Method','NonlinearLeastSquares',...
                'Lower',[eps, eps, eps],...                                  % k_2_0_plus alpha k_1_0
                'Upper',[10^(8), 2, 10^(8)],...                              % k_2_0_plus alpha k_1_0
-               'StartPoint',[5.182*10^(-2), 0.5206, 2.734*10^(4)]);         % Starting point for the coefficients
+               'StartPoint',[1*10^(-2), 0.5, 1*10^(4)]);         % Starting point for the coefficients
 
 
     [curve, gof] = fit(E,i,FT,FO);                                          % Curve contains the coefficients and gof some statistical data 
@@ -52,7 +54,7 @@ elseif data_type == "Logarithmic"
     FO = fitoptions('Method','NonlinearLeastSquares',...
                'Lower',[eps, eps, eps],...                                  % k_2_0_plus alpha k_1_0
                'Upper',[10^2, 2, 10^(8)],...                                % k_2_0_plus alpha k_1_0
-               'StartPoint',[5.182*10^(-2), 0.5206, 2.734*10^(4)]);         % Starting point for the coefficients
+               'StartPoint',[1*10^(-2), 0.5, 1*10^(4)]);         % Starting point for the coefficients
 
 
     [curve, gof] = fit(E,log_i,FT,FO);                                      % Curve contains the coefficients and gof some statistical data 
