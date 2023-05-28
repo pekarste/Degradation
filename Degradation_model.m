@@ -73,8 +73,8 @@ Cherevko_a_H_plus = 0.1*2;                                                  % [-
     r_2_fit(Cherevko_E_acidic, Cherevko_i_acidic, Cherevko_a_H_plus, Cherevko_T_acidic, "Linear");
 
 
-%% Plotting the fitting with the data
-
+% %% Plotting the fitting with the data
+% 
 % % Scohy - Acidic
 % figure("Name", "Scohy Fitting Acidic")                                                                    % Creates figure
 % %plot(Scohy_curve_fit)
@@ -93,13 +93,15 @@ Cherevko_a_H_plus = 0.1*2;                                                  % [-
 % ax_scohy.YAxis.FontSize = 12;                                               % Changing the tick size on the y-axis
 % xlabel('Potential - E/[$V$] vs RHE','Interpreter','latex', 'FontSize', 15)  % Creating x-label
 % ylabel('Current density - i/[$Am^{-2}$]',...                                % Creating y-label
-%     'Interpreter','latex', 'FontSize', 15)                                  
+%     'Interpreter','latex', 'FontSize', 15)
+% xlim([Scohy_potential(1) Scohy_potential(end)])
+% ylim([Scohy_current_density(1)*0 Scohy_current_density(end)])
 % 
 % % Damjanovic - Acidic
 % figure("Name", "Damjanovic Fitting Acidic")                                                                    % Creates figure
 % %plot(Damjanovic_curve_fit) 
 % scatter(Damjanovic_potential, Damjanovic_current_density, 45,...            % Scatter plot of the sampled values from Damjanovic
-%     "filled", "green", "square" )
+%     [0.4940 0.1840 0.5560], "^", "filled")
 % hold on
 % fig_damjanovic = plot(Damjanovic_curve, "black");                           % Creating a fig to stor the plot of the curve fit (cfit element)
 % set(fig_damjanovic,'lineWidth',1);                                          % Changing the linewidth of the curve of the cfit
@@ -116,12 +118,14 @@ Cherevko_a_H_plus = 0.1*2;                                                  % [-
 % xlabel('Potential - E/[$V$] vs RHE','Interpreter','latex', 'FontSize',15)   % Creating x-label
 % ylabel('Current density - i/[$Am^{-2}$]',...                                % Creating y-label
 %     'Interpreter','latex', 'FontSize',15)
+% xlim([Damjanovic_potential(1) Damjanovic_potential(end)])
+% ylim([Damjanovic_current_density(1)*0 Damjanovic_current_density(end)])
 % 
 % % Damjanovic log - Acidic
 % figure("Name", "Damjanovic log Fitting Acidic")                                                                    % Creating figure
 % %plot(Damjanovic_log_curve_fit)
 % scatter(Damjanovic_potential, log10(Damjanovic_current_density), 45,...     % Scatter plot of the sampled values from Damjanovic
-%     "filled", "red", "^")
+%     [0.9290 0.6940 0.1250],"v", "filled")
 % hold on
 % fig_damjanovic_log = plot(Damjanovic_log_curve, "black");                   % Creating a fig to stor the plot of the curve fit (cfit element)
 % set(fig_damjanovic_log,'lineWidth',1);                                      % Changing the linewidth of the curve of the cfit
@@ -138,11 +142,13 @@ Cherevko_a_H_plus = 0.1*2;                                                  % [-
 % xlabel('Potential - E/[$V$] vs RHE','Interpreter','latex', 'FontSize',15)   % Creating x-label
 % ylabel('$\log_{10}$ of current density - $\log{i}$/[$Am^{-2}$]',...         % Creating y-label
 %     'Interpreter','latex', 'FontSize',15)
+% xlim([Damjanovic_potential(1) Damjanovic_potential(end)])
+% ylim([-5 log10(Damjanovic_current_density(end))])
 % 
 % % Cherevko - Acidic
 % figure("Name", "Cherevko Fitting Acidic")                                                                    % Creating figure
 % scatter(Cherevko_E_acidic, Cherevko_i_acidic, 45,...     % Scatter plot of the sampled values from Damjanovic
-%     [0.8500 0.3250 0.0980], "v", "filled")
+%     "filled", "red", "square")
 % hold on
 % xlim([Cherevko_E_acidic(1) Cherevko_E_acidic(end)])
 % fig_cherevko_acidic = plot(Cherevko_curve_acidic, "black");                   % Creating a fig to stor the plot of the curve fit (cfit element)
@@ -160,7 +166,8 @@ Cherevko_a_H_plus = 0.1*2;                                                  % [-
 % xlabel('Potential - E/[$V$] vs RHE','Interpreter','latex', 'FontSize',15)   % Creating x-label
 % ylabel('Current density - i/[$Am^{-2}$]',...                                % Creating y-label
 %     'Interpreter','latex', 'FontSize',15)
-
+% xlim([Cherevko_E_acidic(1) Cherevko_E_acidic(end)])
+% ylim([Cherevko_i_acidic(1)*0 Cherevko_i_acidic(end)])
 %% %%%%%%%%%%% The data from the Mayrhofer article %%%%%%%%%%%%%%%%%%%%%%
 % These data is based on the highest anodic peak
 
