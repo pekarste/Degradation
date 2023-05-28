@@ -19,7 +19,7 @@ theta_2_0 = eps;
 %% %%%%%%%%%%%%%%%% DATA for the fitting %%%%%%%%%%%%%%%%%%%% 
 
 % Guess for k_4_0_plus
-k_4_0_plus = 10^(-2.5);
+k_4_0_plus = 10^(-2);
 
 % Data used for fitting r2_alkaline
 Cherevko_alkaline = readmatrix("Data\Alkaline\Cherevko_alkaline_polarisation_data.xlsx");% Potential/current density data from Cherevko
@@ -75,7 +75,7 @@ Schalenbach_sweep_rate = 2*10^(-3);                                            %
 % 
 % % Cherevko - Alkaline
 % figure("Name","Cherevko Alkaline Fitting")                                                 % Creates figure
-% scatter(Cherevko_E_alkaline, Cherevko_i_alkaline, 45, "filled", "blue", 'o')               % Scatter plot of the sampled values from Scohy
+% scatter(Cherevko_E_alkaline, Cherevko_i_alkaline, 45, "filled", "red", "square")               % Scatter plot of the sampled values from Scohy
 % hold on
 % fig_cherevko_fit_alkaline = plot(Cherevko_curve_alkaline, "black");                        % Creating a fig to stor the plot of the curve fit (cfit element)
 % set(fig_cherevko_fit_alkaline,'lineWidth',1);                                              % Changing the linewidth of the curve of the cfit
@@ -90,12 +90,14 @@ Schalenbach_sweep_rate = 2*10^(-3);                                            %
 % ax_cherevko_alkaline.YAxis.FontSize = 12;                                                  % Changing the tick size on the y-axis
 % xlabel('Potential - E/[$V$] vs RHE','Interpreter','latex', 'FontSize', 15)                 % Creating x-label
 % ylabel('Current density - i/[$Am^{-2}$]',...                                               % Creating y-label
-%     'Interpreter','latex', 'FontSize', 15)                                  
+%     'Interpreter','latex', 'FontSize', 15)
+% xlim([Cherevko_E_alkaline(1) Cherevko_E_alkaline(end)])
+% ylim([Cherevko_i_alkaline(1)*0 Cherevko_i_alkaline(end)])
 % 
 % % Damjanovic - Alkaline
 % figure("Name","Damjanovic Alkaline Fitting")                                               % Creates figure
 % scatter(Damjanovic_E_alkaline, Damjanovic_i_alkaline, 45,...                               % Scatter plot of the sampled values from Damjanovic
-%     "filled", "green", "square" )
+%     [0.4940 0.1840 0.5560], "^", "filled")
 % hold on
 % fig_damjanovic_alkaline = plot(Damjanovic_curve_alkaline, "black");                        % Creating a fig to stor the plot of the curve fit (cfit element)
 % set(fig_damjanovic_alkaline,'lineWidth',1);                                                % Changing the linewidth of the curve of the cfit
@@ -112,11 +114,13 @@ Schalenbach_sweep_rate = 2*10^(-3);                                            %
 % xlabel('Potential - E/[$V$] vs RHE','Interpreter','latex', 'FontSize',15)                  % Creating x-label
 % ylabel('Current density - i/[$Am^{-2}$]',...                                               % Creating y-label
 %     'Interpreter','latex', 'FontSize',15)
+% xlim([Damjanovic_E_alkaline(1) Damjanovic_E_alkaline(end)])
+% ylim([Damjanovic_i_alkaline(1)*0 Damjanovic_i_alkaline(end)])
 % 
 % % Damjanovic log - Alkaline
 % figure("Name", "Damjanovic Alkaline Fitting Log")                                          % Creating figure
 % scatter(Damjanovic_E_alkaline, log10(Damjanovic_i_alkaline), 45,...                        % Scatter plot of the sampled values from Damjanovic
-%     "filled", "red", "^")
+%     [0.9290 0.6940 0.1250],"v", "filled")
 % hold on
 % fig_damjanovic_log_alkaline = plot(Damjanovic_log_curve_alkaline, "black");                % Creating a fig to stor the plot of the curve fit (cfit element)
 % set(fig_damjanovic_log_alkaline,'lineWidth',1);                                            % Changing the linewidth of the curve of the cfit
@@ -133,11 +137,13 @@ Schalenbach_sweep_rate = 2*10^(-3);                                            %
 % xlabel('Potential - E/[$V$] vs RHE','Interpreter','latex', 'FontSize',15)                  % Creating x-label
 % ylabel('$\log_{10}$ of current density - $\log{i}$/[$Am^{-2}$]',...                        % Creating y-label
 %     'Interpreter','latex', 'FontSize',15)
+% xlim([Damjanovic_E_alkaline(1) Damjanovic_E_alkaline(end)])
+% ylim([-4 log10(Damjanovic_i_alkaline(end))])
 % 
 % %--------------------------------------------------------------------------
 % % Schalenbach - Alkaline
 % figure("Name","Schalenbach fitting")                                                % Creates figure
-% scatter(Schalenbach_E_alkaline, Schalenbach_i_alkaline, 45, "filled", "blue", 'o')  % Scatter plot of the sampled values from Scohy
+% scatter(Schalenbach_E_alkaline, Schalenbach_i_alkaline, 45, "filled", "magenta", "diamond")  % Scatter plot of the sampled values from Scohy
 % hold on
 % fig_schalenbach_fit_alkaline = plot(Schalenbach_curve_alkaline, "black");           % Creating a fig to stor the plot of the curve fit (cfit element)
 % set(fig_schalenbach_fit_alkaline,'lineWidth',1);                                    % Changing the linewidth of the curve of the cfit
@@ -153,7 +159,9 @@ Schalenbach_sweep_rate = 2*10^(-3);                                            %
 % ax_schalenbach_alkaline.YAxis.FontSize = 12;                                        % Changing the tick size on the y-axis
 % xlabel('Potential - E/[$V$] vs RHE','Interpreter','latex', 'FontSize', 15)          % Creating x-label
 % ylabel('Current density - i/[$Am^{-2}$]',...                                        % Creating y-label
-%     'Interpreter','latex', 'FontSize', 15) 
+%     'Interpreter','latex', 'FontSize', 15)
+% xlim([Schalenbach_E_alkaline(1) Schalenbach_E_alkaline(end)])
+% ylim([Schalenbach_i_alkaline(1)*0 Schalenbach_i_alkaline(end)])
 % %--------------------------------------------------------------------------
 %% %%%%%%%%%%% The data from the Schalenbach article %%%%%%%%%%%%%%%%%%%%%%
 % These data is based on the highest anodic peak
@@ -272,15 +280,20 @@ ylabel('E - [$V vs RHE$]','Interpreter','latex')
 %% Plots of degradation rates and the rate and the solution from the solver
 
 figure("Name", "Dissolution and potential vs time - measured")
-plot(Schalenbach_time_CV_linear, Schalenbach_dissolution_mole, 'Marker', 'o')
-ylabel('$\frac{d Ir}{dt}$ - [$\frac{mol}{cm^{2}s}$]','Interpreter','latex')
-xlabel('time - [$s$]','Interpreter','latex')
-title("Rate",'Interpreter','latex')
+plot(Schalenbach_time_CV_linear, Schalenbach_dissolution_mole, '--', 'Color', [0 0.4470 0.7410])
+ax_degradation_alkaline_left = gca; % current axes                                      % Creating an ax with gca such that the fontsize can be changed
+ax_degradation_alkaline_left.XAxis.FontSize = 12;                                       % Changing the tick size on the x-axis
+ax_degradation_alkaline_left.YAxis.FontSize = 12;                                       % Changing the tick size on the y-axis
+ylabel('$\frac{d Ir}{dt}$ - [$\frac{mol}{m^{2}s}$]','Interpreter','latex', 'FontSize',17)
+xlabel('time - [$s$]','Interpreter','latex', 'FontSize',17)
+%title("Rate",'Interpreter','latex')
+
 
 yyaxis right
-plot(Schalenbach_time_CV_linear, potential_interpol, 'Marker', 'o')
-ylabel('E - [$V vs RHE$]','Interpreter','latex')
-legend(["r_{diss}", "potential regime"], Location = "best")
+plot(Schalenbach_time_CV_linear, potential_interpol, '-', 'Color', [0.8500 0.3250 0.0980])
+ylabel('E - [$V vs RHE$]','Interpreter','latex', 'FontSize',17);%, 'Color',[0 0 0])
+xlim([Schalenbach_time_CV_linear(1) Schalenbach_time_CV_linear(end)])
+legend(["$r_{diss}$", "E(t)"], Position=[.2 .75 .1 .1], Interpreter="latex", FontSize=15)
 %legend('r_{diss}', Location = 'best')
 
 
