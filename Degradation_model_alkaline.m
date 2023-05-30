@@ -13,13 +13,14 @@ E_REF_SHE = -0.829;                                                         % St
 E_n = E_OER_SHE - E_REF_SHE;                                                % Standard reduction potential for OER vs RHE - alkaline
 a_H2O = 1;                                                                  % [-]
 Mm_Ir = 192.2;                                                              % g/mol [SI]
-gamma = 8.16*10^(-6);                                                       % mol/m^2 [concentration of active sites]
+%gamma = 8.16*10^(-6);                                                      % mol/m^2 [concentration of active sites]
 theta_2_0 = eps;
 
 %% %%%%%%%%%%%%%%%% DATA for the fitting %%%%%%%%%%%%%%%%%%%% 
 
 % Guess for k_4_0_plus
 k_4_0_plus = 10^(-2);
+frac = 10^(2);                                                             % k_3 / k_4
 
 % Data used for fitting r2_alkaline
 Cherevko_alkaline = readmatrix("Data\Alkaline\Cherevko_alkaline_polarisation_data.xlsx");% Potential/current density data from Cherevko
@@ -71,7 +72,7 @@ Schalenbach_sweep_rate = 2*10^(-3);                                            %
 [Schalenbach_curve_alkaline, Schalenbach_gof_alkaline] = ...                            % This is the expression with rds
     r_2_fit_alkaline(Schalenbach_E_alkaline, Schalenbach_i_alkaline, Schalenbach_a_OH_alkaline, Schalenbach_T_alkaline, "Linear");
 %--------------------------------------------------------------------------
-% %% Plotting the curve fittings
+%% Plotting the curve fittings
 % 
 % % Cherevko - Alkaline
 % figure("Name","Cherevko Alkaline Fitting")                                                 % Creates figure
@@ -91,8 +92,8 @@ Schalenbach_sweep_rate = 2*10^(-3);                                            %
 % xlabel('Potential - E/[$V$] vs RHE','Interpreter','latex', 'FontSize', 15)                 % Creating x-label
 % ylabel('Current density - i/[$Am^{-2}$]',...                                               % Creating y-label
 %     'Interpreter','latex', 'FontSize', 15)
-% xlim([Cherevko_E_alkaline(1) Cherevko_E_alkaline(end)])
-% ylim([Cherevko_i_alkaline(1)*0 Cherevko_i_alkaline(end)])
+% %xlim([Cherevko_E_alkaline(1) Cherevko_E_alkaline(end)])
+% %ylim([Cherevko_i_alkaline(1)*0 Cherevko_i_alkaline(end)])
 % 
 % % Damjanovic - Alkaline
 % figure("Name","Damjanovic Alkaline Fitting")                                               % Creates figure
@@ -114,8 +115,8 @@ Schalenbach_sweep_rate = 2*10^(-3);                                            %
 % xlabel('Potential - E/[$V$] vs RHE','Interpreter','latex', 'FontSize',15)                  % Creating x-label
 % ylabel('Current density - i/[$Am^{-2}$]',...                                               % Creating y-label
 %     'Interpreter','latex', 'FontSize',15)
-% xlim([Damjanovic_E_alkaline(1) Damjanovic_E_alkaline(end)])
-% ylim([Damjanovic_i_alkaline(1)*0 Damjanovic_i_alkaline(end)])
+% %xlim([Damjanovic_E_alkaline(1) Damjanovic_E_alkaline(end)])
+% %ylim([Damjanovic_i_alkaline(1)*0 Damjanovic_i_alkaline(end)])
 % 
 % % Damjanovic log - Alkaline
 % figure("Name", "Damjanovic Alkaline Fitting Log")                                          % Creating figure
@@ -137,8 +138,8 @@ Schalenbach_sweep_rate = 2*10^(-3);                                            %
 % xlabel('Potential - E/[$V$] vs RHE','Interpreter','latex', 'FontSize',15)                  % Creating x-label
 % ylabel('$\log_{10}$ of current density - $\log{i}$/[$Am^{-2}$]',...                        % Creating y-label
 %     'Interpreter','latex', 'FontSize',15)
-% xlim([Damjanovic_E_alkaline(1) Damjanovic_E_alkaline(end)])
-% ylim([-4 log10(Damjanovic_i_alkaline(end))])
+% %xlim([Damjanovic_E_alkaline(1) Damjanovic_E_alkaline(end)])
+% %ylim([-4 log10(Damjanovic_i_alkaline(end))])
 % 
 % %--------------------------------------------------------------------------
 % % Schalenbach - Alkaline
@@ -160,8 +161,8 @@ Schalenbach_sweep_rate = 2*10^(-3);                                            %
 % xlabel('Potential - E/[$V$] vs RHE','Interpreter','latex', 'FontSize', 15)          % Creating x-label
 % ylabel('Current density - i/[$Am^{-2}$]',...                                        % Creating y-label
 %     'Interpreter','latex', 'FontSize', 15)
-% xlim([Schalenbach_E_alkaline(1) Schalenbach_E_alkaline(end)])
-% ylim([Schalenbach_i_alkaline(1)*0 Schalenbach_i_alkaline(end)])
+% %xlim([Schalenbach_E_alkaline(1) Schalenbach_E_alkaline(end)])
+% %ylim([Schalenbach_i_alkaline(1)*0 Schalenbach_i_alkaline(end)])
 % %--------------------------------------------------------------------------
 %% %%%%%%%%%%% The data from the Schalenbach article %%%%%%%%%%%%%%%%%%%%%%
 % These data is based on the highest anodic peak
@@ -183,11 +184,11 @@ Schalenbach_dissolution_mole = Schalenbach_dissolution_CV_linear*10^(-9)*10^(4)/
 
 %% %%%%%%%%%%%%%%% Calling the diff equation solver %%%%%%%%%%%%%%%%%%%%%%
 
-[t_cherevko_alkaline, theta_cherevko_alkaline] = diff_equation_solver_alkaline(Schalenbach_time_CV_linear, "value", Cherevko_curve_alkaline, Schalenbach_a_OH_alkaline, Schalenbach_T_alkaline, k_4_0_plus, theta_2_0);
-[t_damj_alkaline, theta_damj_alkaline] = diff_equation_solver_alkaline(Schalenbach_time_CV_linear, "value", Damjanovic_curve_alkaline, Schalenbach_a_OH_alkaline, Schalenbach_T_alkaline, k_4_0_plus, theta_2_0);
-[t_damj_log_alkaline, theta_damj_log_alkaline] = diff_equation_solver_alkaline(Schalenbach_time_CV_linear, "value", Damjanovic_log_curve_alkaline, Schalenbach_a_OH_alkaline, Schalenbach_T_alkaline, k_4_0_plus, theta_2_0);
+[t_cherevko_alkaline, gamma_theta_cherevko_alkaline] = diff_equation_solver_alkaline(Schalenbach_time_CV_linear, "value", Cherevko_curve_alkaline, Schalenbach_a_OH_alkaline, Schalenbach_T_alkaline, k_4_0_plus, theta_2_0, frac);
+[t_damj_alkaline, gamma_theta_damj_alkaline] = diff_equation_solver_alkaline(Schalenbach_time_CV_linear, "value", Damjanovic_curve_alkaline, Schalenbach_a_OH_alkaline, Schalenbach_T_alkaline, k_4_0_plus, theta_2_0, frac);
+[t_damj_log_alkaline, gamma_theta_damj_log_alkaline] = diff_equation_solver_alkaline(Schalenbach_time_CV_linear, "value", Damjanovic_log_curve_alkaline, Schalenbach_a_OH_alkaline, Schalenbach_T_alkaline, k_4_0_plus, theta_2_0, frac);
 %--------------------------------------------------------------------------
-[t_schalenbach_alkaline, theta_schalenbach_alkaline] = diff_equation_solver_alkaline(Schalenbach_time_CV_linear, "value", Schalenbach_curve_alkaline, Schalenbach_a_OH_alkaline, Schalenbach_T_alkaline, k_4_0_plus, theta_2_0);
+[t_schalenbach_alkaline, gamma_theta_schalenbach_alkaline] = diff_equation_solver_alkaline(Schalenbach_time_CV_linear, "value", Schalenbach_curve_alkaline, Schalenbach_a_OH_alkaline, Schalenbach_T_alkaline, k_4_0_plus, theta_2_0, frac);
 %--------------------------------------------------------------------------
 %% %%%%%%% Making plots of the ode15s solution and the interpolation %%%%%%
 
@@ -201,11 +202,11 @@ potential_schalenbach_alkaline_ode15s = CV_potential_alkaline(t_schalenbach_alka
 
 % Interpolating the solution from ode15s to find values corresponding to
 % the measured values since ode15s gives more points
-theta_interpol_cherevko_alkaline = interp1(t_cherevko_alkaline,theta_cherevko_alkaline,Schalenbach_time_CV_linear);  
-theta_interpol_damj_alkaline = interp1(t_damj_alkaline,theta_damj_alkaline,Schalenbach_time_CV_linear);            
-theta_interpol_damj_log_alkaline = interp1(t_damj_log_alkaline,theta_damj_log_alkaline,Schalenbach_time_CV_linear);
+gamma_theta_interpol_cherevko_alkaline = interp1(t_cherevko_alkaline,gamma_theta_cherevko_alkaline,Schalenbach_time_CV_linear);  
+gamma_theta_interpol_damj_alkaline = interp1(t_damj_alkaline,gamma_theta_damj_alkaline,Schalenbach_time_CV_linear);            
+gamma_theta_interpol_damj_log_alkaline = interp1(t_damj_log_alkaline,gamma_theta_damj_log_alkaline,Schalenbach_time_CV_linear);
 %--------------------------------------------------------------------------
-theta_interpol_schalenbach_alkaline = interp1(t_schalenbach_alkaline, theta_schalenbach_alkaline, Schalenbach_time_CV_linear);
+theta_interpol_schalenbach_alkaline = interp1(t_schalenbach_alkaline, gamma_theta_schalenbach_alkaline, Schalenbach_time_CV_linear);
 %--------------------------------------------------------------------------
 % Transforming time to potential fot the interpolation
 potential_interpol = CV_potential_alkaline(Schalenbach_time_CV_linear, "array");
@@ -213,66 +214,72 @@ potential_interpol = CV_potential_alkaline(Schalenbach_time_CV_linear, "array");
 
 %% %%%%%%%%%%%%%%%% Voltammogram plots %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 figure('Name', 'Alkaline - Theta_{2} vs E')
-plot(potential_cherevko_alkaline_ode15s, theta_cherevko_alkaline, "Color", "blue")
+plot(potential_cherevko_alkaline_ode15s, gamma_theta_cherevko_alkaline, "Color", "blue")
 hold on
-scatter(potential_interpol, theta_interpol_cherevko_alkaline, 20, "blue", 'o')
-plot(potential_damj_alkaline_ode15s, theta_damj_alkaline, "Color", "green")
-scatter(potential_interpol, theta_interpol_damj_alkaline, 20, "green", '+')
-plot(potential_damj_log_alkaline_ode15s, theta_damj_log_alkaline, "Color", "red")
-scatter(potential_interpol, theta_interpol_damj_log_alkaline, 20, "red", 'x')
+scatter(potential_interpol, gamma_theta_interpol_cherevko_alkaline, 20, "blue", 'o')
+plot(potential_damj_alkaline_ode15s, gamma_theta_damj_alkaline, "Color", "green")
+scatter(potential_interpol, gamma_theta_interpol_damj_alkaline, 20, "green", '+')
+plot(potential_damj_log_alkaline_ode15s, gamma_theta_damj_log_alkaline, "Color", "red")
+scatter(potential_interpol, gamma_theta_interpol_damj_log_alkaline, 20, "red", 'x')
 hold off
 legend(["Cherevko", "Cherevko fit interpol", "Damjanovic fit", "Damjanovic fit interpol","Damjanovic log-fit", "Damjanovic log fit interpol"], Location = "best")
 xlabel('Potential - E/[$V$]','Interpreter','latex')
-ylabel('$\theta_{2}(E)$ - [$-$]','Interpreter','latex')
+ylabel('$\Gamma\theta_{2}(E)$ - [$\frac{mol}{m^{2}}$]','Interpreter','latex')
+ylim([0 max(gamma_theta_cherevko_alkaline)])
 % %title("Voltammogram of $\theta_{2}$",'Interpreter','latex')
 
 %--------------------------------------------------------------------------
 figure('Name', 'Alkaline - Theta_{2} vs E')
-plot(potential_schalenbach_alkaline_ode15s, theta_schalenbach_alkaline, "Color", "black")
+plot(potential_schalenbach_alkaline_ode15s, gamma_theta_schalenbach_alkaline, "Color", "black")
 hold on
 scatter(potential_interpol, theta_interpol_schalenbach_alkaline, 20, "black", 'x')
 hold off
 legend(["Schalenbach", "Schalenbach interpol"], Location = "best")
 xlabel('Potential - E/[$V$]','Interpreter','latex')
-ylabel('$\theta_{2}(E)$ - [$-$]','Interpreter','latex')
+ylabel('$\Gamma\theta_{2}(E)$ - [$\frac{mol}{m^{2}}$]','Interpreter','latex')
+ylim([0 max(gamma_theta_schalenbach_alkaline)])
 % %title("Voltammogram of $\theta_{2}$",'Interpreter','latex')
 %--------------------------------------------------------------------------
 
 %% %%%%%%%%%%%%%%%%%%%%%%% Regular plots %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 figure('Name', 'Alkaline theta_{2} vs t and degradation')
-plot(t_cherevko_alkaline, theta_cherevko_alkaline, "Color", "blue")
+plot(t_cherevko_alkaline, gamma_theta_cherevko_alkaline, "Color", "blue")
 hold on
-scatter(Schalenbach_time_CV_linear, theta_interpol_cherevko_alkaline, 20,"blue", 'o')
-plot(t_damj_alkaline, theta_damj_alkaline, "Color", "green")
-scatter(Schalenbach_time_CV_linear, theta_interpol_damj_alkaline, 20,"green", '+')
-plot(t_damj_log_alkaline, theta_damj_log_alkaline, "Color", "red")
-scatter(Schalenbach_time_CV_linear, theta_interpol_damj_log_alkaline, 20, "red", 'x')
+scatter(Schalenbach_time_CV_linear, gamma_theta_interpol_cherevko_alkaline, 20,"blue", 'o')
+plot(t_damj_alkaline, gamma_theta_damj_alkaline, "Color", "green")
+scatter(Schalenbach_time_CV_linear, gamma_theta_interpol_damj_alkaline, 20,"green", '+')
+plot(t_damj_log_alkaline, gamma_theta_damj_log_alkaline, "Color", "red")
+scatter(Schalenbach_time_CV_linear, gamma_theta_interpol_damj_log_alkaline, 20, "red", 'x')
 hold off
 xlabel('Time -t [$s$]','Interpreter','latex')
-ylabel('$\theta_{2}(t)$ - [$-$]','Interpreter','latex')
+ylabel('$\Gamma\theta_{2}(t)$ - [$\frac{mol}{m^{2}}$]','Interpreter','latex')
+ylim([0 max(gamma_theta_cherevko_alkaline)])
 % ylim([0 max(theta_cherevko_alkaline)*1.1])
 % %title("$\theta_{2}$ as function of t",'Interpreter','latex')
 % 
 yyaxis right
 plot(Schalenbach_time_CV_linear, potential_interpol, 'Marker', 'o')
 ylabel('E - [$V vs RHE$]','Interpreter','latex')
+ylim([min(potential_interpol) max(potential_interpol)])
 % ylim([0.4 max(potential_interpol)*1.1])
 % legend(["Scohy fit ode15s", "Scohy fit interpol", "Damjanovic fit ode15s", "Damjanovic fit interpol","Damjanovic log fit ode15s", "Damjanovic log fit interpol", "potential regime"], Location = "best")
 
 %--------------------------------------------------------------------------
 figure('Name', 'Alkaline theta_{2} vs t and degradation')
-plot(t_schalenbach_alkaline, theta_schalenbach_alkaline, "Color", "black")
+plot(t_schalenbach_alkaline, gamma_theta_schalenbach_alkaline, "Color", "black")
 hold on
 scatter(Schalenbach_time_CV_linear, theta_interpol_schalenbach_alkaline, 20,"black", 'x')
 hold off
 xlabel('Time -t [$s$]','Interpreter','latex')
-ylabel('$\theta_{2}(t)$ - [$-$]','Interpreter','latex')
+ylabel('$\Gamma\theta_{2}(t)$ - [$\frac{mol}{m^{2}}$]','Interpreter','latex')
+ylim([0 max(gamma_theta_schalenbach_alkaline)])
 % ylim([0 max(theta_cherevko_alkaline)*1.1])
 % %title("$\theta_{2}$ as function of t",'Interpreter','latex')
 % 
 yyaxis right
 plot(Schalenbach_time_CV_linear, potential_interpol, 'Marker', 'o')
 ylabel('E - [$V vs RHE$]','Interpreter','latex')
+ylim([min(potential_interpol) max(potential_interpol)])
 %--------------------------------------------------------------------------
 
 
@@ -287,7 +294,7 @@ ax_degradation_alkaline_left.YAxis.FontSize = 12;                               
 ylabel('$\frac{d Ir}{dt}$ - [$\frac{mol}{m^{2}s}$]','Interpreter','latex', 'FontSize',17)
 xlabel('time - [$s$]','Interpreter','latex', 'FontSize',17)
 %title("Rate",'Interpreter','latex')
-
+ylim([min(Schalenbach_dissolution_mole)*0 max(Schalenbach_dissolution_mole)])
 
 yyaxis right
 plot(Schalenbach_time_CV_linear, potential_interpol, '-', 'Color', [0.8500 0.3250 0.0980])
@@ -302,20 +309,22 @@ figure("Name", "Theta_2 and dissolution vs time")
 %cla reset
 title("$\theta_{2}(t)$ and $\frac{d Ir}{d t}(t)$",'Interpreter','latex')
 %yyaxis left
-plot(t_cherevko_alkaline, theta_cherevko_alkaline, "Color", "blue")
+plot(t_cherevko_alkaline, gamma_theta_cherevko_alkaline, "Color", "blue")
 hold on
-scatter(Schalenbach_time_CV_linear, theta_interpol_cherevko_alkaline ,20,"blue" ,'o')
-plot(t_damj_alkaline, theta_damj_alkaline,"Color","green")
-scatter(Schalenbach_time_CV_linear, theta_interpol_damj_alkaline, 20,"green" ,'+')
-plot(t_damj_log_alkaline, theta_damj_log_alkaline, "Color", "red")
-scatter(Schalenbach_time_CV_linear, theta_interpol_damj_log_alkaline, 20,"red" ,'x')
+scatter(Schalenbach_time_CV_linear, gamma_theta_interpol_cherevko_alkaline ,20,"blue" ,'o')
+plot(t_damj_alkaline, gamma_theta_damj_alkaline,"Color","green")
+scatter(Schalenbach_time_CV_linear, gamma_theta_interpol_damj_alkaline, 20,"green" ,'+')
+plot(t_damj_log_alkaline, gamma_theta_damj_log_alkaline, "Color", "red")
+scatter(Schalenbach_time_CV_linear, gamma_theta_interpol_damj_log_alkaline, 20,"red" ,'x')
 hold off
 xlabel('time - [$s$]','Interpreter','latex')
-ylabel('$\theta_{2}(t)$ - [$-$]','Interpreter','latex')
+ylabel('$\Gamma\theta_{2}(t)$ - [$\frac{mol}{m^{2}}$]','Interpreter','latex')
+ylim([min(gamma_theta_cherevko_alkaline)*0 max(gamma_theta_cherevko_alkaline)])
 % 
 yyaxis right
 plot(Schalenbach_time_CV_linear, Schalenbach_dissolution_mole, 'Marker', 'o')
 ylabel('$\frac{d Ir}{dt}$ - [$\frac{mol}{cm^{2}s}$]','Interpreter','latex')
+ylim([min(Schalenbach_dissolution_mole)*0 max(Schalenbach_dissolution_mole)])
 % legend(["Scohy fit ode15s", "Scohy fit interpol", "Damjanovic fit ode15s", "Damjanovic fit interpol","Damjanovic log fit ode15s", "Damjanovic log fit interpol", "r_{diss}"], Location = "best")
 % %legend('r_{diss}', Location = 'best')
 
@@ -324,20 +333,18 @@ figure("Name", "Theta_2 and dissolution vs time")
 %cla reset
 title("$\theta_{2}(t)$ and $\frac{d Ir}{d t}(t)$",'Interpreter','latex')
 %yyaxis left
-plot(t_schalenbach_alkaline, theta_schalenbach_alkaline, "Color", "blue")
+plot(t_schalenbach_alkaline, gamma_theta_schalenbach_alkaline, "Color", "blue")
 hold on
 scatter(Schalenbach_time_CV_linear, theta_interpol_schalenbach_alkaline ,20,"blue" ,'o')
-% plot(t_damj_alkaline, theta_damj_alkaline,"Color","green")
-% scatter(Mayrhofer_time, theta_interpol_damj_alkaline, 20,"green" ,'+')
-% plot(t_damj_log_alkaline, theta_damj_log_alkaline, "Color", "red")
-% scatter(Mayrhofer_time, theta_interpol_damj_log_alkaline, 20,"red" ,'x')
 hold off
 xlabel('time - [$s$]','Interpreter','latex')
-ylabel('$\theta_{2}(t)$ - [$-$]','Interpreter','latex')
+ylabel('$\Gamma\theta_{2}(t)$ - [$\frac{mol}{m^{2}}$]','Interpreter','latex')
+ylim([min(gamma_theta_schalenbach_alkaline)*0 max(gamma_theta_schalenbach_alkaline)])
 
 yyaxis right
 plot(Schalenbach_time_CV_linear, Schalenbach_dissolution_mole, 'Marker', 'o')
 ylabel('$\frac{d Ir}{dt}$ - [$\frac{mol}{cm^{2}s}$]','Interpreter','latex')
+ylim([min(Schalenbach_dissolution_mole)*0 max(Schalenbach_dissolution_mole)])
 legend(["Schalenbach", "Schalenbach interpol", "r_{diss}"], Location = "best")
 %-------------------------------------------------------------------------
 %% Theta and dissolution as a function of potential 
@@ -345,21 +352,23 @@ legend(["Schalenbach", "Schalenbach interpol", "r_{diss}"], Location = "best")
 figure()
 %cla reset
 title("$\theta_{2}(E)$ and $\frac{d Ir}{d t}(E)$",'Interpreter','latex')
-plot(potential_cherevko_alkaline_ode15s, theta_cherevko_alkaline, "Color", "blue")
+plot(potential_cherevko_alkaline_ode15s, gamma_theta_cherevko_alkaline, "Color", "blue")
 hold on
-scatter(potential_interpol, theta_interpol_cherevko_alkaline, 20, "blue", 'o')
-plot(potential_damj_alkaline_ode15s, theta_damj_alkaline, "Color","green")
-scatter(potential_interpol, theta_interpol_damj_alkaline, 20, "green", '+')
-plot(potential_damj_log_alkaline_ode15s, theta_damj_log_alkaline, "Color", "red")
-scatter(potential_interpol, theta_interpol_damj_log_alkaline, 20, "red", 'x')
+scatter(potential_interpol, gamma_theta_interpol_cherevko_alkaline, 20, "blue", 'o')
+plot(potential_damj_alkaline_ode15s, gamma_theta_damj_alkaline, "Color","green")
+scatter(potential_interpol, gamma_theta_interpol_damj_alkaline, 20, "green", '+')
+plot(potential_damj_log_alkaline_ode15s, gamma_theta_damj_log_alkaline, "Color", "red")
+scatter(potential_interpol, gamma_theta_interpol_damj_log_alkaline, 20, "red", 'x')
 hold off
 xlabel('Potential - E [$V$]','Interpreter','latex')
-ylabel('$\theta_{2}(E)$ - [$-$]','Interpreter','latex')
+ylabel('$\Gamma\theta_{2}(E)$ - [$\frac{mol}{m^{2}}$]','Interpreter','latex')
+ylim([0 max(gamma_theta_cherevko_alkaline)])
 % title("Voltammogram of $\theta_{2}$",'Interpreter','latex')
 % 
 yyaxis right
 plot(potential_interpol, Schalenbach_dissolution_mole, 'Marker', 'o')
 ylabel('$\frac{d Ir}{dt}$ - [$\frac{mol}{cm^{2}s}$]','Interpreter','latex')
+ylim([0 max(Schalenbach_dissolution_mole)])
 % legend(["Scohy fit ode15s", "Scohy fit interpol", "Damjanovic fit ode15s", "Damjanovic fit interpol","Damjanovic log fit ode15s", "Damjanovic log fit interpol", "r_{diss}"], Location = "best")
 
 %--------------------------------------------------------------------------
@@ -367,32 +376,34 @@ title("Theta and dissolution rate as a function of potential")
 figure()
 %cla reset
 title("$\theta_{2}(E)$ and $\frac{d Ir}{d t}(E)$",'Interpreter','latex')
-plot(potential_schalenbach_alkaline_ode15s, theta_schalenbach_alkaline, "Color", "blue")
+plot(potential_schalenbach_alkaline_ode15s, gamma_theta_schalenbach_alkaline, "Color", "blue")
 hold on
 scatter(potential_interpol, theta_interpol_schalenbach_alkaline, 20, "blue", 'o')
 hold off
 xlabel('Potential - E [$V$]','Interpreter','latex')
-ylabel('$\theta_{2}(E)$ - [$-$]','Interpreter','latex')
+ylabel('$\Gamma\theta_{2}(E)$ - [$\frac{mol}{m^{2}}$]','Interpreter','latex')
+ylim([0 max(gamma_theta_schalenbach_alkaline)])
 title("Voltammogram of $\theta_{2}$",'Interpreter','latex')
 
 yyaxis right
 plot(potential_interpol, Schalenbach_dissolution_mole, 'Marker', 'o')
 ylabel('$\frac{d Ir}{dt}$ - [$\frac{mol}{cm^{2}s}$]','Interpreter','latex')
+ylim([0 max(Schalenbach_dissolution_mole)])
 legend(["Schalenbach", "Schalenbach interpol", "r_{diss}"], Location = "best")
 %--------------------------------------------------------------------------
 %%   
 % Normalisation just wouldn't do
 
-fun_schalenbach = @(k_3_0_plus, x) gamma.*k_3_0_plus.*Schalenbach_a_OH_alkaline.^(2).*interp1(t_schalenbach_alkaline,theta_schalenbach_alkaline, x);
+fun_schalenbach = @(k_3_0_plus, x) k_3_0_plus.*Schalenbach_a_OH_alkaline.^(2).*interp1(t_schalenbach_alkaline,gamma_theta_schalenbach_alkaline, x);
 FT_schalenbach = fittype(fun_schalenbach, 'independent',{'x'}, 'coefficients',{'k_3_0_plus'});
 
-fun_cherevko = @(k_3_0_plus, x) gamma.*k_3_0_plus.*Schalenbach_a_OH_alkaline.^(2).*interp1(t_cherevko_alkaline,theta_cherevko_alkaline, x);
+fun_cherevko = @(k_3_0_plus, x) k_3_0_plus.*Schalenbach_a_OH_alkaline.^(2).*interp1(t_cherevko_alkaline,gamma_theta_cherevko_alkaline, x);
 FT_cherevko = fittype(fun_cherevko, 'independent',{'x'}, 'coefficients',{'k_3_0_plus'});
 
 
 FO = fitoptions('Method','NonLinearLeastSquares',...
            'Lower', eps,...                                                 % k_3_0_plus
-           'Upper', 100, ...
+           'Upper', 1000, ...
            'StartPoint', 10e-4,...
            'TolFun', 1e-20);                                                % k_3_0_plus
           

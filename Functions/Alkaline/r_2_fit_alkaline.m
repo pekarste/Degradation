@@ -13,7 +13,7 @@ E_REF_RHE = -0.829;                                                         % St
 E_n = E_OER_SHE - E_REF_RHE;                                                % Standard reduction potential for OER vs RHE - alkaline
 a_H2O = 1;                                                                  % [-] - activity of water
 a_O2 = 0.21;                                                                % [-] - activity of oxygen
-gamma = 8.16*10^(-6);                                                       % mol/m^2 [concentration of active sites]
+%gamma = 8.16*10^(-6);                                                       % mol/m^2 [concentration of active sites]
 
 E_rev = E_n - ((R*T)/(n*F))*log((a_OH^2)/(a_H2O*sqrt(a_O2)));               % Reversible potential - with activity of O2
 
@@ -30,13 +30,14 @@ if data_type == "Linear"
     E = E_data;                                                             % [V] - Potential vs SHE/RHE
     i = i_data;                                                             % [A/m^2] - Current density
     
-    fun = @(k_2_0_plus, alpha, k_1_0, x) n*F*gamma*k_2_0_plus*exp((1-alpha)*F*(x - E_rev)/(R*T))*a_OH./(1 + (k_1_0/a_OH)*exp(-F*(x - E_rev)/(R*T)));
-    FT = fittype(fun, 'independent',{'x'}, 'coefficients',{'k_2_0_plus', 'alpha', 'k_1_0'});
+    fun = @(gamma_k_2_0_plus, alpha, k_1_0, x) n.*F.*gamma_k_2_0_plus.*exp((1-alpha).*F.*(x - E_rev)./(R.*T)).*a_OH./(1 + (k_1_0./a_OH).*exp(-F.*(x - E_rev)./(R.*T)));
+    FT = fittype(fun, 'independent',{'x'}, 'coefficients',{'gamma_k_2_0_plus', 'alpha', 'k_1_0'});
 
     FO = fitoptions('Method','NonlinearLeastSquares',...
                'Lower',[eps, eps, eps],...                                  % k_2_0_plus alpha k_1_0
-               'Upper',[10^(8), 2, 10^(8)],...                              % k_2_0_plus alpha k_1_0
-               'StartPoint',[1*10^(-2), 0.5, 1*10^(4)]);         % Starting point for the coefficients
+               'Upper',[10^(10), 2, 10^(10)],...                            % k_2_0_plus alpha k_1_0
+               'StartPoint',[1*10^(-2), 0.65, 10^(2)], ...                        % Starting point for the coefficients
+               'TolFun', 1e-25);         
 
 
     [curve, gof] = fit(E,i,FT,FO);                                          % Curve contains the coefficients and gof some statistical data 
@@ -48,13 +49,14 @@ elseif data_type == "Logarithmic"
     E = E_data;                                                             % [V] - Potential vs SHE/RHE
     log_i = log10(i_data);                                                  % [log(A/m^2)] - Current density
 
-    fun = @(k_2_0_plus,alpha, k_1_0,x) log10(n*F*gamma*k_2_0_plus*a_OH) + (1-alpha)*F*(x - E_rev)*log10(exp(1))/(R*T) - log10((1 + (k_1_0/a_OH)*exp(-F*(x - E_rev)/(R*T))));
-    FT = fittype(fun, 'independent',{'x'}, 'coefficients',{'k_2_0_plus', 'alpha', 'k_1_0'});
+    fun = @(gamma_k_2_0_plus,alpha, k_1_0,x) log10(n.*F.*gamma_k_2_0_plus.*a_OH) + (1-alpha).*F.*(x - E_rev).*log10(exp(1))./(R.*T) - log10((1 + (k_1_0./a_OH).*exp(-F.*(x - E_rev)./(R.*T))));
+    FT = fittype(fun, 'independent',{'x'}, 'coefficients',{'gamma_k_2_0_plus', 'alpha', 'k_1_0'});
 
     FO = fitoptions('Method','NonlinearLeastSquares',...
                'Lower',[eps, eps, eps],...                                  % k_2_0_plus alpha k_1_0
-               'Upper',[10^2, 2, 10^(8)],...                                % k_2_0_plus alpha k_1_0
-               'StartPoint',[1*10^(-2), 0.5, 1*10^(4)]);         % Starting point for the coefficients
+               'Upper',[10^10, 2, 10^(10)],...                                % k_2_0_plus alpha k_1_0
+               'StartPoint',[1*10^(-2), 0.65, 1*10^(2)],...                                 % Starting point for the coefficients
+               'TolFun', 1e-25);         
 
 
     [curve, gof] = fit(E,log_i,FT,FO);                                      % Curve contains the coefficients and gof some statistical data 

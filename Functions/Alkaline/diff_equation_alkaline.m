@@ -1,10 +1,10 @@
-function d_theta_d_t = diff_equation_alkaline(time,data_type,theta,curve,a_OH,T, k_4_0_plus)
+function d_gamma_theta_d_t = diff_equation_alkaline(time,data_type,gamma_theta,curve,a_OH,T, k_4_0_plus, frac)
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 
 %% Define Physical Constants
-gamma = 8.16*10^(-6);                                                       % mol/m^2 [concentration of active sites]
-
+%gamma = 8.16*10^(-6);                                                       % mol/m^2 [concentration of active sites]
+%a_H2O = 1;
 %% Calculating the potential from the time
 E = CV_potential_alkaline(time, data_type);                                 % Using the CV_potential to make the potential a function of time
 % Based on Schalenbach_dissolution_CV_linear
@@ -13,6 +13,6 @@ E = CV_potential_alkaline(time, data_type);                                 % Us
 
 r_2_expression = r_2_alkaline(curve, E, a_OH, T);                           % Calling the function for the expression for the rate of the reaction
 
-d_theta_d_t = r_2_expression/gamma - k_4_0_plus*theta;                      % Divinding by gamma since r_2_expressions contains gamma from before, eliminating gamma from the equation
-
+%d_gamma_theta_d_t = r_2_expression - k_4_0_plus*gamma_theta*a_H2O;                      % Divinding by gamma since r_2_expressions contains gamma from before, eliminating gamma from the equation
+d_gamma_theta_d_t = r_2_expression - k_4_0_plus*gamma_theta - k_4_0_plus*frac*gamma_theta*a_OH^(2);
 end
