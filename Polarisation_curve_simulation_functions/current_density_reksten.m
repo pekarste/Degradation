@@ -48,7 +48,7 @@ alpha = separate_curve.alpha;                                               % al
 
 %% %%%%%%%%%%%%%%%% Defining A and B %%%%%%%%%%%%%%%%%% %%
 
-[A, B] = A_B_reksten(separate_curve, k_2_0, k_4_0_plus, a_H_plus, T, E);             % Calling A_B_reksten to give A and B
+[A, B] = A_B_reksten(separate_curve, k_2_0, k_4_0_plus, a_H_plus, T, E);    % Calling A_B_reksten to give A and B
 E_rev = E_n - ((R*T)/(n*F))*log(a_H2O/sqrt(a_O2)) + (R*T/F)*log(a_H_plus);  % [V] - Reversibel potential as a function of pH
 K = (a_H_plus^(2)*sqrt(a_O2))/a_H2O;                                        % Thermodynamic constraint on rate constants - perhaps this must be a separate function
 %% Calculating the current density

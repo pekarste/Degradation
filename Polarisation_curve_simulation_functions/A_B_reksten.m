@@ -1,4 +1,4 @@
-function [A,B] = A_B_reksten(separate_curve, k_2_0, k_4_0_plus, a_H_plus, T, E)
+function [A,B] = A_B_reksten(separate_curve, k_2_0, k_4_0_plus, a_OH, T, E)
 %A_B_reksten will be a helping function to "current_density_reksten" by
 %calculating the values for A and B from the expression from Reksten
 
@@ -15,15 +15,18 @@ function [A,B] = A_B_reksten(separate_curve, k_2_0, k_4_0_plus, a_H_plus, T, E)
 %   E: The potential
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Defining constants
+%% Define Physical Constants
 R = 8.31446261815324;                                                       % J mol^-1 K^-1
 F = 96485.3329;                                                             % A s mol^-1
-n = 2;                                                                      % [-] - number of electrons transferred in total
-E_n = 1.229;                                                                % V
-a_H2O = 1;                                                                  % [-]
+n = 2;                                                                      % Number of electrons transferred
+E_OER_SHE = 0.40;                                                           % Standard reduction potential for OER vs SHE - alkaline
+E_REF_RHE = -0.829;                                                         % Standard redcution potential for HER vs SHE - alkaline
+E_n = E_OER_SHE - E_REF_RHE;                                                % Standard reduction potential for OER vs RHE - alkaline
+a_H2O = 1;                                                                  % [-] - activity of water
 a_O2 = 0.21;                                                                % [-] - activity of oxygen
 gamma = 8.16*10^(-6);                                                       % mol/m^2 [concentration of active sites]
-K = (a_H_plus^(2)*sqrt(a_O2))/a_H2O;                                        % Thermodynamic constraint on rate constants - perhaps this must be a separate function
+E_rev = E_n - ((R*T)/(n*F))*log((a_OH^2)/(a_H2O*sqrt(a_O2)));               % Reversible potential - with activity of O2
+K = (sqrt(a_O2).*a_H2O)./a_OH^(2);% =1/(k_1_0*k_2_0*k_4_0)                  % Thermodynamic constraint on rate constants - perhaps this must be a separate function
 %% %%%%%%%%%%%%%%%%% Importing from separate fit %%%%%%%%%%%%%%%%%%%% %%
 
 k_2_0_plus = separate_curve.k_2_0_plus;                                     % k_2_0_plus from separate fit
@@ -32,15 +35,15 @@ alpha = separate_curve.alpha;                                               % al
 
 %% Defining necessary functions
 
-E_rev = E_n - ((R*T)/(n*F))*log(a_H2O/sqrt(a_O2)) + (R*T/F)*log(a_H_plus);  % [V] - Reversibel potential as a function of pH
+
 k_2_plus = k_2_0_plus.*exp((1-alpha).*F.*(E - E_rev)./(R*T));
 k_2 = k_2_0.*exp(-F.*(E - E_rev)./(R*T));
 k_4_0 = 1/(k_1_0*k_2_0*K);                                                  % Using the thermodynamic constraint on k_4_0
 
 %% Defining A and B
 
-A = ((1./k_4_0_plus) - (k_4_0*sqrt(a_O2))./k_2_plus)./...
-    (gamma.*(1 + k_4_0.*(k_2.*a_H_plus + 1).*sqrt(a_O2)));
+A = ((1./k_4_0_plus) - (k_4_0.*sqrt(a_O2))./k_2_plus.*a_OH)./...
+    (gamma.*(1 + k_4_0.*(k_2.*(a_H2O./a_OH) + 1).*sqrt(a_O2)));
 
-B = (k_4_0.*sqrt(a_O2))./(1 + k_4_0.*(k_2.*a_H_plus + 1).*sqrt(a_O2));
+B = (k_4_0.*sqrt(a_O2))./(1 + k_4_0.*(k_2.*(a_H2O./a_OH) + 1).*sqrt(a_O2));
 end
