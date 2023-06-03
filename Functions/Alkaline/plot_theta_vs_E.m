@@ -22,7 +22,7 @@ theta_2_0 = eps;
 %% %%%%%%%%%%%%%%%% DATA for the fitting %%%%%%%%%%%%%%%%%%%% 
 
 % Guess for k_4_0_plus
-k_4_0_plus = [10^(-1) 10^(-2) 10^(-3)];
+k_4_0_plus = [1*10^(-1) 10^(-2) 10^(-3)];
 
 % Data used for fitting r2_alkaline
 Cherevko_alkaline = readmatrix("Data\Alkaline\Cherevko_alkaline_polarisation_data.xlsx");% Potential/current density data from Cherevko
@@ -65,28 +65,28 @@ Schalenbach_dissolution_mole = Schalenbach_dissolution_CV_linear*10^(-9)*10^(4)/
 potential_interpol = CV_potential_alkaline(Schalenbach_time_CV_linear, "array");
 
 % Creating a string element for the legends
-string_array_1 = sprintf('$k^{0}_{4+}$ = %.1f', round(k_4_0_plus(1), 5));
-string_array_2 = sprintf('$k^{0}_{4+}$ = %.2f', round(k_4_0_plus(2), 5));
-string_array_3 = sprintf('$k^{0}_{4+}$ = %.3f', round(k_4_0_plus(3), 5));
+string_array_1 = sprintf('$k^{0}_{4+}$ = %.2f', round(k_4_0_plus(1), 5));
+string_array_2 = sprintf('$k^{0}_{4+}$ = %.3f', round(k_4_0_plus(2), 5));
+string_array_3 = sprintf('$k^{0}_{4+}$ = %.4f', round(k_4_0_plus(3), 5));
 
 %% Cherevko
-[t_cherevko_1, theta_cherevko_1, potential_cherevko_1, theta_cherevko_interpol_1] =...
+[t_cherevko_1, gamma_theta_cherevko_1, potential_cherevko_1, theta_cherevko_interpol_1] =...
     time_theta_potential_ode15s_alkaline(Cherevko_E_alkaline, Cherevko_i_alkaline, Cherevko_OH_alkaline, Cherevko_T_alkaline, "Linear", k_4_0_plus(1));
-[t_cherevko_2, theta_cherevko_2, potential_cherevko_2, theta_cherevko_interpol_2] =...
+[t_cherevko_2, gamma_theta_cherevko_2, potential_cherevko_2, theta_cherevko_interpol_2] =...
     time_theta_potential_ode15s_alkaline(Cherevko_E_alkaline, Cherevko_i_alkaline, Cherevko_OH_alkaline, Cherevko_T_alkaline, "Linear", k_4_0_plus(2));
-[t_cherevko_3, theta_cherevko_3, potential_cherevko_3, theta_cherevko_interpol_3] =...
+[t_cherevko_3, gamma_theta_cherevko_3, potential_cherevko_3, theta_cherevko_interpol_3] =...
     time_theta_potential_ode15s_alkaline(Cherevko_E_alkaline, Cherevko_i_alkaline, Cherevko_OH_alkaline, Cherevko_T_alkaline, "Linear", k_4_0_plus(3));
 
 figure('Name', 'Cherevko: theta_2 vs potential')                                % Creating figure
 %yyaxis left
-plot(potential_cherevko_1, theta_cherevko_1, "Color", "red")                    % Plots the line for 1
+plot(potential_cherevko_1, gamma_theta_cherevko_1, "Color", "red")                    % Plots the line for 1
 hold on
 scatter(potential_interpol, theta_cherevko_interpol_1,...                       % Scatter interpolated values for 1
     45,"red", 'o')                                                                      
-plot(potential_cherevko_2, theta_cherevko_2, "Color", "blue")                   % Plots the line for 2
+plot(potential_cherevko_2, gamma_theta_cherevko_2, "Color", "blue")                   % Plots the line for 2
 scatter(potential_interpol, theta_cherevko_interpol_2,...                       % Scatter interpolated values for 2
    45,"blue", 'square')     
-plot(potential_cherevko_3, theta_cherevko_3, "Color", "green")                  % Plots the line for 3
+plot(potential_cherevko_3, gamma_theta_cherevko_3, "Color", "green")                  % Plots the line for 3
 scatter(potential_interpol, theta_cherevko_interpol_3,...                       % Scatter the interpolated values for 3
    45, "green", 'diamond')  
 hold off
@@ -94,9 +94,9 @@ ax_cherevko_alkaline = gca; % current axes                                      
 ax_cherevko_alkaline.XAxis.FontSize = 12;                                       % Changing the tick size on the x-axis
 ax_cherevko_alkaline.YAxis.FontSize = 12;                                       % Changing the tick size on the y-axis
 xlabel('Potential -E vs RHE [$V$]','Interpreter','latex')
-ylabel('$\theta_{2}(t)$ - [$-$]','Interpreter','latex')
-xlim([min(potential_cherevko_3) max(potential_cherevko_3)])
-ylim([min(theta_cherevko_3)*0 max(theta_cherevko_3)])
+ylabel('$\Gamma\theta_{2}(t)$ - [$\frac{mol}{m^{2}s}$]','Interpreter','latex')
+xlim([min(potential_interpol) 1.5])
+ylim([min(gamma_theta_cherevko_3)*0 max(gamma_theta_cherevko_3)])
 
 %%%%%%%%%%%%%%%%%%%  Creating arrowheads %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 xL = xlim;                                                                      % x_lim for normalising position
@@ -200,24 +200,24 @@ legend({'',string_array_1, '', string_array_2, '',...
 %--------------------------------------------------------------------------
 
 %% Damjanovic
-[t_damj_1, theta_damj_1, potential_damj_1, theta_damj_interpol_1] =...
+[t_damj_1, gamma_theta_damj_1, potential_damj_1, theta_damj_interpol_1] =...
     time_theta_potential_ode15s_alkaline(Damjanovic_E_alkaline, Damjanovic_i_alkaline, Damjanovic_OH_alkaline, Damjanovic_T_alkaline, "Linear", k_4_0_plus(1));
-[t_damj_2, theta_damj_2, potential_damj_2, theta_damj_interpol_2] =...
+[t_damj_2, gamma_theta_damj_2, potential_damj_2, theta_damj_interpol_2] =...
     time_theta_potential_ode15s_alkaline(Damjanovic_E_alkaline, Damjanovic_i_alkaline, Damjanovic_OH_alkaline, Damjanovic_T_alkaline, "Linear", k_4_0_plus(2));
-[t_damj_3, theta_damj_3, potential_damj_3, theta_damj_interpol_3] =...
+[t_damj_3, gamma_theta_damj_3, potential_damj_3, theta_damj_interpol_3] =...
     time_theta_potential_ode15s_alkaline(Damjanovic_E_alkaline, Damjanovic_i_alkaline, Damjanovic_OH_alkaline, Damjanovic_T_alkaline, "Linear", k_4_0_plus(3));
 
 
 figure('Name', 'Damjanovic: theta_2 vs potential')                              % Creating figure
 %yyaxis left
-plot(potential_damj_1, theta_damj_1, "Color", "red")                            % Plots the line for 1
+plot(potential_damj_1, gamma_theta_damj_1, "Color", "red")                            % Plots the line for 1
 hold on
 scatter(potential_interpol, theta_damj_interpol_1,...                           % Scatter interpolated values for 1
     45,"red", 'o')                                                                      
-plot(potential_damj_2, theta_damj_2, "Color", "blue")                           % Plots the line for 2
+plot(potential_damj_2, gamma_theta_damj_2, "Color", "blue")                           % Plots the line for 2
 scatter(potential_interpol, theta_damj_interpol_2,...                           % Scatter interpolated values for 2
     45,"blue", 'square')     
-plot(potential_damj_3, theta_damj_3, "Color", "green")                          % Plots the line for 3
+plot(potential_damj_3, gamma_theta_damj_3, "Color", "green")                          % Plots the line for 3
 scatter(potential_interpol, theta_damj_interpol_3,...                           % Scatter the interpolated values for 3
     45, "green", 'diamond')  
 %hold off
@@ -225,9 +225,9 @@ ax_damj_alkaline = gca; % current axes                                          
 ax_damj_alkaline.XAxis.FontSize = 12;                                           % Changing the tick size on the x-axis
 ax_damj_alkaline.YAxis.FontSize = 12;                                           % Changing the tick size on the y-axis
 xlabel('Potential -E vs RHE [$V$]','Interpreter','latex')
-ylabel('$\theta_{2}(t)$ - [$-$]','Interpreter','latex')
-xlim([min(potential_damj_3) max(potential_damj_3)])
-ylim([min(theta_damj_3)*0 max(theta_damj_3)])
+ylabel('$\Gamma\theta_{2}(t)$ - [$\frac{mol}{m^{2}s}$]','Interpreter','latex')
+xlim([min(potential_interpol) 1.5])
+ylim([min(gamma_theta_damj_3)*0 max(gamma_theta_damj_3)])
 
 %%%%%%%%%%%%%%%%%%%  Creating arrowheads %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 xL = xlim;                                                                      % x_lim for normalising position
@@ -331,24 +331,24 @@ legend({'',string_array_1, '', string_array_2, '',...
 %--------------------------------------------------------------------------
 
 %% Damjanovic log
-[t_damj_log_1, theta_damj_log_1, potential_damj_log_1, theta_damj_log_interpol_1] =...
+[t_damj_log_1, gamma_theta_damj_log_1, potential_damj_log_1, theta_damj_log_interpol_1] =...
     time_theta_potential_ode15s_alkaline(Damjanovic_E_alkaline, Damjanovic_i_alkaline, Damjanovic_OH_alkaline, Damjanovic_T_alkaline, "Logarithmic", k_4_0_plus(1));
-[t_damj_log_2, theta_damj_log_2, potential_damj_log_2, theta_damj_log_interpol_2] =...
+[t_damj_log_2, gamma_theta_damj_log_2, potential_damj_log_2, theta_damj_log_interpol_2] =...
     time_theta_potential_ode15s_alkaline(Damjanovic_E_alkaline, Damjanovic_i_alkaline, Damjanovic_OH_alkaline, Damjanovic_T_alkaline, "Logarithmic", k_4_0_plus(2));
-[t_damj_log_3, theta_damj_log_3, potential_damj_log_3, theta_damj_log_interpol_3] =...
+[t_damj_log_3, gamma_theta_damj_log_3, potential_damj_log_3, theta_damj_log_interpol_3] =...
     time_theta_potential_ode15s_alkaline(Damjanovic_E_alkaline, Damjanovic_i_alkaline, Damjanovic_OH_alkaline, Damjanovic_T_alkaline, "Logarithmic", k_4_0_plus(3));
 
 
 figure('Name', 'Damjanovic log: theta_2 vs potential')                          % Creating figure
 %yyaxis left
-plot(potential_damj_log_1, theta_damj_log_1, "Color", "red")                    % Plots the line for 1
+plot(potential_damj_log_1, gamma_theta_damj_log_1, "Color", "red")                    % Plots the line for 1
 hold on
 scatter(potential_interpol, theta_damj_log_interpol_1,...                       % Scatter interpolated values for 1
     45,"red", 'o')                                                                      
-plot(potential_damj_log_2, theta_damj_log_2, "Color", "blue")                   % Plots the line for 2
+plot(potential_damj_log_2, gamma_theta_damj_log_2, "Color", "blue")                   % Plots the line for 2
 scatter(potential_interpol, theta_damj_log_interpol_2,...                       % Scatter interpolated values for 2
     45,"blue", 'square')     
-plot(potential_damj_log_3, theta_damj_log_3, "Color", "green")                  % Plots the line for 3
+plot(potential_damj_log_3, gamma_theta_damj_log_3, "Color", "green")                  % Plots the line for 3
 scatter(potential_interpol, theta_damj_log_interpol_3,...                       % Scatter the interpolated values for 3
     45, "green", 'diamond')  
 %hold off
@@ -356,9 +356,9 @@ ax_damj_log_alkaline = gca; % current axes                                      
 ax_damj_log_alkaline.XAxis.FontSize = 12;                                       % Changing the tick size on the x-axis
 ax_damj_log_alkaline.YAxis.FontSize = 12;                                       % Changing the tick size on the y-axis
 xlabel('Potential -E vs RHE [$V$]','Interpreter','latex')
-ylabel('$\theta_{2}(t)$ - [$-$]','Interpreter','latex')
-xlim([min(potential_damj_log_3) max(potential_damj_log_3)])
-ylim([min(theta_damj_log_3)*0 max(theta_damj_log_3)])
+ylabel('$\Gamma\theta_{2}(t)$ - [$\frac{mol}{m^{2}s}$]','Interpreter','latex')
+xlim([min(potential_interpol) 1.5])
+ylim([min(gamma_theta_damj_log_3)*0 max(gamma_theta_damj_log_3)])
 
 %%%%%%%%%%%%%%%%%%%  Creating arrowheads %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 xL = xlim;                                                                      % x_lim for normalising position
@@ -462,23 +462,23 @@ legend({'',string_array_1, '', string_array_2, '',...
 %--------------------------------------------------------------------------
 %
 %% Schalenbach
-[t_schalenbach_1, theta_schalenbach_1, potential_schalenbach_1, theta_schalenbach_interpol_1] =...
+[t_schalenbach_1, gamma_theta_schalenbach_1, potential_schalenbach_1, theta_schalenbach_interpol_1] =...
     time_theta_potential_ode15s_alkaline(Schalenbach_E_alkaline, Schalenbach_i_alkaline, Schalenbach_OH_alkaline, Schalenbach_T_alkaline, "Linear", k_4_0_plus(1));
-[t_schalenbach_2, theta_schalenbach_2, potential_schalenbach_2, theta_schalenbach_interpol_2] =...
+[t_schalenbach_2, gamma_theta_schalenbach_2, potential_schalenbach_2, theta_schalenbach_interpol_2] =...
     time_theta_potential_ode15s_alkaline(Schalenbach_E_alkaline, Schalenbach_i_alkaline, Schalenbach_OH_alkaline, Schalenbach_T_alkaline, "Linear", k_4_0_plus(2));
-[t_schalenbach_3, theta_schalenbach_3, potential_schalenbach_3, theta_schalenbach_interpol_3] =...
+[t_schalenbach_3, gamma_theta_schalenbach_3, potential_schalenbach_3, theta_schalenbach_interpol_3] =...
     time_theta_potential_ode15s_alkaline(Schalenbach_E_alkaline, Schalenbach_i_alkaline, Schalenbach_OH_alkaline, Schalenbach_T_alkaline, "Linear", k_4_0_plus(3));
 
 figure('Name', 'Schalenbach: theta_2 vs potential')                              % Creating figure
 %yyaxis left
-plot(potential_schalenbach_1, theta_schalenbach_1, "Color", "red")               % Plots the line for 1
+plot(potential_schalenbach_1, gamma_theta_schalenbach_1, "Color", "red")               % Plots the line for 1
 hold on
 scatter(potential_interpol, theta_schalenbach_interpol_1,...                     % Scatter interpolated values for 1
     45,"red", 'o')                                                                      
-plot(potential_schalenbach_2, theta_schalenbach_2, "Color", "blue")              % Plots the line for 2
+plot(potential_schalenbach_2, gamma_theta_schalenbach_2, "Color", "blue")              % Plots the line for 2
 scatter(potential_interpol, theta_schalenbach_interpol_2,...                     % Scatter interpolated values for 2
     45,"blue", 'square')     
-plot(potential_schalenbach_3, theta_schalenbach_3, "Color", "green")             % Plots the line for 3
+plot(potential_schalenbach_3, gamma_theta_schalenbach_3, "Color", "green")             % Plots the line for 3
 scatter(potential_interpol, theta_schalenbach_interpol_3,...                     % Scatter the interpolated values for 3
     45, "green", 'diamond')  
 %hold off
@@ -486,9 +486,9 @@ ax_schalenbach_alkaline = gca; % current axes                                   
 ax_schalenbach_alkaline.XAxis.FontSize = 12;                                     % Changing the tick size on the x-axis
 ax_schalenbach_alkaline.YAxis.FontSize = 12;                                     % Changing the tick size on the y-axis
 xlabel('Potential -E vs RHE [$V$]','Interpreter','latex')
-ylabel('$\theta_{2}(t)$ - [$-$]','Interpreter','latex')
-xlim([min(potential_schalenbach_1) max(potential_schalenbach_1)])
-ylim([min(theta_schalenbach_3)*0 max(theta_schalenbach_3)])
+ylabel('$\Gamma\theta_{2}(t)$ - [$\frac{mol}{m^{2}s}$]','Interpreter','latex')
+xlim([min(potential_interpol) 1.5])
+ylim([min(gamma_theta_schalenbach_3)*0 max(gamma_theta_schalenbach_3)])
 
 %%%%%%%%%%%%%%%%%%%  Creating arrowheads %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 xL = xlim;                                                                      % x_lim for normalising position
