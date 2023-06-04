@@ -1,4 +1,4 @@
-function potential = CV_potential(time, data_type)
+function potential = CV_potential_acidic(time, data_type)
 %CV_potential will alculate the potential as a function of time
 %   Mayrhofer is using linear sweep voltammetry, in order to express the
 %   potential as a function of time in r_2, we need to adress that the
@@ -9,12 +9,12 @@ function potential = CV_potential(time, data_type)
 sweep_rate = 10*10^(-3);                                                    % Mayrhofer Sweep rate [V/s]
 %t_max = 1630.9059738019;                                                   % Time at max potential - read off by plot digitizer [s]
 
-t_0 = 16.826;                                                               % The lowest value is recorded at this time
+t_0 = 15;                                                               % The lowest value is recorded at this time
 E_0 = 0.040;                                                                % Lowest value for the potential - different from zero
 t_min = t_0 + 2*((1.0 - E_0)/sweep_rate + (1.1 - E_0)/sweep_rate + ...
     (1.2 - E_0)/sweep_rate + (1.3 - E_0)/sweep_rate + ...
-    (1.4 - E_0)/sweep_rate + (1.5 - E_0)/sweep_rate);% = 1468.826           % Time at the start of the positive sweep for our interest (E_0 --> 1.6)
-t_max = t_min + (1.6 - E_0)/sweep_rate;% = 1624.826
+    (1.4 - E_0)/sweep_rate + (1.5 - E_0)/sweep_rate);% = 1467           % Time at the start of the positive sweep for our interest (E_0 --> 1.6)
+t_max = t_min + (1.6 - E_0)/sweep_rate;% = 1623
 
 
 %% Making the potential array as a functionof time
