@@ -1,4 +1,4 @@
-function d_gamma_theta_d_t = diff_equation_alkaline(time,data_type,gamma_theta,curve,a_OH,T, k_4_0_plus, frac)
+function d_gamma_theta_d_t = diff_equation_alkaline(time,data_type,gamma_theta,curve,a_OH,T, k_4_0_plus)
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -12,7 +12,6 @@ E = CV_potential_alkaline(time, data_type);                                 % Us
 %% Extracting the coefficients from the separate fit
 
 r_2_expression = r_2_alkaline(curve, E, a_OH, T);                           % Calling the function for the expression for the rate of the reaction
-
-%d_gamma_theta_d_t = r_2_expression - k_4_0_plus*gamma_theta*a_H2O;                      % Divinding by gamma since r_2_expressions contains gamma from before, eliminating gamma from the equation
-d_gamma_theta_d_t = r_2_expression - k_4_0_plus*gamma_theta - k_4_0_plus*frac*gamma_theta*a_OH^(2);
+r_4_expression = k_4_0_plus*gamma_theta;                                    % Expressing r_4
+d_gamma_theta_d_t = r_2_expression - r_4_expression;                        % Expressing the differential equation
 end
