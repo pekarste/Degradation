@@ -66,9 +66,10 @@ Schalenbach_dissolution_mole = Schalenbach_dissolution_CV_linear*10^(-9)*10^(4)/
 potential_interpol = CV_potential_alkaline(Schalenbach_time_CV_linear, "array");
 
 % Creating a string element for the legends
-string_array_1 = sprintf('$k^{0}_{4+}$ = %.1f', round(k_4_0_plus(1), 5));
-string_array_2 = sprintf('$k^{0}_{4+}$ = %.2f', round(k_4_0_plus(2), 5));
-string_array_3 = sprintf('$k^{0}_{4+}$ = %.3f', round(k_4_0_plus(3), 5));
+string_array_1 = sprintf('$r_{3}$($k^{0}_{4+}$ = %.2f)', round(k_4_0_plus(1), 5));
+string_array_2 = sprintf('$r_{3}$($k^{0}_{4+}$ = %.3f)', round(k_4_0_plus(2), 5));
+string_array_3 = sprintf('$r_{3}$($k^{0}_{4+}$ = %.4f)', round(k_4_0_plus(3), 5));
+string_array_4 = '$\frac{d Ir}{d t}$';
 
 %% ####################     Cherevko     ################################
 
@@ -85,6 +86,10 @@ cherevko_1_curve = chi_square_alkaline(t_cherevko_1, gamma_theta_cherevko_1, Sch
 cherevko_2_curve = chi_square_alkaline(t_cherevko_2, gamma_theta_cherevko_2, Schalenbach_OH_alkaline, k_4_0_plus(2), Schalenbach_time_CV_linear, Schalenbach_dissolution_mole);
 cherevko_3_curve = chi_square_alkaline(t_cherevko_3, gamma_theta_cherevko_3, Schalenbach_OH_alkaline, k_4_0_plus(3), Schalenbach_time_CV_linear, Schalenbach_dissolution_mole);
 
+cherevko_1_string = sprintf('$k^{0}_{3+}$ = %.3g', cherevko_1_curve.k_3_0_plus);
+cherevko_2_string = sprintf('$k^{0}_{3+}$ = %.3g', cherevko_2_curve.k_3_0_plus);
+cherevko_3_string = sprintf('$k^{0}_{3+}$ = %.3g', cherevko_3_curve.k_3_0_plus);
+
 % Plotting
 figure('Name','Cherevko: r_3')
 fig_cherevko_1 = plot(cherevko_1_curve, 'red');
@@ -99,19 +104,29 @@ set(fig_cherevko_2,'lineWidth',1);                                          % Ch
 set(fig_cherevko_3,'lineWidth',1);                                          % Changing the linewidth of the curve of the cfithold off
 
 ax_cherevko_alkaline = gca; % current axes                                  % Creating an ax with gca such that the fontsize can be changed
-ax_cherevko_alkaline.XAxis.FontSize = 12;                                   % Changing the tick size on the x-axis
-ax_cherevko_alkaline.YAxis.FontSize = 12;                                   % Changing the tick size on the y-axis
+ax_cherevko_alkaline.XAxis.FontSize = 15;                                   % Changing the tick size on the x-axis
+ax_cherevko_alkaline.YAxis.FontSize = 15;                                   % Changing the tick size on the y-axis
 
 annotation('textbox', [.15 .80 .1 .1], 'String',["Cherevko -", "Alkaline"],... % Creating an annotation, textbox, with the rsquare value from the cfit
     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
-legend({string_array_1, string_array_2, string_array_3, '$\frac{d Ir}{d t}$'},...                                                             % Creating a legend for the graphs
-    'Position', [.2375 .55 .1 .1], 'Interpreter','latex', 'FontSize',15)
+legend({string_array_1, string_array_2, string_array_3, ''},...                                                             % Creating a legend for the graphs
+    'Position', [.67 .77 .1 .1], 'Interpreter','latex', 'FontSize',15)
+
 
 xlabel('Time t - [s]','Interpreter','latex', 'FontSize', 15)                % Creating x-label
 ylabel('$r_{3}$ - [$\frac{mol}{m^{2}s}$]',...                               % Creating y-label
     'Interpreter','latex', 'FontSize', 15)
 xlim([Schalenbach_time_CV_linear(1) Schalenbach_time_CV_linear(end)])
 ylim([0 17*10^(-9)])
+
+annotation('textbox', [.46 .52 .1 .1], 'String',cherevko_1_string,...% Creating an annotation, textbox, with the rsquare value from the cfit
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','red', 'Rotation', 0);
+annotation('textbox', [.62 .54 .1 .1], 'String',cherevko_2_string,...% Creating an annotation, textbox, with the rsquare value from the cfit
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','blue', 'Rotation', -3);
+annotation('textbox', [.65 .38 .1 .1], 'String',cherevko_3_string,...% Creating an annotation, textbox, with the rsquare value from the cfit
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','green', 'Rotation', -25);
+annotation('textbox', [.37 .65 .1 .1], 'String',string_array_4,...% Creating an annotation, textbox, with the rsquare value from the cfit
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color',[.5 .5 .5]);
 %--------------------------------------------------------------------------
 
 %% #####################     Damjanovic       #############################
@@ -129,6 +144,10 @@ damj_1_curve = chi_square_alkaline(t_damj_1, gamma_theta_damj_1, Schalenbach_OH_
 damj_2_curve = chi_square_alkaline(t_damj_2, gamma_theta_damj_2, Schalenbach_OH_alkaline, k_4_0_plus(2), Schalenbach_time_CV_linear, Schalenbach_dissolution_mole);
 damj_3_curve = chi_square_alkaline(t_damj_3, gamma_theta_damj_3, Schalenbach_OH_alkaline, k_4_0_plus(3), Schalenbach_time_CV_linear, Schalenbach_dissolution_mole);
 
+damj_1_string = sprintf('$k^{0}_{3+}$ = %.3g', damj_1_curve.k_3_0_plus);
+damj_2_string = sprintf('$k^{0}_{3+}$ = %.3g', damj_2_curve.k_3_0_plus);
+damj_3_string = sprintf('$k^{0}_{3+}$ = %.3g', damj_3_curve.k_3_0_plus);
+
 % Plotting
 figure('Name', 'Damjanovic: r_3')                                           % Creating figure
 fig_damj_1 = plot(damj_1_curve, 'red');
@@ -143,19 +162,28 @@ set(fig_damj_2,'lineWidth',1);                                              % Ch
 set(fig_damj_3,'lineWidth',1);                                              % Changing the linewidth of the curve of the cfithold off
 
 ax_damj_alkaline = gca; % current axes                                      % Creating an ax with gca such that the fontsize can be changed
-ax_damj_alkaline.XAxis.FontSize = 12;                                       % Changing the tick size on the x-axis
-ax_damj_alkaline.YAxis.FontSize = 12;                                       % Changing the tick size on the y-axis
+ax_damj_alkaline.XAxis.FontSize = 15;                                       % Changing the tick size on the x-axis
+ax_damj_alkaline.YAxis.FontSize = 15;                                       % Changing the tick size on the y-axis
 
 annotation('textbox', [.15 .80 .1 .1], 'String',["Damjanovic -", "Alkaline"],... % Creating an annotation, textbox, with the rsquare value from the cfit
     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
-legend({string_array_1, string_array_2, string_array_3, '$\frac{d Ir}{d t}$'},...                                                             % Creating a legend for the graphs
-    'Position', [.2375 .55 .1 .1], 'Interpreter','latex', 'FontSize',15)
+legend({string_array_1, string_array_2, string_array_3, ''},...                                                             % Creating a legend for the graphs
+    'Position', [.67 .77 .1 .1], 'Interpreter','latex', 'FontSize',15)
 
 xlabel('Time t - [s]','Interpreter','latex', 'FontSize', 15)                % Creating x-label
 ylabel('$r_{3}$ - [$\frac{mol}{m^{2}s}$]',...                               % Creating y-label
     'Interpreter','latex', 'FontSize', 15)
 xlim([Schalenbach_time_CV_linear(1) Schalenbach_time_CV_linear(end)])
 ylim([0 17*10^(-9)])
+
+annotation('textbox', [.46 .15 .1 .1], 'String',damj_1_string,...% Creating an annotation, textbox, with the rsquare value from the cfit
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','red', 'Rotation', 0);
+annotation('textbox', [.62 .46 .1 .1], 'String',damj_2_string,...% Creating an annotation, textbox, with the rsquare value from the cfit
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','blue', 'Rotation', -5);
+annotation('textbox', [.62 .30 .1 .1], 'String',damj_3_string,...% Creating an annotation, textbox, with the rsquare value from the cfit
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','green', 'Rotation', -25);
+annotation('textbox', [.37 .65 .1 .1], 'String',string_array_4,...% Creating an annotation, textbox, with the rsquare value from the cfit
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color',[.5 .5 .5]);
 %--------------------------------------------------------------------------
 
 %% ###################    Damjanovic log     ##############################
@@ -173,6 +201,10 @@ damj_log_1_curve = chi_square_alkaline(t_damj_log_1, gamma_theta_damj_log_1, Sch
 damj_log_2_curve = chi_square_alkaline(t_damj_log_2, gamma_theta_damj_log_2, Schalenbach_OH_alkaline, k_4_0_plus(2), Schalenbach_time_CV_linear, Schalenbach_dissolution_mole);
 damj_log_3_curve = chi_square_alkaline(t_damj_log_3, gamma_theta_damj_log_3, Schalenbach_OH_alkaline, k_4_0_plus(3), Schalenbach_time_CV_linear, Schalenbach_dissolution_mole);
 
+damj_log_1_string = sprintf('$k^{0}_{3+}$ = %.3g', damj_log_1_curve.k_3_0_plus);
+damj_log_2_string = sprintf('$k^{0}_{3+}$ = %.3g', damj_log_2_curve.k_3_0_plus);
+damj_log_3_string = sprintf('$k^{0}_{3+}$ = %.3g', damj_log_3_curve.k_3_0_plus);
+
 % Plotting
 figure('Name', 'Damjanovic log: r_3')                                       % Creating figure
 fig_damj_log_1 = plot(damj_log_1_curve, 'red');
@@ -187,13 +219,13 @@ set(fig_damj_log_2,'lineWidth',1);                                          % Ch
 set(fig_damj_log_3,'lineWidth',1);                                          % Changing the linewidth of the curve of the cfithold off
 
 ax_damj_log_alkaline = gca; % current axes                                  % Creating an ax with gca such that the fontsize can be changed
-ax_damj_log_alkaline.XAxis.FontSize = 12;                                   % Changing the tick size on the x-axis
-ax_damj_log_alkaline.YAxis.FontSize = 12;                                   % Changing the tick size on the y-axis
+ax_damj_log_alkaline.XAxis.FontSize = 15;                                   % Changing the tick size on the x-axis
+ax_damj_log_alkaline.YAxis.FontSize = 15;                                   % Changing the tick size on the y-axis
 
 annotation('textbox', [.15 .80 .1 .1], 'String',["Damjanovic log -", "Alkaline"],... % Creating an annotation, textbox, with the rsquare value from the cfit
     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
-legend({string_array_1, string_array_2, string_array_3, '$\frac{d Ir}{d t}$'},...                                                             % Creating a legend for the graphs
-    'Position', [.2375 .55 .1 .1], 'Interpreter','latex', 'FontSize',15)
+legend({string_array_1, string_array_2, string_array_3, ''},...                                                             % Creating a legend for the graphs
+    'Position', [.67 .77 .1 .1], 'Interpreter','latex', 'FontSize',15)
 
 xlabel('Time t - [s]','Interpreter','latex', 'FontSize', 15)                % Creating x-label
 ylabel('$r_{3}$ - [$\frac{mol}{m^{2}s}$]',...                               % Creating y-label
@@ -201,6 +233,14 @@ ylabel('$r_{3}$ - [$\frac{mol}{m^{2}s}$]',...                               % Cr
 xlim([Schalenbach_time_CV_linear(1) Schalenbach_time_CV_linear(end)])
 ylim([0 17*10^(-9)])
 
+annotation('textbox', [.46 .15 .1 .1], 'String',damj_log_1_string,...% Creating an annotation, textbox, with the rsquare value from the cfit
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','red', 'Rotation', 0);
+annotation('textbox', [.62 .46 .1 .1], 'String',damj_log_2_string,...% Creating an annotation, textbox, with the rsquare value from the cfit
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','blue', 'Rotation', -20);
+annotation('textbox', [.62 .30 .1 .1], 'String',damj_log_3_string,...% Creating an annotation, textbox, with the rsquare value from the cfit
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','green', 'Rotation', -30);
+annotation('textbox', [.37 .65 .1 .1], 'String',string_array_4,...% Creating an annotation, textbox, with the rsquare value from the cfit
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color',[.5 .5 .5]);
 %--------------------------------------------------------------------------
 
 %% #########################     Schalenbach     ##########################
@@ -218,6 +258,10 @@ schalenbach_1_curve = chi_square_alkaline(t_schalenbach_1, gamma_theta_schalenba
 schalenbach_2_curve = chi_square_alkaline(t_schalenbach_2, gamma_theta_schalenbach_2, Schalenbach_OH_alkaline, k_4_0_plus(2), Schalenbach_time_CV_linear, Schalenbach_dissolution_mole);
 schalenbach_3_curve = chi_square_alkaline(t_schalenbach_3, gamma_theta_schalenbach_3, Schalenbach_OH_alkaline, k_4_0_plus(3), Schalenbach_time_CV_linear, Schalenbach_dissolution_mole);
 
+schalenbach_1_string = sprintf('$k^{0}_{3+}$ = %.3g', schalenbach_1_curve.k_3_0_plus);
+schalenbach_2_string = sprintf('$k^{0}_{3+}$ = %.3g', schalenbach_2_curve.k_3_0_plus);
+schalenbach_3_string = sprintf('$k^{0}_{3+}$ = %.3g', schalenbach_3_curve.k_3_0_plus);
+
 % Plotting
 figure('Name', 'Schalenbach: r_3')                                       % Creating figure
 fig_schalenbach_1_2 = plot(schalenbach_1_curve, 'red');
@@ -230,16 +274,24 @@ set(fig_schalenbach_3_2,'lineWidth',1);                                         
 plot(Schalenbach_time_CV_linear, Schalenbach_dissolution_mole,...           % Plots the potential regime
     'color', [.5 .5 .5], 'LineWidth', 1, 'LineStyle', '--')
 ax_schalenbach_alkaline = gca; % current axes                                  % Creating an ax with gca such that the fontsize can be changed
-ax_schalenbach_alkaline.XAxis.FontSize = 12;                                   % Changing the tick size on the x-axis
-ax_schalenbach_alkaline.YAxis.FontSize = 12;                                   % Changing the tick size on the y-axis
+ax_schalenbach_alkaline.XAxis.FontSize = 15;                                   % Changing the tick size on the x-axis
+ax_schalenbach_alkaline.YAxis.FontSize = 15;                                   % Changing the tick size on the y-axis
 annotation('textbox', [.15 .80 .1 .1], 'String',["Schalenbach -", "Alkaline"],... % Creating an annotation, textbox, with the rsquare value from the cfit
     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
-legend({string_array_1, string_array_2, string_array_3, '$\frac{d Ir}{d t}$'},...                                                             % Creating a legend for the graphs
-    'Position', [.2375 .55 .1 .1], 'Interpreter','latex', 'FontSize',15)
+legend({string_array_1, string_array_2, string_array_3, ''},...                                                             % Creating a legend for the graphs
+    'Position', [.67 .77 .1 .1], 'Interpreter','latex', 'FontSize',15)
 xlabel('Time t - [s]','Interpreter','latex', 'FontSize', 15)                % Creating x-label
 ylabel('Dissolution - [$\frac{mol}{m^{2}s}$]',...                               % Creating y-label
     'Interpreter','latex', 'FontSize', 15)
 xlim([Schalenbach_time_CV_linear(1) Schalenbach_time_CV_linear(end)])
 ylim([0 17*10^(-9)])
 
+annotation('textbox', [.46 .15 .1 .1], 'String',schalenbach_1_string,...% Creating an annotation, textbox, with the rsquare value from the cfit
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','red', 'Rotation', 0);
+annotation('textbox', [.62 .46 .1 .1], 'String',schalenbach_2_string,...% Creating an annotation, textbox, with the rsquare value from the cfit
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','blue', 'Rotation', -5);
+annotation('textbox', [.62 .30 .1 .1], 'String',schalenbach_3_string,...% Creating an annotation, textbox, with the rsquare value from the cfit
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','green', 'Rotation', -30);
+annotation('textbox', [.37 .65 .1 .1], 'String',string_array_4,...% Creating an annotation, textbox, with the rsquare value from the cfit
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color',[.5 .5 .5]);
 %--------------------------------------------------------------------------
