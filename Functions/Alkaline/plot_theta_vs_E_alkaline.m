@@ -68,7 +68,7 @@ potential_interpol = CV_potential_alkaline(Schalenbach_time_CV_linear, "array");
 string_array_1 = sprintf('$k^{0}_{4+}$ = %.2f', round(k_4_0_plus(1), 5));
 string_array_2 = sprintf('$k^{0}_{4+}$ = %.3f', round(k_4_0_plus(2), 5));
 string_array_3 = sprintf('$k^{0}_{4+}$ = %.4f', round(k_4_0_plus(3), 5));
-
+string_array_4 = '$\frac{d Ir}{d t}$';
 %% Cherevko
 [t_cherevko_1, gamma_theta_cherevko_1, potential_cherevko_1, theta_cherevko_interpol_1] =...
     time_theta_potential_ode15s_alkaline(Cherevko_E_alkaline, Cherevko_i_alkaline, Cherevko_OH_alkaline, Cherevko_T_alkaline, "Linear", k_4_0_plus(1));
@@ -91,12 +91,12 @@ scatter(potential_interpol, theta_cherevko_interpol_3,...                       
    45, "green", 'diamond')  
 hold off
 ax_cherevko_alkaline = gca; % current axes                                      % Creating an ax with gca such that the fontsize can be changed
-ax_cherevko_alkaline.XAxis.FontSize = 12;                                       % Changing the tick size on the x-axis
-ax_cherevko_alkaline.YAxis.FontSize = 12;                                       % Changing the tick size on the y-axis
+ax_cherevko_alkaline.XAxis.FontSize = 15;                                       % Changing the tick size on the x-axis
+ax_cherevko_alkaline(1).YAxis.FontSize = 15;                                       % Changing the tick size on the y-axis
 xlabel('Potential -E vs RHE [$V$]','Interpreter','latex')
-ylabel('$\Gamma\theta_{2}(t)$ - [$\frac{mol}{m^{2}s}$]','Interpreter','latex')
+ylabel('$\Gamma\theta_{2}(t)$ - [$\frac{mol}{m^{2}}$]','Interpreter','latex')
 xlim([min(potential_interpol) 1.5])
-ylim([min(gamma_theta_cherevko_3)*0 max(gamma_theta_cherevko_3)])
+%ylim([min(gamma_theta_cherevko_3)*0 max(gamma_theta_cherevko_3)])
 
 %%%%%%%%%%%%%%%%%%%  Creating arrowheads %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 xL = xlim;                                                                      % x_lim for normalising position
@@ -118,7 +118,7 @@ y1p_1 = interp1(yL, ahy, y1_1);                                                 
 y2p_1 = interp1(yL, ahy, y2_1);                                                 % the use of normalised coordinates
 
 arh1 = annotation('arrow', 'LineStyle','none',...                               % Creates the arrowhead annotaion and removing the line segment
-    'HeadWidth',12, 'HeadStyle','vback2');
+    'HeadWidth',15, 'HeadStyle','vback2');
 arh1.Units = 'normalized';                                                      % Normalaizing the units
 arh1.Position = [x1p_1, y1p_1, x2p_1-x1p_1, y2p_1-y1p_1];                       % Defines position
 arh1.Color = 'red';                                                             % Defines colour for arrowhead
@@ -135,7 +135,7 @@ y1p_2 = interp1(yL, ahy, y1_2);                                                 
 y2p_2 = interp1(yL, ahy, y2_2);                                                 % the use of normalised coordinates
 
 arh2 = annotation('arrow', 'LineStyle','none',...                               % Creates the arrowhead annotaion and removing the line segment
-    'HeadWidth',12, 'HeadStyle','vback2');
+    'HeadWidth',15, 'HeadStyle','vback2');
 arh2.Units = 'normalized';                                                      % Normalaizing the units
 arh2.Position = [x1p_2, y1p_2, x2p_2-x1p_2, y2p_2-y1p_2];                       % Defines position
 arh2.Color = 'blue';                                                            % Defines colour for arrowhead
@@ -152,20 +152,18 @@ y1p_3 = interp1(yL, ahy, y1_3);                                                 
 y2p_3 = interp1(yL, ahy, y2_3);                                                 % the use of normalised coordinates
 
 arh3 = annotation('arrow', 'LineStyle','none',...                               % Creates the arrowhead annotaion and removing the line segment
-    'HeadWidth',12, 'HeadStyle','vback2');
+    'HeadWidth',15, 'HeadStyle','vback2');
 arh3.Units = 'normalized';                                                      % Normalaizing the units
 arh3.Position = [x1p_3, y1p_3, x2p_3-x1p_3, y2p_3-y1p_3];                       % Defines position
 arh3.Color = 'green';                                                           % Defines colour for arrowhead
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 yyaxis right
-%ax_2_cherevko_alkaline = gca;
-%ax_2_cherevko_alkaline.YAxis.FontSize = 12;
 plot(potential_interpol, Schalenbach_dissolution_mole,...                         % Plots the potential regime
     'color', [.5 .5 .5], 'LineWidth', 1.5, 'LineStyle', '--')
-ylabel('$\frac{d Ir}{d t}$ - [$\frac{mol}{m^{2}s}$]','Interpreter','latex')                                % Label for second y_axis
-annotation('textbox', [.15 .676 .1 .1], 'String',["Cherevko -", "Alkaline"],...  % Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
+ylabel('$\frac{d Ir}{d t}$ - [$\frac{mol}{m^{2}s}$]','Interpreter','latex')        % Label for second y_axis
+ax_cherevko_alkaline.YAxis(2).FontSize = 15;
+ax_cherevko_alkaline.YAxis(2).Color = 'black';
 
 %%%%%%%%%%%%%%%%%%%%%%%%% creating arrowhead %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -188,15 +186,27 @@ y1p_d = interp1(yL, ahy, y1_d);                                                 
 y2p_d = interp1(yL, ahy, y2_d);                                                 % the use of normalised coordinates
 
 arhd = annotation('arrow', 'LineStyle','none',...                               % Creates the arrowhead annotaion and removing the line segment
-    'HeadWidth',12, 'HeadStyle','vback2');
+    'HeadWidth',15, 'HeadStyle','vback2');
 arhd.Units = 'normalized';                                                      % Normalaizing the units
 arhd.Position = [x1p_d, y1p_d, x2p_d-x1p_d, y2p_d-y1p_d];                       % Defines position
 arhd.Color = [.5 .5 .5];                                                        % Defines colour for arrowhead
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% annotation('textbox', [.15 .676 .1 .1], 'String',["Cherevko -", "Alkaline"],...  % Creating an annotation, textbox, with the rsquare value from the cfit
+%     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
+% legend({'',string_array_1, '', string_array_2, '',...
+%     string_array_3, "$\frac{d Ir}{d t}$"},...                                   % Creating a legend for the graphs
+%     'Position', [.2375 .45 .1 .1],'Interpreter','latex', 'FontSize',15)
 
-legend({'',string_array_1, '', string_array_2, '',...
-    string_array_3, "$\frac{d Ir}{d t}$"},...                                   % Creating a legend for the graphs
-    'Position', [.2375 .45 .1 .1],'Interpreter','latex', 'FontSize',15)
+annotation('textbox', [.15 .55 .1 .1], 'String',["Cherevko -", "Alkaline"],...% Creating an annotation, textbox, with the rsquare value from the cfit
+    'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
+annotation('textbox', [.60 .14 .1 .1], 'String',string_array_1,...% Creating an annotation, textbox, with the rsquare value from the cfit
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','red', 'Rotation',45);
+annotation('textbox', [.25 .45 .1 .1], 'String',string_array_2,...% Creating an annotation, textbox, with the rsquare value from the cfit
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','blue', 'Rotation',25);
+annotation('textbox', [.25 .75 .1 .1], 'String',string_array_3,...% Creating an annotation, textbox, with the rsquare value from the cfit
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','green', 'Rotation',5);
+annotation('textbox', [.70 .49 .1 .1], 'String',string_array_4,...% Creating an annotation, textbox, with the rsquare value from the cfit
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',20, 'Color',[.5 .5 .5]);
 %--------------------------------------------------------------------------
 
 %% Damjanovic
@@ -222,10 +232,10 @@ scatter(potential_interpol, theta_damj_interpol_3,...                           
     45, "green", 'diamond')  
 %hold off
 ax_damj_alkaline = gca; % current axes                                          % Creating an ax with gca such that the fontsize can be changed
-ax_damj_alkaline.XAxis.FontSize = 12;                                           % Changing the tick size on the x-axis
-ax_damj_alkaline.YAxis.FontSize = 12;                                           % Changing the tick size on the y-axis
+ax_damj_alkaline.XAxis.FontSize = 15;                                           % Changing the tick size on the x-axis
+ax_damj_alkaline.YAxis.FontSize = 15;                                           % Changing the tick size on the y-axis
 xlabel('Potential -E vs RHE [$V$]','Interpreter','latex')
-ylabel('$\Gamma\theta_{2}(t)$ - [$\frac{mol}{m^{2}s}$]','Interpreter','latex')
+ylabel('$\Gamma\theta_{2}(t)$ - [$\frac{mol}{m^{2}}$]','Interpreter','latex')
 xlim([min(potential_interpol) 1.5])
 ylim([min(gamma_theta_damj_3)*0 max(gamma_theta_damj_3)])
 
@@ -249,7 +259,7 @@ y1p_1 = interp1(yL, ahy, y1_1);                                                 
 y2p_1 = interp1(yL, ahy, y2_1);                                                 % the use of normalised coordinates
 
 arh1 = annotation('arrow', 'LineStyle','none',...                               % Creates the arrowhead annotaion and removing the line segment
-    'HeadWidth',12, 'HeadStyle','vback2');
+    'HeadWidth',15, 'HeadStyle','vback2');
 arh1.Units = 'normalized';                                                      % Normalaizing the units
 arh1.Position = [x1p_1, y1p_1, x2p_1-x1p_1, y2p_1-y1p_1];                       % Defines position
 arh1.Color = 'red';                                                             % Defines colour for arrowhead
@@ -266,7 +276,7 @@ y1p_2 = interp1(yL, ahy, y1_2);                                                 
 y2p_2 = interp1(yL, ahy, y2_2);                                                 % the use of normalised coordinates
 
 arh2 = annotation('arrow', 'LineStyle','none',...                               % Creates the arrowhead annotaion and removing the line segment
-    'HeadWidth',12, 'HeadStyle','vback2');
+    'HeadWidth',15, 'HeadStyle','vback2');
 arh2.Units = 'normalized';                                                      % Normalaizing the units
 arh2.Position = [x1p_2, y1p_2, x2p_2-x1p_2, y2p_2-y1p_2];                       % Defines position
 arh2.Color = 'blue';                                                            % Defines colour for arrowhead
@@ -283,20 +293,18 @@ y1p_3 = interp1(yL, ahy, y1_3);                                                 
 y2p_3 = interp1(yL, ahy, y2_3);                                                 % the use of normalised coordinates
 
 arh3 = annotation('arrow', 'LineStyle','none',...                               % Creates the arrowhead annotaion and removing the line segment
-    'HeadWidth',12, 'HeadStyle','vback2');
+    'HeadWidth',15, 'HeadStyle','vback2');
 arh3.Units = 'normalized';                                                      % Normalaizing the units
 arh3.Position = [x1p_3, y1p_3, x2p_3-x1p_3, y2p_3-y1p_3];                       % Defines position
 arh3.Color = 'green';                                                           % Defines colour for arrowhead
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 yyaxis right
-%ax_2_damj_alkaline = gca;
-%ax_2_damj_alkaline.YAxis.FontSize = 12;
 plot(potential_interpol, Schalenbach_dissolution_mole,...                        % Plots the potential regime
     'color', [.5 .5 .5], 'LineWidth', 1.5, 'LineStyle', '--')
 ylabel('$\frac{d Ir}{d t}$ - [$\frac{mol}{m^{2}s}$]','Interpreter','latex')      % Label for second y_axis
-annotation('textbox', [.15 .676 .1 .1], 'String',["Damjanovic -", "Alkaline"],...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
+ax_damj_alkaline.YAxis(2).FontSize = 15;
+ax_damj_alkaline.YAxis(2).Color = 'black';
 
 %%%%%%%%%%%%%%%%%%%%%%%%% creating arrowhead %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -319,15 +327,28 @@ y1p_d = interp1(yL, ahy, y1_d);                                                 
 y2p_d = interp1(yL, ahy, y2_d);                                                 % the use of normalised coordinates
 
 arhd = annotation('arrow', 'LineStyle','none',...                               % Creates the arrowhead annotaion and removing the line segment
-    'HeadWidth',12, 'HeadStyle','vback2');
+    'HeadWidth',15, 'HeadStyle','vback2');
 arhd.Units = 'normalized';                                                      % Normalaizing the units
 arhd.Position = [x1p_d, y1p_d, x2p_d-x1p_d, y2p_d-y1p_d];                       % Defines position
 arhd.Color = [.5 .5 .5];                                                        % Defines colour for arrowhead
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-legend({'',string_array_1, '', string_array_2, '',...
-    string_array_3, "$\frac{d Ir}{d t}$"},...                                   % Creating a legend for the graphs
-    'Position', [.2375 .45 .1 .1],'Interpreter','latex', 'FontSize',15)
+% legend({'',string_array_1, '', string_array_2, '',...
+%     string_array_3, "$\frac{d Ir}{d t}$"},...                                   % Creating a legend for the graphs
+%     'Position', [.2375 .45 .1 .1],'Interpreter','latex', 'FontSize',15)
+% annotation('textbox', [.15 .676 .1 .1], 'String',["Damjanovic -", "Alkaline"],...% Creating an annotation, textbox, with the rsquare value from the cfit
+%     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
+
+annotation('textbox', [.15 .55 .1 .1], 'String',["Damjanovic -", "Alkaline"],...% Creating an annotation, textbox, with the rsquare value from the cfit
+    'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
+annotation('textbox', [.60 .14 .1 .1], 'String',string_array_1,...% Creating an annotation, textbox, with the rsquare value from the cfit
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','red', 'Rotation',45);
+annotation('textbox', [.25 .45 .1 .1], 'String',string_array_2,...% Creating an annotation, textbox, with the rsquare value from the cfit
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','blue', 'Rotation',25);
+annotation('textbox', [.25 .75 .1 .1], 'String',string_array_3,...% Creating an annotation, textbox, with the rsquare value from the cfit
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','green', 'Rotation',5);
+annotation('textbox', [.70 .49 .1 .1], 'String',string_array_4,...% Creating an annotation, textbox, with the rsquare value from the cfit
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',20, 'Color',[.5 .5 .5]);
 %--------------------------------------------------------------------------
 
 %% Damjanovic log
@@ -353,10 +374,10 @@ scatter(potential_interpol, theta_damj_log_interpol_3,...                       
     45, "green", 'diamond')  
 %hold off
 ax_damj_log_alkaline = gca; % current axes                                      % Creating an ax with gca such that the fontsize can be changed
-ax_damj_log_alkaline.XAxis.FontSize = 12;                                       % Changing the tick size on the x-axis
-ax_damj_log_alkaline.YAxis.FontSize = 12;                                       % Changing the tick size on the y-axis
+ax_damj_log_alkaline.XAxis.FontSize = 15;                                       % Changing the tick size on the x-axis
+ax_damj_log_alkaline.YAxis.FontSize = 15;                                       % Changing the tick size on the y-axis
 xlabel('Potential -E vs RHE [$V$]','Interpreter','latex')
-ylabel('$\Gamma\theta_{2}(t)$ - [$\frac{mol}{m^{2}s}$]','Interpreter','latex')
+ylabel('$\Gamma\theta_{2}(t)$ - [$\frac{mol}{m^{2}}$]','Interpreter','latex')
 xlim([min(potential_interpol) 1.5])
 ylim([min(gamma_theta_damj_log_3)*0 max(gamma_theta_damj_log_3)])
 
@@ -380,7 +401,7 @@ y1p_1 = interp1(yL, ahy, y1_1);                                                 
 y2p_1 = interp1(yL, ahy, y2_1);                                                 % the use of normalised coordinates
 
 arh1 = annotation('arrow', 'LineStyle','none',...                               % Creates the arrowhead annotaion and removing the line segment
-    'HeadWidth',12, 'HeadStyle','vback2');
+    'HeadWidth',15, 'HeadStyle','vback2');
 arh1.Units = 'normalized';                                                      % Normalaizing the units
 arh1.Position = [x1p_1, y1p_1, x2p_1-x1p_1, y2p_1-y1p_1];                       % Defines position
 arh1.Color = 'red';                                                             % Defines colour for arrowhead
@@ -397,7 +418,7 @@ y1p_2 = interp1(yL, ahy, y1_2);                                                 
 y2p_2 = interp1(yL, ahy, y2_2);                                                 % the use of normalised coordinates
 
 arh2 = annotation('arrow', 'LineStyle','none',...                               % Creates the arrowhead annotaion and removing the line segment
-    'HeadWidth',12, 'HeadStyle','vback2');
+    'HeadWidth',15, 'HeadStyle','vback2');
 arh2.Units = 'normalized';                                                      % Normalaizing the units
 arh2.Position = [x1p_2, y1p_2, x2p_2-x1p_2, y2p_2-y1p_2];                       % Defines position
 arh2.Color = 'blue';                                                            % Defines colour for arrowhead
@@ -414,20 +435,18 @@ y1p_3 = interp1(yL, ahy, y1_3);                                                 
 y2p_3 = interp1(yL, ahy, y2_3);                                                 % the use of normalised coordinates
 
 arh3 = annotation('arrow', 'LineStyle','none',...                               % Creates the arrowhead annotaion and removing the line segment
-    'HeadWidth',12, 'HeadStyle','vback2');
+    'HeadWidth',15, 'HeadStyle','vback2');
 arh3.Units = 'normalized';                                                      % Normalaizing the units
 arh3.Position = [x1p_3, y1p_3, x2p_3-x1p_3, y2p_3-y1p_3];                       % Defines position
 arh3.Color = 'green';                                                           % Defines colour for arrowhead
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 yyaxis right
-%ax_2_damj_alkaline = gca;
-%ax_2_damj_alkaline.YAxis.FontSize = 12;
 plot(potential_interpol, Schalenbach_dissolution_mole,...                           % Plots the potential regime
     'color', [.5 .5 .5], 'LineWidth', 1.5, 'LineStyle', '--')
 ylabel('$\frac{d Ir}{d t}$ - [$\frac{mol}{m^{2}s}$]','Interpreter','latex')         % Label for second y_axis
-annotation('textbox', [.15 .676 .1 .1], 'String',["Damjanovic log-", "Alkaline"],...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
+ax_damj_log_alkaline.YAxis(2).FontSize = 15;
+ax_damj_log_alkaline.YAxis(2).Color = 'black';
 
 %%%%%%%%%%%%%%%%%%%%%%%%% creating arrowhead %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -450,15 +469,30 @@ y1p_d = interp1(yL, ahy, y1_d);                                                 
 y2p_d = interp1(yL, ahy, y2_d);                                                 % the use of normalised coordinates
 
 arhd = annotation('arrow', 'LineStyle','none',...                               % Creates the arrowhead annotaion and removing the line segment
-    'HeadWidth',12, 'HeadStyle','vback2');
+    'HeadWidth',15, 'HeadStyle','vback2');
 arhd.Units = 'normalized';                                                      % Normalaizing the units
 arhd.Position = [x1p_d, y1p_d, x2p_d-x1p_d, y2p_d-y1p_d];                       % Defines position
 arhd.Color = [.5 .5 .5];                                                        % Defines colour for arrowhead
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-legend({'',string_array_1, '', string_array_2, '',...
-    string_array_3, "$\frac{d Ir}{d t}$"},...                                   % Creating a legend for the graphs
-    'Position', [.2375 .45 .1 .1],'Interpreter','latex', 'FontSize',15)
+% legend({'',string_array_1, '', string_array_2, '',...
+%     string_array_3, "$\frac{d Ir}{d t}$"},...                                   % Creating a legend for the graphs
+%     'Position', [.2375 .45 .1 .1],'Interpreter','latex', 'FontSize',15)
+% annotation('textbox', [.15 .676 .1 .1], 'String',["Damjanovic log-", "Alkaline"],...% Creating an annotation, textbox, with the rsquare value from the cfit
+%     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
+
+annotation('textbox', [.15 .55 .1 .1], 'String',["Damjanovic log-", "Alkaline"],...% Creating an annotation, textbox, with the rsquare value from the cfit
+    'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
+annotation('textbox', [.60 .14 .1 .1], 'String',string_array_1,...% Creating an annotation, textbox, with the rsquare value from the cfit
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','red', 'Rotation',45);
+annotation('textbox', [.25 .45 .1 .1], 'String',string_array_2,...% Creating an annotation, textbox, with the rsquare value from the cfit
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','blue', 'Rotation',25);
+annotation('textbox', [.25 .75 .1 .1], 'String',string_array_3,...% Creating an annotation, textbox, with the rsquare value from the cfit
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','green', 'Rotation',5);
+annotation('textbox', [.70 .49 .1 .1], 'String',string_array_4,...% Creating an annotation, textbox, with the rsquare value from the cfit
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',20, 'Color',[.5 .5 .5]);
+%--------------------------------------------------------------------------
+
 %--------------------------------------------------------------------------
 %
 %% Schalenbach
@@ -483,10 +517,10 @@ scatter(potential_interpol, theta_schalenbach_interpol_3,...                    
     45, "green", 'diamond')  
 %hold off
 ax_schalenbach_alkaline = gca; % current axes                                    % Creating an ax with gca such that the fontsize can be changed
-ax_schalenbach_alkaline.XAxis.FontSize = 12;                                     % Changing the tick size on the x-axis
-ax_schalenbach_alkaline.YAxis.FontSize = 12;                                     % Changing the tick size on the y-axis
+ax_schalenbach_alkaline.XAxis.FontSize = 15;                                     % Changing the tick size on the x-axis
+ax_schalenbach_alkaline.YAxis.FontSize = 15;                                     % Changing the tick size on the y-axis
 xlabel('Potential -E vs RHE [$V$]','Interpreter','latex')
-ylabel('$\Gamma\theta_{2}(t)$ - [$\frac{mol}{m^{2}s}$]','Interpreter','latex')
+ylabel('$\Gamma\theta_{2}(t)$ - [$\frac{mol}{m^{2}}$]','Interpreter','latex')
 xlim([min(potential_interpol) 1.5])
 ylim([min(gamma_theta_schalenbach_3)*0 max(gamma_theta_schalenbach_3)])
 
@@ -510,7 +544,7 @@ y1p_1 = interp1(yL, ahy, y1_1);                                                 
 y2p_1 = interp1(yL, ahy, y2_1);                                                 % the use of normalised coordinates
 
 arh1 = annotation('arrow', 'LineStyle','none',...                               % Creates the arrowhead annotaion and removing the line segment
-    'HeadWidth',12, 'HeadStyle','vback2');
+    'HeadWidth',15, 'HeadStyle','vback2');
 arh1.Units = 'normalized';                                                      % Normalaizing the units
 arh1.Position = [x1p_1, y1p_1, x2p_1-x1p_1, y2p_1-y1p_1];                       % Defines position
 arh1.Color = 'red';                                                             % Defines colour for arrowhead
@@ -527,7 +561,7 @@ y1p_2 = interp1(yL, ahy, y1_2);                                                 
 y2p_2 = interp1(yL, ahy, y2_2);                                                 % the use of normalised coordinates
 
 arh2 = annotation('arrow', 'LineStyle','none',...                               % Creates the arrowhead annotaion and removing the line segment
-    'HeadWidth',12, 'HeadStyle','vback2');
+    'HeadWidth',15, 'HeadStyle','vback2');
 arh2.Units = 'normalized';                                                      % Normalaizing the units
 arh2.Position = [x1p_2, y1p_2, x2p_2-x1p_2, y2p_2-y1p_2];                       % Defines position
 arh2.Color = 'blue';                                                            % Defines colour for arrowhead
@@ -544,19 +578,17 @@ y1p_3 = interp1(yL, ahy, y1_3);                                                 
 y2p_3 = interp1(yL, ahy, y2_3);                                                 % the use of normalised coordinates
 
 arh3 = annotation('arrow', 'LineStyle','none',...                               % Creates the arrowhead annotaion and removing the line segment
-    'HeadWidth',12, 'HeadStyle','vback2');
+    'HeadWidth',15, 'HeadStyle','vback2');
 arh3.Units = 'normalized';                                                      % Normalaizing the units
 arh3.Position = [x1p_3, y1p_3, x2p_3-x1p_3, y2p_3-y1p_3];                       % Defines position
 arh3.Color = 'green';                                                           % Defines colour for arrowhead
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 yyaxis right
-%ax_2_damj_alkaline = gca;
-%ax_2_damj_alkaline.YAxis.FontSize = 12;
 plot(potential_interpol, Schalenbach_dissolution_mole,...                        % Plots the potential regime
     'color', [.5 .5 .5], 'LineWidth', 1.5, 'LineStyle', '--')
 ylabel('$\frac{d Ir}{d t}$ - [$\frac{mol}{m^{2}s}$]','Interpreter','latex')      % Label for second y_axis
-annotation('textbox', [.15 .676 .1 .1], 'String',["Schalenbach-", "Alkaline"],...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
+ax_schalenbach_alkaline.YAxis(2).FontSize = 15;
+ax_schalenbach_alkaline.YAxis(2).Color = 'black';
 %%%%%%%%%%%%%%%%%%%%%%%%% creating arrowhead %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 xL = xlim;                                                                      % x_lim for normalising position
@@ -583,7 +615,20 @@ arhd.Units = 'normalized';                                                      
 arhd.Position = [x1p_d, y1p_d, x2p_d-x1p_d, y2p_d-y1p_d];                       % Defines position
 arhd.Color = [.5 .5 .5];                                                        % Defines colour for arrowhead
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-legend({'',string_array_1, '', string_array_2, '',...
-    string_array_3, "$\frac{d Ir}{d t}$"},...                                   % Creating a legend for the graphs
-    'Position', [.2375 .45 .1 .1],'Interpreter','latex', 'FontSize',15)
+% legend({'',string_array_1, '', string_array_2, '',...
+%     string_array_3, "$\frac{d Ir}{d t}$"},...                                   % Creating a legend for the graphs
+%     'Position', [.2375 .45 .1 .1],'Interpreter','latex', 'FontSize',15)
+% annotation('textbox', [.15 .676 .1 .1], 'String',["Schalenbach-", "Alkaline"],...% Creating an annotation, textbox, with the rsquare value from the cfit
+%     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
+annotation('textbox', [.15 .55 .1 .1], 'String',["Schalenbach-", "Alkaline"],...% Creating an annotation, textbox, with the rsquare value from the cfit
+    'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
+annotation('textbox', [.60 .14 .1 .1], 'String',string_array_1,...% Creating an annotation, textbox, with the rsquare value from the cfit
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','red', 'Rotation',45);
+annotation('textbox', [.25 .45 .1 .1], 'String',string_array_2,...% Creating an annotation, textbox, with the rsquare value from the cfit
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','blue', 'Rotation',25);
+annotation('textbox', [.25 .75 .1 .1], 'String',string_array_3,...% Creating an annotation, textbox, with the rsquare value from the cfit
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','green', 'Rotation',5);
+annotation('textbox', [.70 .49 .1 .1], 'String',string_array_4,...% Creating an annotation, textbox, with the rsquare value from the cfit
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',20, 'Color',[.5 .5 .5]);
+
 %--------------------------------------------------------------------------
