@@ -34,16 +34,16 @@ Schalenbach_OH_alkaline = 0.05*1;                                              %
 Schalenbach_dissolution_CV_linear_data = readmatrix("Data\Alkaline\Schalenbach\Schalenbach_dissolution_linear_alkaline.xlsx");
 % Schalenbach dissolution vs time - [ng/cm^2*s]
 
-Schalenbach_dissolution_CV_linear = Schalenbach_dissolution_CV_linear_data(1:end,2);    % Schalenbach dissolution data - [ng/cm^2*s]
+%Schalenbach_dissolution_CV_linear = Schalenbach_dissolution_CV_linear_data(1:end,2);    % Schalenbach dissolution data - [ng/cm^2*s]
 Schalenbach_time_CV_linear = Schalenbach_dissolution_CV_linear_data(1:end,1);           % Schalenbach time data - [s]
 
-Schalenbach_dissolution_mole = Schalenbach_dissolution_CV_linear*10^(-9)*10^(4)/Mm_Ir;  % Changes the units from ng/cm^2*s --> mole/m^2*s
+%Schalenbach_dissolution_mole = Schalenbach_dissolution_CV_linear*10^(-9)*10^(4)/Mm_Ir;  % Changes the units from ng/cm^2*s --> mole/m^2*s
 
 %% %%%%%%%%%%%%%%%%%%%%%Solving differental equation%%%%%%%%%%%%%%%%%%%%%%%%
 
 %--------------------------------------------------------------------------
-[t_ode15s_alkaline, gamma_theta_ode15s] = diff_equation_solver_alkaline(Schalenbach_time_CV_linear, "value", curve_alkaline, Schalenbach_OH_alkaline, T, k_4_0_plus, theta_2_0);
-gamma_theta_ode15s_alkaline = gamma_theta_ode15s;%*10^(-6);
+[t_ode15s_alkaline, gamma_theta_ode15s_alkaline] = diff_equation_solver_alkaline(Schalenbach_time_CV_linear, "value", curve_alkaline, Schalenbach_OH_alkaline, T, k_4_0_plus, theta_2_0);
+
 %% %%%%%%%%%%Transforming time to potential for the ode15s solution
 potential_ode15s_1 = CV_potential_alkaline(t_ode15s_alkaline, "array");
 

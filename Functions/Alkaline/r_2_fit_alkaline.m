@@ -36,8 +36,8 @@ if data_type == "Linear"
     FO = fitoptions('Method','NonlinearLeastSquares',...
                'Lower',[eps, eps, eps],...                                  % k_2_0_plus alpha k_1_0
                'Upper',[10^(10), 2, 10^(10)],...                            % k_2_0_plus alpha k_1_0
-               'StartPoint',[1*10^(-2), 0.65, 10^(2)], ...                        % Starting point for the coefficients
-               'TolFun', 1e-25);         
+               'StartPoint',[1*10^(-2), 0.65, 10^(2)], ...                  % Starting point for the coefficients
+               'TolFun', 1e-20);         
 
 
     [curve, gof] = fit(E,i,FT,FO);                                          % Curve contains the coefficients and gof some statistical data 
@@ -54,9 +54,9 @@ elseif data_type == "Logarithmic"
 
     FO = fitoptions('Method','NonlinearLeastSquares',...
                'Lower',[eps, eps, eps],...                                  % k_2_0_plus alpha k_1_0
-               'Upper',[10^10, 2, 10^(10)],...                                % k_2_0_plus alpha k_1_0
+               'Upper',[10^10, 2, 10^(10)],...                              % k_2_0_plus alpha k_1_0
                'StartPoint',[1*10^(-2), 0.65, 1*10^(2)],...                                 % Starting point for the coefficients
-               'TolFun', 1e-25);         
+               'TolFun', 1e-20);         
 
 
     [curve, gof] = fit(E,log_i,FT,FO);                                      % Curve contains the coefficients and gof some statistical data 
