@@ -184,11 +184,11 @@ Schalenbach_dissolution_mole = Schalenbach_dissolution_CV_linear*10^(-9)*10^(4)/
 
 %% %%%%%%%%%%%%%%% Calling the diff equation solver %%%%%%%%%%%%%%%%%%%%%%
 
-[t_cherevko_alkaline, gamma_theta_cherevko_alkaline] = diff_equation_solver_alkaline(Schalenbach_time_CV_linear, "value", Cherevko_curve_alkaline, Schalenbach_a_OH_alkaline, Schalenbach_T_alkaline, k_4_0_plus, theta_2_0, frac);
-[t_damj_alkaline, gamma_theta_damj_alkaline] = diff_equation_solver_alkaline(Schalenbach_time_CV_linear, "value", Damjanovic_curve_alkaline, Schalenbach_a_OH_alkaline, Schalenbach_T_alkaline, k_4_0_plus, theta_2_0, frac);
-[t_damj_log_alkaline, gamma_theta_damj_log_alkaline] = diff_equation_solver_alkaline(Schalenbach_time_CV_linear, "value", Damjanovic_log_curve_alkaline, Schalenbach_a_OH_alkaline, Schalenbach_T_alkaline, k_4_0_plus, theta_2_0, frac);
+[t_cherevko_alkaline, gamma_theta_cherevko_alkaline] = diff_equation_solver_alkaline(Schalenbach_time_CV_linear, "value", Cherevko_curve_alkaline, Schalenbach_a_OH_alkaline, Schalenbach_T_alkaline, k_4_0_plus, theta_2_0);
+[t_damj_alkaline, gamma_theta_damj_alkaline] = diff_equation_solver_alkaline(Schalenbach_time_CV_linear, "value", Damjanovic_curve_alkaline, Schalenbach_a_OH_alkaline, Schalenbach_T_alkaline, k_4_0_plus, theta_2_0);
+[t_damj_log_alkaline, gamma_theta_damj_log_alkaline] = diff_equation_solver_alkaline(Schalenbach_time_CV_linear, "value", Damjanovic_log_curve_alkaline, Schalenbach_a_OH_alkaline, Schalenbach_T_alkaline, k_4_0_plus, theta_2_0);
 %--------------------------------------------------------------------------
-[t_schalenbach_alkaline, gamma_theta_schalenbach_alkaline] = diff_equation_solver_alkaline(Schalenbach_time_CV_linear, "value", Schalenbach_curve_alkaline, Schalenbach_a_OH_alkaline, Schalenbach_T_alkaline, k_4_0_plus, theta_2_0, frac);
+[t_schalenbach_alkaline, gamma_theta_schalenbach_alkaline] = diff_equation_solver_alkaline(Schalenbach_time_CV_linear, "value", Schalenbach_curve_alkaline, Schalenbach_a_OH_alkaline, Schalenbach_T_alkaline, k_4_0_plus, theta_2_0);
 %--------------------------------------------------------------------------
 %% %%%%%%% Making plots of the ode15s solution and the interpolation %%%%%%
 
