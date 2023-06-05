@@ -26,7 +26,7 @@ k_4_0_plus = [1*10^(-1) 10^(-2) 10^(-3)];
 
 % Data used for fitting r2_alkaline
 Cherevko_alkaline = readmatrix("Data\Alkaline\Cherevko_alkaline_polarisation_data.xlsx");% Potential/current density data from Cherevko
-Damjanovic_alkaline = readmatrix("Data\Alkaline\Damjanovic_alkaline_polarisation.xlsx"); % Current density/potential data from Damjanovic
+Damjanovic_alkaline = readmatrix("Data\Alkaline\Damjanovic_polarisation_alkaline.xlsx"); % Current density/potential data from Damjanovic
 %--------------------------------------------------------------------------
 Schalenbach_polarisation_alkaline = readmatrix("Data\Alkaline\Schalenbach\Schalenbach_polarisation_curve_alkaline.xlsx");% Polarisation curve from alkaline dissolution
 %--------------------------------------------------------------------------
@@ -96,7 +96,7 @@ ax_cherevko_alkaline(1).YAxis.FontSize = 15;                                    
 xlabel('Potential -E vs RHE [$V$]','Interpreter','latex')
 ylabel('$\Gamma\theta_{2}(t)$ - [$\frac{mol}{m^{2}}$]','Interpreter','latex')
 xlim([min(potential_interpol) 1.5])
-%ylim([min(gamma_theta_cherevko_3)*0 max(gamma_theta_cherevko_3)])
+ylim([min(gamma_theta_cherevko_3)*0 max(gamma_theta_cherevko_3)])
 
 %%%%%%%%%%%%%%%%%%%  Creating arrowheads %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 xL = xlim;                                                                      % x_lim for normalising position

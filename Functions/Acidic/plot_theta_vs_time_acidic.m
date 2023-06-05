@@ -24,7 +24,7 @@ k_4_0_plus = [10^(-1) 10^(-2) 10^(-3)];
 
 % Data used for fitting r2_alkaline
 Scohy_acidic = readmatrix("Data\Acidic\Scohy_activated_Ir_LSV.xlsx");% Potential/current density data from Scohy
-Damjanovic_acidic = readmatrix("Data\Acidic\Damjanovic_Ir_E_vs_log_i.xlsx"); % Current density/potential data from Damjanovic
+Damjanovic_acidic = readmatrix("Data\Acidic\Damjanovic_Ir_E_vs_log_i_acidic.xlsx"); % Current density/potential data from Damjanovic
 Cherevko_acidic = readmatrix("Data\Acidic\Cherevko_polarisation.xlsx");% Polarisation curve from Cherevko acidic
 %--------------------------------------------------------------------------
 %% Extracted data from the Excel files 
@@ -218,7 +218,7 @@ ylim([min(potential_interpol_acidic)*0 max(potential_interpol_acidic)])
 % legend({'',string_array_1, '', string_array_2, '', string_array_3, "E(t)"},...  % Creating a legend for the graphs
 %     'Position', [.2375 .55 .1 .1],'Interpreter','latex', 'FontSize',15)
 
-annotation('textbox', [.52 .32 .1 .1], 'String',["Damjanovic -", "Acidic"],...% Creating an annotation, textbox, with the rsquare value from the cfit
+annotation('textbox', [.52 .32 .1 .1], 'String',["Damjanovic log-", "Acidic"],...% Creating an annotation, textbox, with the rsquare value from the cfit
     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
 annotation('textbox', [.55 .17 .1 .1], 'String',string_array_1,...% Creating an annotation, textbox, with the rsquare value from the cfit
     'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','red');

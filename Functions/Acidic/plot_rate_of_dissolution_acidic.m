@@ -24,7 +24,7 @@ k_4_0_plus = [10^(-1) 10^(-2) 10^(-3)];
 
 % Data used for fitting r2_acidic
 Scohy_acidic = readmatrix("Data\Acidic\Scohy_activated_Ir_LSV.xlsx");% Potential/current density data from Scohy
-Damjanovic_acidic = readmatrix("Data\Acidic\Damjanovic_Ir_E_vs_log_i.xlsx"); % Current density/potential data from Damjanovic
+Damjanovic_acidic = readmatrix("Data\Acidic\Damjanovic_Ir_E_vs_log_i_acidic.xlsx"); % Current density/potential data from Damjanovic
 Cherevko_acidic = readmatrix("Data\Acidic\Cherevko_polarisation.xlsx");% Polarisation curve from Cherevko acidic
 %--------------------------------------------------------------------------
 %% Extracted data from the Excel files 

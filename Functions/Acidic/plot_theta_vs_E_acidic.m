@@ -24,7 +24,7 @@ k_4_0_plus = [10^(-1) 10^(-2) 10^(-3)];
 
 % Data used for fitting r2_acidic
 Scohy_acidic = readmatrix("Data\Acidic\Scohy_activated_Ir_LSV.xlsx");% Potential/current density data from Scohy
-Damjanovic_acidic = readmatrix("Data\Acidic\Damjanovic_Ir_E_vs_log_i.xlsx"); % Current density/potential data from Damjanovic
+Damjanovic_acidic = readmatrix("Data\Acidic\Damjanovic_Ir_E_vs_log_i_acidic.xlsx"); % Current density/potential data from Damjanovic
 Cherevko_acidic = readmatrix("Data\Acidic\Cherevko_polarisation.xlsx");% Polarisation curve from Cherevko acidic
 %--------------------------------------------------------------------------
 %% Extracted data from the Excel files 
@@ -99,7 +99,7 @@ ylabel('$\Gamma\theta_{2}(t)$ - [$\frac{mol}{m^{2}}$]',...
 ax_scohy_acidic = gca; % current axes                                       % Creating an ax with gca such that the fontsize can be changed
 ax_scohy_acidic.XAxis.FontSize = 15;                                        % Changing the tick size on the x-axis
 ax_scohy_acidic.YAxis(1).FontSize = 15;                                        % Changing the tick size on the y-axis
-xlim([min(potential_interpol_acidic) max(potential_interpol_acidic)])
+xlim([min(potential_interpol_acidic) 1.6])
 %ylim([min(gamma_theta_scohy_3)*0 max(gamma_theta_scohy_3)])
 
 %%%%%%%%%%%%%%%%%%%  Creating arrowheads %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -240,7 +240,7 @@ ax_damj_acidic.XAxis.FontSize = 15;                                         % Ch
 ax_damj_acidic.YAxis(1).FontSize = 15;                                         % Changing the tick size on the y-axis
 xlabel('Potential -E vs RHE [$V$]','Interpreter','latex')
 ylabel('$\Gamma\theta_{2}(t)$ - [$\frac{mol}{m^{2}}$]','Interpreter','latex')
-xlim([min(potential_interpol_acidic) max(potential_interpol_acidic)])
+xlim([min(potential_interpol_acidic) 1.6])
 %ylim([min(gamma_theta_damj_3)*0 max(gamma_theta_damj_3)])
 
 %%%%%%%%%%%%%%%%%%%  Creating arrowheads %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -380,7 +380,7 @@ ax_damj_log_acidic.XAxis.FontSize = 15;                                     % Ch
 ax_damj_log_acidic.YAxis.FontSize = 15;                                     % Changing the tick size on the y-axis
 xlabel('Potential -E vs RHE [$V$]','Interpreter','latex')
 ylabel('$\Gamma\theta_{2}(t)$ - [$\frac{mol}{m^{2}}$]','Interpreter','latex')
-xlim([min(potential_interpol_acidic) max(potential_interpol_acidic)])
+xlim([min(potential_interpol_acidic) 1.6])
 %ylim([min(gamma_theta_damj_log_3)*0 max(gamma_theta_damj_log_3)])
 
 %%%%%%%%%%%%%%%%%%%  Creating arrowheads %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -519,7 +519,7 @@ ax_cherevko_acidic.XAxis.FontSize = 15;                                     % Ch
 ax_cherevko_acidic.YAxis(1).FontSize = 15;                                     % Changing the tick size on the y-axis
 xlabel('Potential -E vs RHE [$V$]','Interpreter','latex')
 ylabel('$\Gamma\theta_{2}(t)$ - [$\frac{mol}{m^{2}}$]','Interpreter','latex')
-xlim([min(potential_interpol_acidic) max(potential_interpol_acidic)])
+xlim([min(potential_interpol_acidic) 1.6])
 %ylim([min(gamma_theta_cherevko_3)*0 max(gamma_theta_cherevko_3)])
 
 %%%%%%%%%%%%%%%%%%%  Creating arrowheads %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
