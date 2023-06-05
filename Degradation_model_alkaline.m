@@ -24,7 +24,7 @@ frac = 10^(2);                                                             % k_3
 
 % Data used for fitting r2_alkaline
 Cherevko_alkaline = readmatrix("Data\Alkaline\Cherevko_alkaline_polarisation_data.xlsx");% Potential/current density data from Cherevko
-Damjanovic_alkaline = readmatrix("Data\Alkaline\Damjanovic_alkaline_polarisation.xlsx"); % Current density/potential data from Damjanovic
+Damjanovic_alkaline = readmatrix("Data\Alkaline\Damjanovic_polarisation_alkaline.xlsx"); % Current density/potential data from Damjanovic
 %--------------------------------------------------------------------------
 Schalenbach_polarisation_alkaline = readmatrix("Data\Alkaline\Schalenbach\Schalenbach_polarisation_curve_alkaline.xlsx");% Polarisation curve from alkaline dissolution
 %--------------------------------------------------------------------------
@@ -87,13 +87,15 @@ Schalenbach_sweep_rate = 2*10^(-3);                                            %
 % str_cherevko_alkaline = sprintf("$R^{2}$ = %.5f", round(Cherevko_gof_alkaline.rsquare, 5));% Creating a string element for the annotation
 % annotation('textbox', [.15 .8 .1 .1], 'String',str_cherevko_alkaline,...                   % Creating an annotation, textbox, with the rsquare value from the cfit
 %     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
-% ax_cherevko_alkaline.XAxis.FontSize = 12;                                                  % Changing the tick size on the x-axis
-% ax_cherevko_alkaline.YAxis.FontSize = 12;                                                  % Changing the tick size on the y-axis
+% ax_cherevko_alkaline.XAxis.FontSize = 15;                                                  % Changing the tick size on the x-axis
+% ax_cherevko_alkaline.YAxis.FontSize = 15;                                                  % Changing the tick size on the y-axis
 % xlabel('Potential - E/[$V$] vs RHE','Interpreter','latex', 'FontSize', 15)                 % Creating x-label
 % ylabel('Current density - i/[$Am^{-2}$]',...                                               % Creating y-label
 %     'Interpreter','latex', 'FontSize', 15)
-% %xlim([Cherevko_E_alkaline(1) Cherevko_E_alkaline(end)])
-% %ylim([Cherevko_i_alkaline(1)*0 Cherevko_i_alkaline(end)])
+% annotation('textbox', [.15 .80 .1 .1], 'String',["Cherevko -", "Alkaline"],... % Creating an annotation, textbox, with the rsquare value from the cfit
+%     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
+% xlim([min(Cherevko_E_alkaline) max(Cherevko_E_alkaline)])
+% ylim([min(Cherevko_i_alkaline)*0 max(Cherevko_i_alkaline)])
 % 
 % % Damjanovic - Alkaline
 % figure("Name","Damjanovic Alkaline Fitting")                                               % Creates figure
@@ -110,13 +112,15 @@ Schalenbach_sweep_rate = 2*10^(-3);                                            %
 %     sprintf("$R^{2}$ = %.5f", round(Damjanovic_gof_alkaline.rsquare, 5));
 % annotation('textbox', [.15 .8 .1 .1], 'String',str_damjanovic_alkaline,...                 % Creating an annotation, textbox, with the rsquare value from the cfit
 %     'Interpreter', 'latex','FitBoxToText','on', 'FontSize',15);
-% ax_damjanovic_alkaline.XAxis.FontSize = 12;                                                % Changing the tick size on the x-axis
-% ax_damjanovic_alkaline.YAxis.FontSize = 12;                                                % Changing the tick size on the y-axis
+% ax_damjanovic_alkaline.XAxis.FontSize = 15;                                                % Changing the tick size on the x-axis
+% ax_damjanovic_alkaline.YAxis.FontSize = 15;                                                % Changing the tick size on the y-axis
 % xlabel('Potential - E/[$V$] vs RHE','Interpreter','latex', 'FontSize',15)                  % Creating x-label
 % ylabel('Current density - i/[$Am^{-2}$]',...                                               % Creating y-label
 %     'Interpreter','latex', 'FontSize',15)
-% %xlim([Damjanovic_E_alkaline(1) Damjanovic_E_alkaline(end)])
-% %ylim([Damjanovic_i_alkaline(1)*0 Damjanovic_i_alkaline(end)])
+% annotation('textbox', [.15 .80 .1 .1], 'String',["Damjanovic -", "Alkaline"],... % Creating an annotation, textbox, with the rsquare value from the cfit
+%     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
+% xlim([min(Damjanovic_E_alkaline) max(Damjanovic_E_alkaline)])
+% ylim([min(Damjanovic_i_alkaline)*0 max(Damjanovic_i_alkaline)])
 % 
 % % Damjanovic log - Alkaline
 % figure("Name", "Damjanovic Alkaline Fitting Log")                                          % Creating figure
@@ -133,13 +137,15 @@ Schalenbach_sweep_rate = 2*10^(-3);                                            %
 %     sprintf("$R^{2}$ = %.5f", round(Damjanovic_log_gof_alkaline.rsquare, 5));
 % annotation('textbox', [.15 .8 .1 .1], 'String',str_damjanovic_log_alkaline,...             % Creating an annotation, textbox, with the rsquare value from the cfit
 %     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
-% ax_damjanovic_log_alkaline.XAxis.FontSize = 12;                                            % Changing the tick size on the x-axis
-% ax_damjanovic_log_alkaline.YAxis.FontSize = 12;                                            % Changing the tick size on the y-axis
+% ax_damjanovic_log_alkaline.XAxis.FontSize = 15;                                            % Changing the tick size on the x-axis
+% ax_damjanovic_log_alkaline.YAxis.FontSize = 15;                                            % Changing the tick size on the y-axis
 % xlabel('Potential - E/[$V$] vs RHE','Interpreter','latex', 'FontSize',15)                  % Creating x-label
 % ylabel('$\log_{10}$ of current density - $\log{i}$/[$Am^{-2}$]',...                        % Creating y-label
 %     'Interpreter','latex', 'FontSize',15)
-% %xlim([Damjanovic_E_alkaline(1) Damjanovic_E_alkaline(end)])
-% %ylim([-4 log10(Damjanovic_i_alkaline(end))])
+% annotation('textbox', [.15 .80 .1 .1], 'String',["Damjanovic log -", "Alkaline"],... % Creating an annotation, textbox, with the rsquare value from the cfit
+%     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
+% xlim([min(Damjanovic_E_alkaline) max(Damjanovic_E_alkaline)])
+% ylim([-4 max(log10(Damjanovic_i_alkaline))])
 % 
 % %--------------------------------------------------------------------------
 % % Schalenbach - Alkaline
@@ -156,13 +162,15 @@ Schalenbach_sweep_rate = 2*10^(-3);                                            %
 %     round(Schalenbach_gof_alkaline.rsquare, 5));                                    % Creating a string element for the annotation
 % annotation('textbox', [.15 .8 .1 .1], 'String',str_schalenbach_alkaline,...         % Creating an annotation, textbox, with the rsquare value from the cfit
 %     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
-% ax_schalenbach_alkaline.XAxis.FontSize = 12;                                        % Changing the tick size on the x-axis
-% ax_schalenbach_alkaline.YAxis.FontSize = 12;                                        % Changing the tick size on the y-axis
+% ax_schalenbach_alkaline.XAxis.FontSize = 15;                                        % Changing the tick size on the x-axis
+% ax_schalenbach_alkaline.YAxis.FontSize = 15;                                        % Changing the tick size on the y-axis
 % xlabel('Potential - E/[$V$] vs RHE','Interpreter','latex', 'FontSize', 15)          % Creating x-label
 % ylabel('Current density - i/[$Am^{-2}$]',...                                        % Creating y-label
 %     'Interpreter','latex', 'FontSize', 15)
-% %xlim([Schalenbach_E_alkaline(1) Schalenbach_E_alkaline(end)])
-% %ylim([Schalenbach_i_alkaline(1)*0 Schalenbach_i_alkaline(end)])
+% annotation('textbox', [.15 .80 .1 .1], 'String',["Schalenbach -", "Alkaline"],... % Creating an annotation, textbox, with the rsquare value from the cfit
+%     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
+% xlim([min(Schalenbach_E_alkaline) max(Schalenbach_E_alkaline)])
+% ylim([min(Schalenbach_i_alkaline)*0 max(Schalenbach_i_alkaline)])
 % %--------------------------------------------------------------------------
 %% %%%%%%%%%%% The data from the Schalenbach article %%%%%%%%%%%%%%%%%%%%%%
 % These data is based on the highest anodic peak

@@ -20,7 +20,7 @@ k_4_0_plus = 10^-2;
 
 % Data used for fitting of r2_acidic
 Scohy_acidic = readmatrix("Data\Acidic\Scohy_activated_Ir_LSV.xlsx");       % Potential/current density data from Scohy
-Damjanovic_acidic = readmatrix("Data\Acidic\Damjanovic_Ir_E_vs_log_i.xlsx");% Current density/potential data from Damjanovic
+Damjanovic_acidic = readmatrix("Data\Acidic\Damjanovic_Ir_E_vs_log_i_acidic.xlsx");% Current density/potential data from Damjanovic
 Cherevko_acidic = readmatrix("Data\Acidic\Cherevko_polarisation.xlsx");     % Potential/current density data from Cherevko
 %% Extracted data from the Excel files 
 
@@ -48,14 +48,14 @@ Cherevko_a_H_plus = 0.1*2;                                                  % [-
 
 % Scohy
 [Scohy_curve, Scohy_gof] = ...                                              % This is the expression with rds
-    r_2_fit(Scohy_potential, Scohy_current_density, Scohy_a_H_plus, Scohy_T, "Linear");
+    r_2_fit_acidic(Scohy_potential, Scohy_current_density, Scohy_a_H_plus, Scohy_T, "Linear");
 
 [Scohy_curve_fit, Scohy_gof_fit] = ...                                      % This is the expression with no rds, but k_4 << 1
     r_fit(Scohy_potential, Scohy_current_density, Scohy_a_H_plus, Scohy_T, "Linear");
 
 % Damjanovic
 [Damjanovic_curve, Damjanovic_gof] = ...                                    % This is the expression with rds
-    r_2_fit(Damjanovic_potential, Damjanovic_current_density, Damjanovic_a_H_plus, Damjanovic_T, "Linear");
+    r_2_fit_acidic(Damjanovic_potential, Damjanovic_current_density, Damjanovic_a_H_plus, Damjanovic_T, "Linear");
 
 
 [Damjanovic_curve_fit, Damjanovic_gof_fit] = ...                            % This is the expression with no rds, but k_4 << 1
@@ -63,17 +63,17 @@ Cherevko_a_H_plus = 0.1*2;                                                  % [-
 
 % Damjanovic (log)
 [Damjanovic_log_curve, Damjanovic_log_gof] = ...                            % This is the expression with rds
-    r_2_fit(Damjanovic_potential, Damjanovic_current_density, Damjanovic_a_H_plus, Damjanovic_T, "Logarithmic");
+    r_2_fit_acidic(Damjanovic_potential, Damjanovic_current_density, Damjanovic_a_H_plus, Damjanovic_T, "Logarithmic");
 
 [Damjanovic_log_curve_fit, Damjanovic_log_gof_fit] = ...                    % This is the expression with no rds, but k_4 << 1
     r_fit(Damjanovic_potential, Damjanovic_current_density, Damjanovic_a_H_plus, Damjanovic_T, "Logarithmic");
 
 % Cherevko - Acidic
 [Cherevko_curve_acidic, Cherevko_gof_acidic] = ...                                              % This is the expression with rds
-    r_2_fit(Cherevko_E_acidic, Cherevko_i_acidic, Cherevko_a_H_plus, Cherevko_T_acidic, "Linear");
+    r_2_fit_acidic(Cherevko_E_acidic, Cherevko_i_acidic, Cherevko_a_H_plus, Cherevko_T_acidic, "Linear");
 
 
-% %% Plotting the fitting with the data
+%% Plotting the fitting with the data
 % 
 % % Scohy - Acidic
 % figure("Name", "Scohy Fitting Acidic")                                                                    % Creates figure
@@ -89,11 +89,13 @@ Cherevko_a_H_plus = 0.1*2;                                                  % [-
 % str_scohy = sprintf("$R^{2}$ = %.5f", round(Scohy_gof.rsquare, 5));         % Creating a string element for the annotation
 % annotation('textbox', [.15 .8 .1 .1], 'String',str_scohy,...                % Creating an annotation, textbox, with the rsquare value from the cfit
 %     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
-% ax_scohy.XAxis.FontSize = 12;                                               % Changing the tick size on the x-axis
-% ax_scohy.YAxis.FontSize = 12;                                               % Changing the tick size on the y-axis
+% ax_scohy.XAxis.FontSize = 15;                                               % Changing the tick size on the x-axis
+% ax_scohy.YAxis.FontSize = 15;                                               % Changing the tick size on the y-axis
 % xlabel('Potential - E/[$V$] vs RHE','Interpreter','latex', 'FontSize', 15)  % Creating x-label
 % ylabel('Current density - i/[$Am^{-2}$]',...                                % Creating y-label
 %     'Interpreter','latex', 'FontSize', 15)
+% annotation('textbox', [.15 .80 .1 .1], 'String',["Scohy -", "Acidic"],... % Creating an annotation, textbox, with the rsquare value from the cfit
+%     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
 % xlim([Scohy_potential(1) Scohy_potential(end)])
 % ylim([Scohy_current_density(1)*0 Scohy_current_density(end)])
 % 
@@ -113,11 +115,13 @@ Cherevko_a_H_plus = 0.1*2;                                                  % [-
 %     sprintf("$R^{2}$ = %.5f", round(Damjanovic_gof.rsquare, 5));
 % annotation('textbox', [.15 .8 .1 .1], 'String',str_damjanovic,...           % Creating an annotation, textbox, with the rsquare value from the cfit
 %     'Interpreter', 'latex','FitBoxToText','on', 'FontSize',15);
-% ax_damjanovic.XAxis.FontSize = 12;                                          % Changing the tick size on the x-axis
-% ax_damjanovic.YAxis.FontSize = 12;                                          % Changing the tick size on the y-axis
+% ax_damjanovic.XAxis.FontSize = 15;                                          % Changing the tick size on the x-axis
+% ax_damjanovic.YAxis.FontSize = 15;                                          % Changing the tick size on the y-axis
 % xlabel('Potential - E/[$V$] vs RHE','Interpreter','latex', 'FontSize',15)   % Creating x-label
 % ylabel('Current density - i/[$Am^{-2}$]',...                                % Creating y-label
 %     'Interpreter','latex', 'FontSize',15)
+% annotation('textbox', [.15 .80 .1 .1], 'String',["Damjanovic -", "Acidic"],... % Creating an annotation, textbox, with the rsquare value from the cfit
+%     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
 % xlim([Damjanovic_potential(1) Damjanovic_potential(end)])
 % ylim([Damjanovic_current_density(1)*0 Damjanovic_current_density(end)])
 % 
@@ -142,6 +146,8 @@ Cherevko_a_H_plus = 0.1*2;                                                  % [-
 % xlabel('Potential - E/[$V$] vs RHE','Interpreter','latex', 'FontSize',15)   % Creating x-label
 % ylabel('$\log_{10}$ of current density - $\log{i}$/[$Am^{-2}$]',...         % Creating y-label
 %     'Interpreter','latex', 'FontSize',15)
+% annotation('textbox', [.15 .80 .1 .1], 'String',["Damjanovic log -", "Acidic"],... % Creating an annotation, textbox, with the rsquare value from the cfit
+%     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
 % xlim([Damjanovic_potential(1) Damjanovic_potential(end)])
 % ylim([-5 log10(Damjanovic_current_density(end))])
 % 
@@ -166,6 +172,8 @@ Cherevko_a_H_plus = 0.1*2;                                                  % [-
 % xlabel('Potential - E/[$V$] vs RHE','Interpreter','latex', 'FontSize',15)   % Creating x-label
 % ylabel('Current density - i/[$Am^{-2}$]',...                                % Creating y-label
 %     'Interpreter','latex', 'FontSize',15)
+% annotation('textbox', [.15 .80 .1 .1], 'String',["Cherevko -", "Acidic"],... % Creating an annotation, textbox, with the rsquare value from the cfit
+%     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
 % xlim([Cherevko_E_acidic(1) Cherevko_E_acidic(end)])
 % ylim([Cherevko_i_acidic(1)*0 Cherevko_i_acidic(end)])
 %% %%%%%%%%%%% The data from the Mayrhofer article %%%%%%%%%%%%%%%%%%%%%%
