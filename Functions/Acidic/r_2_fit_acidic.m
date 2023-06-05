@@ -35,8 +35,8 @@ if data_type == "Linear"
 
     FO = fitoptions('Method','NonlinearLeastSquares',...
                'Lower',[eps, eps, eps],...                                  % gamma_k_2_0_plus alpha k_1_0
-               'Upper',[10^(2), 2, 10^(8)],...                              % gamma_k_2_0_plus alpha k_1_0
-               'StartPoint',[5.182*10^(-2), 0.5206, 2.734*10^(4)],...       % Starting point for the coefficients
+               'Upper',[10^(1), 2, 10^(8)],...                              % gamma_k_2_0_plus alpha k_1_0
+               'StartPoint',[5.182*10^(-5), 0.5206, 2.734*10^(4)],...       % Starting point for the coefficients
                'TolFun', 1e-20);                                            % Tolerance         
 
     [curve, gof] = fit(E,i,FT,FO);                                          % Curve contains the coefficients and gof some statistical data 
@@ -48,13 +48,13 @@ elseif data_type == "Logarithmic"
     E = E_data;                                                             % [V] - Potential vs SHE/RHE
     log_i = log10(i_data);                                                  % [log(A/m^2)] - Current density
 
-    fun = @(gamma_k_2_0_plus,alpha, k_1_0,x) log10(n.*F.*gamma_k_2_0_plus) + (1-alpha).*F.*(x - E_rev).*log10(exp(1))./(R.*T) - log10((1 + (a_H_plus./a_H2O).*k_1_0.*exp(-F*(x - E_rev)/(R.*T))));
+    fun = @(gamma_k_2_0_plus,alpha, k_1_0,x) log10(n.*F.*gamma_k_2_0_plus) + (1-alpha).*F.*(x - E_rev).*log10(exp(1))./(R.*T) - log10((1 + (a_H_plus./a_H2O).*k_1_0.*exp(-F.*(x - E_rev)/(R.*T))));
     FT = fittype(fun, 'independent',{'x'}, 'coefficients',{'gamma_k_2_0_plus', 'alpha', 'k_1_0'});
 
     FO = fitoptions('Method','NonlinearLeastSquares',...
                'Lower',[eps, eps, eps],...                                  % gamma_k_2_0_plus alpha k_1_0
-               'Upper',[10^(2), 2, 10^(8)],...                              % gamma_k_2_0_plus alpha k_1_0
-               'StartPoint',[5.182*10^(-2), 0.5206, 2.734*10^(4)],...       % Starting point for the coefficients
+               'Upper',[10^(1), 2, 10^(8)],...                              % gamma_k_2_0_plus alpha k_1_0
+               'StartPoint',[5.182*10^(-5), 0.5206, 2.734*10^(4)],...       % Starting point for the coefficients
                'TolFun', 1e-20);                                            % Tolerance   
 
 

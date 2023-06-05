@@ -35,8 +35,8 @@ if data_type == "Linear"
 
     FO = fitoptions('Method','NonlinearLeastSquares',...
                'Lower',[eps, eps, eps],...                                  % k_2_0_plus alpha k_1_0
-               'Upper',[10^(10), 2, 10^(10)],...                            % k_2_0_plus alpha k_1_0
-               'StartPoint',[1*10^(-2), 0.65, 10^(2)], ...                  % Starting point for the coefficients
+               'Upper',[10^(1), 2, 10^(7)],...                            % k_2_0_plus alpha k_1_0
+               'StartPoint',[1*10^(-5), 0.55, 10^(2)], ...                  % Starting point for the coefficients
                'TolFun', 1e-20);         
 
 
@@ -54,8 +54,8 @@ elseif data_type == "Logarithmic"
 
     FO = fitoptions('Method','NonlinearLeastSquares',...
                'Lower',[eps, eps, eps],...                                  % k_2_0_plus alpha k_1_0
-               'Upper',[10^10, 2, 10^(10)],...                              % k_2_0_plus alpha k_1_0
-               'StartPoint',[1*10^(-2), 0.65, 1*10^(2)],...                                 % Starting point for the coefficients
+               'Upper',[10^1, 2, 10^(7)],...                              % k_2_0_plus alpha k_1_0
+               'StartPoint',[1*10^(-5), 0.55, 1*10^(2)],...                                 % Starting point for the coefficients
                'TolFun', 1e-20);         
 
 
