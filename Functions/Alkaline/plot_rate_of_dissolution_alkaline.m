@@ -26,7 +26,7 @@ k_4_0_plus = [10^(-1) 10^(-2) 10^(-3)];
 
 % Data used for fitting r2_alkaline
 Cherevko_alkaline = readmatrix("Data\Alkaline\Cherevko_alkaline_polarisation_data.xlsx");% Potential/current density data from Cherevko
-Damjanovic_alkaline = readmatrix("Data\Alkaline\Damjanovic_polarisation_alkaline.xlsx"); % Current density/potential data from Damjanovic
+Damjanovic_alkaline = readmatrix("Data\Alkaline\Damjanovic_alkaline_polarisation_3.xlsx"); % Current density/potential data from Damjanovic
 %--------------------------------------------------------------------------
 Schalenbach_polarisation_alkaline = readmatrix("Data\Alkaline\Schalenbach\Schalenbach_polarisation_curve_alkaline.xlsx");% Polarisation curve from alkaline dissolution
 %--------------------------------------------------------------------------
