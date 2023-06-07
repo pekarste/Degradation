@@ -31,7 +31,7 @@ Schalenbach_OH_alkaline = 0.05*1;                                              %
 [curve_alkaline, gof_alkaline] = ...                                        % This is the expression with rds
     r_2_fit_alkaline(E_data, i_data, a_OH, T, data_type);
 %% %%%%%%%%%%%%%%%%% Data for degradation %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Schalenbach_dissolution_CV_linear_data = readmatrix("Data\Alkaline\Schalenbach\Schalenbach_dissolution_linear_alkaline.xlsx");
+Schalenbach_dissolution_CV_linear_data = readmatrix("Data\Alkaline\Schalenbach\Schalenbach_dissolution_alkaline_peak_2.xlsx");
 % Schalenbach dissolution vs time - [ng/cm^2*s]
 
 %Schalenbach_dissolution_CV_linear = Schalenbach_dissolution_CV_linear_data(1:end,2);    % Schalenbach dissolution data - [ng/cm^2*s]
@@ -45,7 +45,7 @@ Schalenbach_time_CV_linear = Schalenbach_dissolution_CV_linear_data(1:end,1);   
 [t_ode15s_alkaline, gamma_theta_ode15s_alkaline] = diff_equation_solver_alkaline(Schalenbach_time_CV_linear, "value", curve_alkaline, Schalenbach_OH_alkaline, T, k_4_0_plus, theta_2_0);
 
 %% %%%%%%%%%%Transforming time to potential for the ode15s solution
-potential_ode15s_1 = CV_potential_alkaline(t_ode15s_alkaline, "array");
+potential_ode15s_1 = CV_potential_alkaline_2(t_ode15s_alkaline, "array");
 
 %% Interpolating the solution from ode15s to find values corresponding to
 % the measured values since ode15s gives more points

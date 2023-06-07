@@ -51,7 +51,7 @@ Schalenbach_OH_alkaline = 0.05*1;                                              %
 Schalenbach_sweep_rate = 2*10^(-3);                                            % [V/s] -Schalenbach Sweep rate 
 %--------------------------------------------------------------------------
 
-Schalenbach_dissolution_CV_linear_data = readmatrix("Data\Alkaline\Schalenbach\Schalenbach_dissolution_linear_alkaline.xlsx");
+Schalenbach_dissolution_CV_linear_data = readmatrix("Data\Alkaline\Schalenbach\Schalenbach_dissolution_alkaline_peak_2.xlsx");
 % Schalenbach dissolution vs time - [ng/cm^2*s]
 
 Schalenbach_dissolution_CV_linear = Schalenbach_dissolution_CV_linear_data(1:end,2);    % Schalenbach dissolution data - [ng/cm^2*s]
@@ -61,7 +61,7 @@ Schalenbach_dissolution_mole = Schalenbach_dissolution_CV_linear*10^(-9)*10^(4)/
 %% ################## Theta vs Time #############################
 
 % Transforming time to potential fot the interpolation
-potential_interpol_alkaline = CV_potential_alkaline(Schalenbach_time_CV_linear, "array");
+potential_interpol_alkaline = CV_potential_alkaline_2(Schalenbach_time_CV_linear, "array");
 
 % Creating a string element for the legends
 string_array_1 = sprintf('$k^{0}_{4+}$ = %.1f', round(k_4_0_plus(1), 5));
