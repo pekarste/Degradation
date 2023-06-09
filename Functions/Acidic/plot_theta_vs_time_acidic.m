@@ -70,6 +70,11 @@ string_array_1 = sprintf('$k^{0}_{4+}$ = %.1f', round(k_4_0_plus(1), 5));
 string_array_2 = sprintf('$k^{0}_{4+}$ = %.2f', round(k_4_0_plus(2), 5));
 string_array_3 = sprintf('$k^{0}_{4+}$ = %.3f', round(k_4_0_plus(3), 5));
 string_array_4 = 'E(t)';
+
+% Colour blind pallette
+Orange          = [.90 .60 .0];                                        % Orange                                        
+Reddish_purple  = [.80 .60 .70];                                       % Reddish purple
+Sky_blue        = [.35 .70 .90];                                       % Sky blue
 %% Scohy
 [t_scohy_1, gamma_theta_scohy_1, potential_scohy_1, gamma_theta_scohy_interpol_1] =...
     time_theta_potential_ode15s_acidic(Scohy_E_acidic, Scohy_i_acidic, Scohy_a_H_plus, Scohy_T_acidic, "Linear", k_4_0_plus(1));
@@ -81,16 +86,16 @@ string_array_4 = 'E(t)';
 
 figure('Name', 'Scohy: theta_2 vs time')                                    % Creating figure
 %yyaxis left
-plot(t_scohy_1, gamma_theta_scohy_1, "Color", "red")                        % Plots the line for 1
+plot(t_scohy_1, gamma_theta_scohy_1, "Color", Orange)                        % Plots the line for 1
 hold on
 scatter(Mayrhofer_time, gamma_theta_scohy_interpol_1,...                    % Scatter interpolated values for 1
-    45,"red", 'o')                                                                      
-plot(t_scohy_2, gamma_theta_scohy_2, "Color", "blue")                       % Plots the line for 2
+    45,Orange, 'o', 'filled')                                                                      
+plot(t_scohy_2, gamma_theta_scohy_2, "Color", Reddish_purple)                       % Plots the line for 2
 scatter(Mayrhofer_time, gamma_theta_scohy_interpol_2,...                    % Scatter interpolated values for 2
-    45,"blue", 'square')     
-plot(t_scohy_3, gamma_theta_scohy_3, "Color", "green")                      % Plots the line for 3
+    45,Reddish_purple, 'square', 'filled')     
+plot(t_scohy_3, gamma_theta_scohy_3, "Color", Sky_blue)                      % Plots the line for 3
 scatter(Mayrhofer_time, gamma_theta_scohy_interpol_3,...                    % Scatter the interpolated values for 3
-    45, "green", 'diamond')  
+    45, Sky_blue, 'diamond', 'filled')  
 %hold off
 ax_scohy_acidic = gca; % current axes                                       % Creating an ax with gca such that the fontsize can be changed
 ax_scohy_acidic.XAxis.FontSize = 15;                                        % Changing the tick size on the x-axis
@@ -113,11 +118,11 @@ ylim([min(potential_interpol_acidic)*0 max(potential_interpol_acidic)])
 annotation('textbox', [.15 .55 .1 .1], 'String',["Scohy -", "Acidic"],...% Creating an annotation, textbox, with the rsquare value from the cfit
     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
 annotation('textbox', [.60 .14 .1 .1], 'String',string_array_1,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','red');
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color',Orange);
 annotation('textbox', [.35 .40 .1 .1], 'String',string_array_2,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','blue');
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color',Reddish_purple);
 annotation('textbox', [.60 .75 .1 .1], 'String',string_array_3,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','green');
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color',Sky_blue);
 annotation('textbox', [.70 .55 .1 .1], 'String',string_array_4,...% Creating an annotation, textbox, with the rsquare value from the cfit
     'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color',[.5 .5 .5]);
 %--------------------------------------------------------------------------
@@ -133,16 +138,16 @@ annotation('textbox', [.70 .55 .1 .1], 'String',string_array_4,...% Creating an 
 
 figure('Name', 'Damjanovic: theta_2 vs time')                               % Creating figure
 %yyaxis left
-plot(t_damj_1, gamma_theta_damj_1, "Color", "red")                          % Plots the line for 1
+plot(t_damj_1, gamma_theta_damj_1, "Color", Orange)                          % Plots the line for 1
 hold on
 scatter(Mayrhofer_time, gamma_theta_damj_interpol_1,...                     % Scatter interpolated values for 1
-    45,"red", 'o')                                                                      
-plot(t_damj_2, gamma_theta_damj_2, "Color", "blue")                         % Plots the line for 2
+    45,Orange, 'o', 'filled')                                                                      
+plot(t_damj_2, gamma_theta_damj_2, "Color", Reddish_purple)                         % Plots the line for 2
 scatter(Mayrhofer_time, gamma_theta_damj_interpol_2,...                     % Scatter interpolated values for 2
-    45,"blue", 'square')     
-plot(t_damj_3, gamma_theta_damj_3, "Color", "green")                        % Plots the line for 3
+    45,Reddish_purple, 'square', 'filled')     
+plot(t_damj_3, gamma_theta_damj_3, "Color", Sky_blue)                        % Plots the line for 3
 scatter(Mayrhofer_time, gamma_theta_damj_interpol_3,...                     % Scatter the interpolated values for 3
-    45, "green", 'diamond')  
+    45, Sky_blue, 'diamond', 'filled')  
 %hold off
 ax_damj_acidic = gca; % current axes                                        % Creating an ax with gca such that the fontsize can be changed
 ax_damj_acidic.XAxis.FontSize = 15;                                         % Changing the tick size on the x-axis
@@ -167,11 +172,11 @@ ylim([min(potential_interpol_acidic)*0 max(potential_interpol_acidic)])
 annotation('textbox', [.52 .32 .1 .1], 'String',["Damjanovic -", "Acidic"],...% Creating an annotation, textbox, with the rsquare value from the cfit
     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
 annotation('textbox', [.55 .17 .1 .1], 'String',string_array_1,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','red');
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color',Orange);
 annotation('textbox', [.40 .50 .1 .1], 'String',string_array_2,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','blue');
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color',Reddish_purple);
 annotation('textbox', [.60 .75 .1 .1], 'String',string_array_3,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','green');
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color',Sky_blue);
 annotation('textbox', [.70 .55 .1 .1], 'String',string_array_4,...% Creating an annotation, textbox, with the rsquare value from the cfit
     'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color',[.5 .5 .5]);
 %--------------------------------------------------------------------------
@@ -187,16 +192,16 @@ annotation('textbox', [.70 .55 .1 .1], 'String',string_array_4,...% Creating an 
 
 figure('Name', 'Damjanovic log: theta_2 vs time')                           % Creating figure
 %yyaxis left
-plot(t_damj_log_1, gamma_theta_damj_log_1, "Color", "red")                  % Plots the line for 1
+plot(t_damj_log_1, gamma_theta_damj_log_1, "Color", Orange)                  % Plots the line for 1
 hold on
 scatter(Mayrhofer_time, gamma_theta_damj_log_interpol_1,...                 % Scatter interpolated values for 1
-    45,"red", 'o')                                                                      
-plot(t_damj_log_2, gamma_theta_damj_log_2, "Color", "blue")                 % Plots the line for 2
+    45,Orange, 'o', 'filled')                                                                      
+plot(t_damj_log_2, gamma_theta_damj_log_2, "Color", Reddish_purple)                 % Plots the line for 2
 scatter(Mayrhofer_time, gamma_theta_damj_log_interpol_2,...                 % Scatter interpolated values for 2
-    45,"blue", 'square')     
-plot(t_damj_log_3, gamma_theta_damj_log_3, "Color", "green")                % Plots the line for 3
+    45,Reddish_purple, 'square', 'filled')     
+plot(t_damj_log_3, gamma_theta_damj_log_3, "Color", Sky_blue)                % Plots the line for 3
 scatter(Mayrhofer_time, gamma_theta_damj_log_interpol_3,...                 % Scatter the interpolated values for 3
-    45, "green", 'diamond')  
+    45, Sky_blue, 'diamond', 'filled')  
 %hold off
 ax_damj_log_acidic = gca; % current axes                                    % Creating an ax with gca such that the fontsize can be changed
 ax_damj_log_acidic.XAxis.FontSize = 15;                                     % Changing the tick size on the x-axis
@@ -221,11 +226,11 @@ ylim([min(potential_interpol_acidic)*0 max(potential_interpol_acidic)])
 annotation('textbox', [.52 .32 .1 .1], 'String',["Damjanovic log-", "Acidic"],...% Creating an annotation, textbox, with the rsquare value from the cfit
     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
 annotation('textbox', [.55 .17 .1 .1], 'String',string_array_1,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','red');
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color',Orange);
 annotation('textbox', [.40 .50 .1 .1], 'String',string_array_2,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','blue');
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color',Reddish_purple);
 annotation('textbox', [.60 .75 .1 .1], 'String',string_array_3,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','green');
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color',Sky_blue);
 annotation('textbox', [.70 .55 .1 .1], 'String',string_array_4,...% Creating an annotation, textbox, with the rsquare value from the cfit
     'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color',[.5 .5 .5]);
 %--------------------------------------------------------------------------
@@ -242,16 +247,16 @@ annotation('textbox', [.70 .55 .1 .1], 'String',string_array_4,...% Creating an 
 
 figure('Name', 'Cherevko: theta_2 vs time')                                 % Creating figure
 %yyaxis left
-plot(t_cherevko_1, gamma_theta_cherevko_1, "Color", "red")                  % Plots the line for 1
+plot(t_cherevko_1, gamma_theta_cherevko_1, "Color", Orange)                  % Plots the line for 1
 hold on
 scatter(Mayrhofer_time, gamma_theta_cherevko_interpol_1,...                 % Scatter interpolated values for 1
-    45,"red", 'o')                                                                      
-plot(t_cherevko_2, gamma_theta_cherevko_2, "Color", "blue")                 % Plots the line for 2
+    45,Orange, 'o', 'filled')                                                                      
+plot(t_cherevko_2, gamma_theta_cherevko_2, "Color", Reddish_purple)                 % Plots the line for 2
 scatter(Mayrhofer_time, gamma_theta_cherevko_interpol_2,...                 % Scatter interpolated values for 2
-    45,"blue", 'square')     
-plot(t_cherevko_3, gamma_theta_cherevko_3, "Color", "green")                % Plots the line for 3
+    45,Reddish_purple, 'square', 'filled')     
+plot(t_cherevko_3, gamma_theta_cherevko_3, "Color", Sky_blue)                % Plots the line for 3
 scatter(Mayrhofer_time, gamma_theta_cherevko_interpol_3,...                 % Scatter the interpolated values for 3
-    45, "green", 'diamond')  
+    45, Sky_blue, 'diamond', 'filled')  
 %hold off
 ax_cherevko_acidic = gca; % current axes                                    % Creating an ax with gca such that the fontsize can be changed
 ax_cherevko_acidic.XAxis.FontSize = 15;                                     % Changing the tick size on the x-axis
@@ -276,11 +281,11 @@ ylim([min(potential_interpol_acidic)*0 max(potential_interpol_acidic)])
 annotation('textbox', [.52 .35 .1 .1], 'String',["Cherevko -", "Acidic"],...% Creating an annotation, textbox, with the rsquare value from the cfit
     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
 annotation('textbox', [.50 .17 .1 .1], 'String',string_array_1,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','red');
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color',Orange);
 annotation('textbox', [.37 .55 .1 .1], 'String',string_array_2,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','blue');
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color',Reddish_purple);
 annotation('textbox', [.60 .75 .1 .1], 'String',string_array_3,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','green');
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color',Sky_blue);
 annotation('textbox', [.70 .55 .1 .1], 'String',string_array_4,...% Creating an annotation, textbox, with the rsquare value from the cfit
     'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color',[.5 .5 .5]);
 %--------------------------------------------------------------------------
@@ -289,19 +294,19 @@ annotation('textbox', [.70 .55 .1 .1], 'String',string_array_4,...% Creating an 
 
 figure('Name', 'Cherevko: theta_2 vs time')                                 % Creating figure
 %yyaxis left
-plot(t_cherevko_1, gamma_theta_cherevko_1, "Color", "red")                  % Plots the line for 1
+plot(t_cherevko_1, gamma_theta_cherevko_1, "Color", Orange)                  % Plots the line for 1
 hold on
 scatter(Mayrhofer_time, gamma_theta_cherevko_interpol_1,...                 % Scatter interpolated values for 1
-    45,"red", 'o')                                                                      
-plot(t_cherevko_2, gamma_theta_cherevko_2, "Color", "blue")                 % Plots the line for 2
+    45,Orange, 'o', 'filled')                                                                      
+plot(t_cherevko_2, gamma_theta_cherevko_2, "Color", Reddish_purple)                 % Plots the line for 2
 scatter(Mayrhofer_time, gamma_theta_cherevko_interpol_2,...                 % Scatter interpolated values for 2
-    45,"blue", 'square')     
-plot(t_cherevko_3, gamma_theta_cherevko_3, "Color", "green")                % Plots the line for 3
+    45,Reddish_purple, 'square', 'filled')     
+plot(t_cherevko_3, gamma_theta_cherevko_3, "Color", Sky_blue)                % Plots the line for 3
 scatter(Mayrhofer_time, gamma_theta_cherevko_interpol_3,...                 % Scatter the interpolated values for 3
-    45, "green", 'diamond')  
+    45, Sky_blue, 'diamond', 'filled')  
 hold off
 ax_cherevko_acidic = gca; % current axes                                    % Creating an ax with gca such that the fontsize can be changed
-ax_cherevko_acidic.XAxis.FontSize = 12;                                     % Changing the tick size on the x-axis
+ax_cherevko_acidic.XAxis.FontSize = 12;                                     % Changing"green" the tick size on the x-axis
 ax_cherevko_acidic.YAxis.FontSize = 12;                                     % Changing the tick size on the y-axis
 xlabel('Time -t [$s$]','Interpreter','latex')
 ylabel('$\Gamma\theta_{2}(t)$ - [$-$]','Interpreter','latex')

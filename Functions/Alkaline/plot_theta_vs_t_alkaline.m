@@ -51,22 +51,26 @@ Schalenbach_OH_alkaline = 0.05*1;                                              %
 Schalenbach_sweep_rate = 2*10^(-3);                                            % [V/s] -Schalenbach Sweep rate 
 %--------------------------------------------------------------------------
 
-Schalenbach_dissolution_CV_linear_data = readmatrix("Data\Alkaline\Schalenbach\Schalenbach_dissolution_linear_alkaline.xlsx");
+Schalenbach_dissolution_CV_linear_data = readmatrix("Data\Alkaline\Schalenbach\Schalenbach_dissolution_alkaline_peak_1.xlsx");
 % Schalenbach dissolution vs time - [ng/cm^2*s]
 
 Schalenbach_dissolution_CV_linear = Schalenbach_dissolution_CV_linear_data(1:end,2);    % Schalenbach dissolution data - [ng/cm^2*s]
 Schalenbach_time_CV_linear = Schalenbach_dissolution_CV_linear_data(1:end,1);           % Schalenbach time data - [s]
 Schalenbach_dissolution_mole = Schalenbach_dissolution_CV_linear*10^(-9)*10^(4)/Mm_Ir;  % Changes the units from ng/cm^2*s --> mole/m^2*s
 
+% Colour blind pallette
+Orange          = [.90 .60 .0];                                        % Orange                                        
+Reddish_purple  = [.80 .60 .70];                                       % Reddish purple
+Sky_blue        = [.35 .70 .90];                                       % Sky blue
 %% ################## Theta vs Time #############################
 
 % Transforming time to potential fot the interpolation
 potential_interpol_alkaline = CV_potential_alkaline(Schalenbach_time_CV_linear, "array");
 
 % Creating a string element for the legends
-string_array_1 = sprintf('$k^{0}_{4+}$ = %.1f', round(k_4_0_plus(1), 5));
-string_array_2 = sprintf('$k^{0}_{4+}$ = %.2f', round(k_4_0_plus(2), 5));
-string_array_3 = sprintf('$k^{0}_{4+}$ = %.3f', round(k_4_0_plus(3), 5));
+string_array_1 = sprintf('$k^{0}_{4+}$ = %.1f $s^{-1}$', round(k_4_0_plus(1), 5));
+string_array_2 = sprintf('$k^{0}_{4+}$ = %.2f $s^{-1}$', round(k_4_0_plus(2), 5));
+string_array_3 = sprintf('$k^{0}_{4+}$ = %.3f $s^{-1}$', round(k_4_0_plus(3), 5));
 string_array_4 = 'E(t)';
 
 %% Cherevko
@@ -80,16 +84,16 @@ string_array_4 = 'E(t)';
 
 figure('Name', 'Cherevko: theta_2 vs time')                                     % Creating figure
 %yyaxis left
-plot(t_cherevko_1, gamma_theta_cherevko_1, "Color", "red")                            % Plots the line for 1
+plot(t_cherevko_1, gamma_theta_cherevko_1, "Color", Orange)                            % Plots the line for 1
 hold on
 scatter(Schalenbach_time_CV_linear, theta_cherevko_interpol_1,...               % Scatter interpolated values for 1
-    45,"red", 'o')                                                                      
-plot(t_cherevko_2, gamma_theta_cherevko_2, "Color", "blue")                           % Plots the line for 2
+    45,Orange, 'o','filled')                                                                      
+plot(t_cherevko_2, gamma_theta_cherevko_2, "Color", Reddish_purple)                           % Plots the line for 2
 scatter(Schalenbach_time_CV_linear, theta_cherevko_interpol_2,...               % Scatter interpolated values for 2
-    45,"blue", 'square')     
-plot(t_cherevko_3, gamma_theta_cherevko_3, "Color", "green")                          % Plots the line for 3
+    45,Reddish_purple, 'square', 'filled')     
+plot(t_cherevko_3, gamma_theta_cherevko_3, "Color", Sky_blue)                          % Plots the line for 3
 scatter(Schalenbach_time_CV_linear, theta_cherevko_interpol_3,...               % Scatter the interpolated values for 3
-    45, "green", 'diamond')  
+    45, Sky_blue, 'diamond', 'filled')  
 %hold off
 ax_cherevko_alkaline = gca; % current axes                                      % Creating an ax with gca such that the fontsize can be changed
 ax_cherevko_alkaline.XAxis.FontSize = 15;                                       % Changing the tick size on the x-axis
@@ -114,13 +118,13 @@ ylabel('E - [$V vs RHE$]','Interpreter','latex')                                
 annotation('textbox', [.15 .75 .1 .1], 'String',["Cherevko -", "Alkaline"],...% Creating an annotation, textbox, with the rsquare value from the cfit
     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
 annotation('textbox', [.60 .14 .1 .1], 'String',string_array_1,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','red');
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',16, 'Color',Orange);
 annotation('textbox', [.55 .50 .1 .1], 'String',string_array_2,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','blue', 'Rotation',-45);
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',16, 'Color',Reddish_purple, 'Rotation',-45);
 annotation('textbox', [.60 .75 .1 .1], 'String',string_array_3,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','green');
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',16, 'Color',Sky_blue, 'Rotation', -20);
 annotation('textbox', [.70 .55 .1 .1], 'String',string_array_4,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color',[.5 .5 .5]);
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',16, 'Color',[.5 .5 .5]);
 %--------------------------------------------------------------------------
 
 %% Damjanovic
@@ -134,16 +138,16 @@ annotation('textbox', [.70 .55 .1 .1], 'String',string_array_4,...% Creating an 
 
 figure('Name', 'Damjanovic: theta_2 vs time')                                   % Creating figure
 %yyaxis left
-plot(t_damj_1, gamma_theta_damj_1, "Color", "red")                                    % Plots the line for 1
+plot(t_damj_1, gamma_theta_damj_1, "Color", Orange)                                    % Plots the line for 1
 hold on
 scatter(Schalenbach_time_CV_linear, theta_damj_interpol_1,...                   % Scatter interpolated values for 1
-    45,"red", 'o')                                                                      
-plot(t_damj_2, gamma_theta_damj_2, "Color", "blue")                             % Plots the line for 2
+    45,Orange, 'o', 'filled')                                                                      
+plot(t_damj_2, gamma_theta_damj_2, "Color", Reddish_purple)                             % Plots the line for 2
 scatter(Schalenbach_time_CV_linear, theta_damj_interpol_2,...                   % Scatter interpolated values for 2
-    45,"blue", 'square')     
-plot(t_damj_3, gamma_theta_damj_3, "Color", "green")                            % Plots the line for 3
+    45,Reddish_purple, 'square', 'filled')     
+plot(t_damj_3, gamma_theta_damj_3, "Color", Sky_blue)                            % Plots the line for 3
 scatter(Schalenbach_time_CV_linear, theta_damj_interpol_3,...                   % Scatter the interpolated values for 3
-    45, "green", 'diamond')  
+    45, Sky_blue, 'diamond', 'filled')  
 %hold off
 ax_damj_alkaline = gca; % current axes                                          % Creating an ax with gca such that the fontsize can be changed
 ax_damj_alkaline.XAxis.FontSize = 15;                                           % Changing the tick size on the x-axis
@@ -164,16 +168,16 @@ ylabel('E - [$V vs RHE$]','Interpreter','latex')                                
 % legend({'',string_array_1, '', string_array_2, '', string_array_3, "E(t)"},...  % Creating a legend for the graphs
 %     'Position', [.2375 .55 .1 .1],'Interpreter','latex', 'FontSize',15)
 
-annotation('textbox', [.15 .75 .1 .1], 'String',["Damjanovic -", "Alkaline"],...% Creating an annotation, textbox, with the rsquare value from the cfit
+annotation('textbox', [.15 .80 .1 .1], 'String',["Damjanovic -", "Alkaline"],...% Creating an annotation, textbox, with the rsquare value from the cfit
     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
 annotation('textbox', [.60 .14 .1 .1], 'String',string_array_1,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','red');
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',16, 'Color',Orange);
 annotation('textbox', [.55 .50 .1 .1], 'String',string_array_2,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','blue', 'Rotation',-45);
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',16, 'Color',Reddish_purple, 'Rotation',-45);
 annotation('textbox', [.60 .75 .1 .1], 'String',string_array_3,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','green');
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',16, 'Color',Sky_blue, 'Rotation', -20);
 annotation('textbox', [.70 .55 .1 .1], 'String',string_array_4,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color',[.5 .5 .5]);
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',16, 'Color',[.5 .5 .5]);
 %--------------------------------------------------------------------------
 
 %% Damjanovic log
@@ -187,16 +191,16 @@ annotation('textbox', [.70 .55 .1 .1], 'String',string_array_4,...% Creating an 
 
 figure('Name', 'Damjanovic log: theta_2 vs time')                                   % Creating figure
 %yyaxis left
-plot(t_damj_log_1, gamma_theta_damj_log_1, "Color", "red")                                    % Plots the line for 1
+plot(t_damj_log_1, gamma_theta_damj_log_1, "Color", Orange)                                    % Plots the line for 1
 hold on
 scatter(Schalenbach_time_CV_linear, theta_damj_log_interpol_1,...                   % Scatter interpolated values for 1
-    45,"red", 'o')                                                                      
-plot(t_damj_log_2, gamma_theta_damj_log_2, "Color", "blue")                                   % Plots the line for 2
+    45, Orange, 'o', 'filled')                                                                      
+plot(t_damj_log_2, gamma_theta_damj_log_2, "Color", Reddish_purple)                                   % Plots the line for 2
 scatter(Schalenbach_time_CV_linear, theta_damj_log_interpol_2,...                   % Scatter interpolated values for 2
-    45,"blue", 'square')     
-plot(t_damj_log_3, gamma_theta_damj_log_3, "Color", "green")                                  % Plots the line for 3
+    45, Reddish_purple, 'square', 'filled')     
+plot(t_damj_log_3, gamma_theta_damj_log_3, "Color", Sky_blue)                                  % Plots the line for 3
 scatter(Schalenbach_time_CV_linear, theta_damj_log_interpol_3,...                   % Scatter the interpolated values for 3
-    45, "green", 'diamond')  
+    45, Sky_blue, 'diamond', 'filled')  
 %hold off
 ax_damj_log_alkaline = gca; % current axes                                          % Creating an ax with gca such that the fontsize can be changed
 ax_damj_log_alkaline.XAxis.FontSize = 15;                                           % Changing the tick size on the x-axis
@@ -220,13 +224,13 @@ ylabel('E - [$V vs RHE$]','Interpreter','latex')                                
 annotation('textbox', [.15 .80 .1 .1], 'String',["Damjanovic log-", "Alkaline"],...% Creating an annotation, textbox, with the rsquare value from the cfit
     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
 annotation('textbox', [.60 .17 .1 .1], 'String',string_array_1,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','red');
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',16, 'Color',Orange);
 annotation('textbox', [.57 .52 .1 .1], 'String',string_array_2,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','blue', 'Rotation',-45);
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',16, 'Color',Reddish_purple, 'Rotation',-45);
 annotation('textbox', [.60 .75 .1 .1], 'String',string_array_3,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','green');
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',16, 'Color',Sky_blue, 'Rotation', -20);
 annotation('textbox', [.70 .55 .1 .1], 'String',string_array_4,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color',[.5 .5 .5]);
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',16, 'Color',[.5 .5 .5]);
 %--------------------------------------------------------------------------
 %
 %% Schalenbach
@@ -240,16 +244,16 @@ annotation('textbox', [.70 .55 .1 .1], 'String',string_array_4,...% Creating an 
 
 figure('Name', 'Schalenbach: theta_2 vs time')                                   % Creating figure
 %yyaxis left
-plot(t_schalenbach_1, gamma_theta_schalenbach_1, "Color", "red")                       % Plots the line for 1
+plot(t_schalenbach_1, gamma_theta_schalenbach_1, "Color", Orange)                       % Plots the line for 1
 hold on
 scatter(Schalenbach_time_CV_linear, theta_schalenbach_interpol_1,...             % Scatter interpolated values for 1
-    45,"red", 'o')                                                                      
-plot(t_schalenbach_2, gamma_theta_schalenbach_2, "Color", "blue")                      % Plots the line for 2
+    45,Orange, 'o', 'filled')                                                                      
+plot(t_schalenbach_2, gamma_theta_schalenbach_2, "Color", Reddish_purple)                      % Plots the line for 2
 scatter(Schalenbach_time_CV_linear, theta_schalenbach_interpol_2,...             % Scatter interpolated values for 2
-    45,"blue", 'square')     
-plot(t_schalenbach_3, gamma_theta_schalenbach_3, "Color", "green")                     % Plots the line for 3
+    45,Reddish_purple, 'square', 'filled')     
+plot(t_schalenbach_3, gamma_theta_schalenbach_3, "Color", Sky_blue)                     % Plots the line for 3
 scatter(Schalenbach_time_CV_linear, theta_schalenbach_interpol_3,...             % Scatter the interpolated values for 3
-    45, "green", 'diamond')  
+    45, Sky_blue, 'diamond', 'filled')  
 %hold off
 ax_schalenbach_alkaline = gca; % current axes                                    % Creating an ax with gca such that the fontsize can be changed
 ax_schalenbach_alkaline.XAxis.FontSize = 15;                                     % Changing the tick size on the x-axis
@@ -273,13 +277,13 @@ ylabel('E - [$V vs RHE$]','Interpreter','latex')                                
 annotation('textbox', [.15 .80 .1 .1], 'String',["Schalenbach-", "Alkaline"],...% Creating an annotation, textbox, with the rsquare value from the cfit
     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
 annotation('textbox', [.60 .15 .1 .1], 'String',string_array_1,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','red');
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',16, 'Color',Orange);
 annotation('textbox', [.55 .5 .1 .1], 'String',string_array_2,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','blue', 'Rotation',-50);
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',16, 'Color',Reddish_purple, 'Rotation',-50);
 annotation('textbox', [.60 .75 .1 .1], 'String',string_array_3,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','green');
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',16, 'Color',Sky_blue, 'Rotation', -20);
 annotation('textbox', [.70 .55 .1 .1], 'String',string_array_4,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color',[.5 .5 .5]);
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',16, 'Color',[.5 .5 .5]);
 %--------------------------------------------------------------------------
 
 %% Schalenbach
@@ -289,13 +293,13 @@ figure('Name', 'Schalenbach: theta_2 vs time')                                  
 plot(t_schalenbach_1, gamma_theta_schalenbach_1, "Color", "red")                       % Plots the line for 1
 hold on
 scatter(Schalenbach_time_CV_linear, theta_schalenbach_interpol_1,...             % Scatter interpolated values for 1
-    45,"red", 'o')                                                                      
+    45,"red", 'o', 'filled')                                                                      
 plot(t_schalenbach_2, gamma_theta_schalenbach_2, "Color", "blue")                      % Plots the line for 2
 scatter(Schalenbach_time_CV_linear, theta_schalenbach_interpol_2,...             % Scatter interpolated values for 2
-    45,"blue", 'square')     
+    45,"blue", 'square', 'filled')     
 plot(t_schalenbach_3, gamma_theta_schalenbach_3, "Color", "green")                     % Plots the line for 3
 scatter(Schalenbach_time_CV_linear, theta_schalenbach_interpol_3,...             % Scatter the interpolated values for 3
-    45, "green", 'diamond')  
+    45, "green", 'diamond', 'filled')  
 hold off
 ax_schalenbach_alkaline = gca; % current axes                                    % Creating an ax with gca such that the fontsize can be changed
 ax_schalenbach_alkaline.XAxis.FontSize = 12;                                     % Changing the tick size on the x-axis

@@ -66,10 +66,15 @@ Mayrhofer_T = 25 + 273.13;                                                  % ma
 potential_interpol_acidic = CV_potential_acidic(Mayrhofer_time, "array");
 
 % Creating a string element for the legends
-string_array_1 = sprintf('$k^{0}_{4+}$ = %.2f', round(k_4_0_plus(1), 5));
-string_array_2 = sprintf('$k^{0}_{4+}$ = %.3f', round(k_4_0_plus(2), 5));
-string_array_3 = sprintf('$k^{0}_{4+}$ = %.4f', round(k_4_0_plus(3), 5));
+string_array_1 = sprintf('$k^{0}_{4+}$ = %.2f $s^{-1}$', round(k_4_0_plus(1), 5));
+string_array_2 = sprintf('$k^{0}_{4+}$ = %.3f $s^{-1}$', round(k_4_0_plus(2), 5));
+string_array_3 = sprintf('$k^{0}_{4+}$ = %.4f $s^{-1}$', round(k_4_0_plus(3), 5));
 string_array_4 = '$\frac{d Ir}{d t}$';
+
+% Colour blind pallette
+Orange          = [.90 .60 .0];                                        % Orange                                        
+Reddish_purple  = [.80 .60 .70];                                       % Reddish purple
+Sky_blue        = [.35 .70 .90];                                       % Sky blue
 
 %% ####################       Scohy        ################################
 [t_scohy_1, gamma_theta_scohy_1, potential_scohy_1, theta_scohy_interpol_1] =...
@@ -81,16 +86,16 @@ string_array_4 = '$\frac{d Ir}{d t}$';
 
 figure('Name', 'Scohy: theta_2 vs potential')                               % Creating figure
 %yyaxis left
-plot(potential_scohy_1, gamma_theta_scohy_1, "Color", "red")                % Plots the line for 1
+plot(potential_scohy_1, gamma_theta_scohy_1, "Color", Orange)                % Plots the line for 1
 hold on
 scatter(potential_interpol_acidic, theta_scohy_interpol_1,...               % Scatter interpolated values for 1
-    45,"red", 'o')                                                                      
-plot(potential_scohy_2, gamma_theta_scohy_2, "Color", "blue")               % Plots the line for 2
+   45,Orange, 'o', 'filled')                                                                      
+plot(potential_scohy_2, gamma_theta_scohy_2, "Color", Reddish_purple)               % Plots the line for 2
 scatter(potential_interpol_acidic, theta_scohy_interpol_2,...               % Scatter interpolated values for 2
-   45,"blue", 'square')     
-plot(potential_scohy_3, gamma_theta_scohy_3, "Color", "green")              % Plots the line for 3
+   45,Reddish_purple, 'square', 'filled')     
+plot(potential_scohy_3, gamma_theta_scohy_3, "Color", Sky_blue)              % Plots the line for 3
 scatter(potential_interpol_acidic, theta_scohy_interpol_3,...               % Scatter the interpolated values for 3
-   45, "green", 'diamond')  
+   45, Sky_blue, 'diamond', 'filled')  
 hold off
 xlabel('Potential -E vs RHE [$V$]','Interpreter','latex',...
     'FontSize',15)
@@ -125,7 +130,7 @@ arh1 = annotation('arrow', 'LineStyle','none',...                           % Cr
     'HeadWidth',15, 'HeadStyle','vback2');
 arh1.Units = 'normalized';                                                  % Normalaizing the units
 arh1.Position = [x1p_1, y1p_1, x2p_1-x1p_1, y2p_1-y1p_1];                   % Defines position
-arh1.Color = 'red';                                                         % Defines colour for arrowhead
+arh1.Color = Orange;                                                         % Defines colour for arrowhead
 
 % Arrowhead 2 -------------------------------------------------------------
 x1_2 = potential_interpol_acidic(end-2);                                    % x_begin for arrow
@@ -142,7 +147,7 @@ arh2 = annotation('arrow', 'LineStyle','none',...                           % Cr
     'HeadWidth',15, 'HeadStyle','vback2');
 arh2.Units = 'normalized';                                                  % Normalaizing the units
 arh2.Position = [x1p_2, y1p_2, x2p_2-x1p_2, y2p_2-y1p_2];                   % Defines position
-arh2.Color = 'blue';                                                        % Defines colour for arrowhead
+arh2.Color = Reddish_purple;                                                        % Defines colour for arrowhead
 
 % Arrowhead 3 -------------------------------------------------------------
 x1_3 = potential_interpol_acidic(end-2);                                    % x_begin for arrow
@@ -159,7 +164,7 @@ arh3 = annotation('arrow', 'LineStyle','none',...                           % Cr
     'HeadWidth',15, 'HeadStyle','vback2');
 arh3.Units = 'normalized';                                                  % Normalaizing the units
 arh3.Position = [x1p_3, y1p_3, x2p_3-x1p_3, y2p_3-y1p_3];                   % Defines position
-arh3.Color = 'green';                                                       % Defines colour for arrowhead
+arh3.Color = Sky_blue;                                                       % Defines colour for arrowhead
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 yyaxis right
@@ -204,11 +209,11 @@ arhd.Color = [.5 .5 .5];                                                    % De
 annotation('textbox', [.15 .67 .1 .1], 'String',["Scohy -", "Acidic"],...% Creating an annotation, textbox, with the rsquare value from the cfit
     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
 annotation('textbox', [.60 .14 .1 .1], 'String',string_array_1,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','red', 'Rotation',45);
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color',Orange, 'Rotation',45);
 annotation('textbox', [.25 .45 .1 .1], 'String',string_array_2,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','blue', 'Rotation',25);
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color',Reddish_purple, 'Rotation',25);
 annotation('textbox', [.25 .75 .1 .1], 'String',string_array_3,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','green', 'Rotation',5);
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color',Sky_blue, 'Rotation',5);
 annotation('textbox', [.70 .49 .1 .1], 'String',string_array_4,...% Creating an annotation, textbox, with the rsquare value from the cfit
     'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',20, 'Color',[.5 .5 .5]);
 %--------------------------------------------------------------------------
@@ -224,16 +229,16 @@ annotation('textbox', [.70 .49 .1 .1], 'String',string_array_4,...% Creating an 
 
 figure('Name', 'Damjanovic: theta_2 vs potential')                          % Creating figure
 %yyaxis left
-plot(potential_damj_1, gamma_theta_damj_1, "Color", "red")                  % Plots the line for 1
+plot(potential_damj_1, gamma_theta_damj_1, "Color", Orange)                  % Plots the line for 1
 hold on
 scatter(potential_interpol_acidic, theta_damj_interpol_1,...                % Scatter interpolated values for 1
-    45,"red", 'o')                                                                      
-plot(potential_damj_2, gamma_theta_damj_2, "Color", "blue")                 % Plots the line for 2
+    45,Orange, 'o', 'filled')                                                                      
+plot(potential_damj_2, gamma_theta_damj_2, "Color", Reddish_purple)                 % Plots the line for 2
 scatter(potential_interpol_acidic, theta_damj_interpol_2,...                % Scatter interpolated values for 2
-    45,"blue", 'square')     
-plot(potential_damj_3, gamma_theta_damj_3, "Color", "green")                % Plots the line for 3
+    45,Reddish_purple, 'square', 'filled')     
+plot(potential_damj_3, gamma_theta_damj_3, "Color", Sky_blue)                % Plots the line for 3
 scatter(potential_interpol_acidic, theta_damj_interpol_3,...                % Scatter the interpolated values for 3
-    45, "green", 'diamond')  
+    45, Sky_blue, 'diamond', 'filled')  
 %hold off
 ax_damj_acidic = gca; % current axes                                        % Creating an ax with gca such that the fontsize can be changed
 ax_damj_acidic.XAxis.FontSize = 15;                                         % Changing the tick size on the x-axis
@@ -266,7 +271,7 @@ arh1 = annotation('arrow', 'LineStyle','none',...                           % Cr
     'HeadWidth',15, 'HeadStyle','vback2');
 arh1.Units = 'normalized';                                                  % Normalaizing the units
 arh1.Position = [x1p_1, y1p_1, x2p_1-x1p_1, y2p_1-y1p_1];                   % Defines position
-arh1.Color = 'red';                                                         % Defines colour for arrowhead
+arh1.Color = Orange;                                                         % Defines colour for arrowhead
 
 % Arrowhead 2 -------------------------------------------------------------
 x1_2 = potential_interpol_acidic(end-2);                                    % x_begin for arrow
@@ -283,7 +288,7 @@ arh2 = annotation('arrow', 'LineStyle','none',...                           % Cr
     'HeadWidth',15, 'HeadStyle','vback2');
 arh2.Units = 'normalized';                                                  % Normalaizing the units
 arh2.Position = [x1p_2, y1p_2, x2p_2-x1p_2, y2p_2-y1p_2];                   % Defines position
-arh2.Color = 'blue';                                                        % Defines colour for arrowhead
+arh2.Color = Reddish_purple;                                                        % Defines colour for arrowhead
 
 % Arrowhead 3 -------------------------------------------------------------
 x1_3 = potential_interpol_acidic(end-2);                                    % x_begin for arrow
@@ -300,7 +305,7 @@ arh3 = annotation('arrow', 'LineStyle','none',...                           % Cr
     'HeadWidth',15, 'HeadStyle','vback2');
 arh3.Units = 'normalized';                                                  % Normalaizing the units
 arh3.Position = [x1p_3, y1p_3, x2p_3-x1p_3, y2p_3-y1p_3];                   % Defines position
-arh3.Color = 'green';                                                       % Defines colour for arrowhead
+arh3.Color = Sky_blue;                                                       % Defines colour for arrowhead
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 yyaxis right
@@ -345,11 +350,11 @@ arhd.Color = [.5 .5 .5];                                                    % De
 annotation('textbox', [.20 .6 .1 .1], 'String',["Damjanovic -", "Acidic"],...% Creating an annotation, textbox, with the rsquare value from the cfit
     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
 annotation('textbox', [.70 .15 .1 .1], 'String',string_array_1,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','red', 'Rotation',55);
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color',Orange, 'Rotation',55);
 annotation('textbox', [.27 .30 .1 .1], 'String',string_array_2,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','blue', 'Rotation',25);
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color',Reddish_purple, 'Rotation',25);
 annotation('textbox', [.24 .7 .1 .1], 'String',string_array_3,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','green', 'Rotation',5);
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color',Sky_blue, 'Rotation',5);
 annotation('textbox', [.725 .46 .1 .1], 'String',string_array_4,...% Creating an annotation, textbox, with the rsquare value from the cfit
     'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',20, 'Color',[.5 .5 .5]);
  
@@ -364,16 +369,16 @@ annotation('textbox', [.725 .46 .1 .1], 'String',string_array_4,...% Creating an
 
 figure('Name', 'Damjanovic log: theta_2 vs potential')                      % Creating figure
 %yyaxis left
-plot(potential_damj_log_1, gamma_theta_damj_log_1, "Color", "red")          % Plots the line for 1
+plot(potential_damj_log_1, gamma_theta_damj_log_1, "Color", Orange)          % Plots the line for 1
 hold on
 scatter(potential_interpol_acidic, theta_damj_log_interpol_1,...            % Scatter interpolated values for 1
-    45,"red", 'o')                                                                      
-plot(potential_damj_log_2, gamma_theta_damj_log_2, "Color", "blue")         % Plots the line for 2
+    45,Orange, 'o', 'filled')                                                                      
+plot(potential_damj_log_2, gamma_theta_damj_log_2, "Color", Reddish_purple)         % Plots the line for 2
 scatter(potential_interpol_acidic, theta_damj_log_interpol_2,...            % Scatter interpolated values for 2
-    45,"blue", 'square')     
-plot(potential_damj_log_3, gamma_theta_damj_log_3, "Color", "green")        % Plots the line for 3
+    45,Reddish_purple, 'square', 'filled')     
+plot(potential_damj_log_3, gamma_theta_damj_log_3, "Color", Sky_blue)        % Plots the line for 3
 scatter(potential_interpol_acidic, theta_damj_log_interpol_3,...            % Scatter the interpolated values for 3
-    45, "green", 'diamond')  
+    45, Sky_blue, 'diamond', 'filled')  
 %hold off
 ax_damj_log_acidic = gca; % current axes                                    % Creating an ax with gca such that the fontsize can be changed
 ax_damj_log_acidic.XAxis.FontSize = 15;                                     % Changing the tick size on the x-axis
@@ -406,7 +411,7 @@ arh1 = annotation('arrow', 'LineStyle','none',...                           % Cr
     'HeadWidth',15, 'HeadStyle','vback2');
 arh1.Units = 'normalized';                                                  % Normalaizing the units
 arh1.Position = [x1p_1, y1p_1, x2p_1-x1p_1, y2p_1-y1p_1];                   % Defines position
-arh1.Color = 'red';                                                         % Defines colour for arrowhead
+arh1.Color = Orange;                                                         % Defines colour for arrowhead
 
 % Arrowhead 2 -------------------------------------------------------------
 x1_2 = potential_interpol_acidic(end-2);                                    % x_begin for arrow
@@ -423,7 +428,7 @@ arh2 = annotation('arrow', 'LineStyle','none',...                           % Cr
     'HeadWidth',15, 'HeadStyle','vback2');
 arh2.Units = 'normalized';                                                  % Normalaizing the units
 arh2.Position = [x1p_2, y1p_2, x2p_2-x1p_2, y2p_2-y1p_2];                   % Defines position
-arh2.Color = 'blue';                                                        % Defines colour for arrowhead
+arh2.Color = Reddish_purple;                                                        % Defines colour for arrowhead
 
 % Arrowhead 3 -------------------------------------------------------------
 x1_3 = potential_interpol_acidic(end-2);                                    % x_begin for arrow
@@ -440,7 +445,7 @@ arh3 = annotation('arrow', 'LineStyle','none',...                           % Cr
     'HeadWidth',15, 'HeadStyle','vback2');
 arh3.Units = 'normalized';                                                  % Normalaizing the units
 arh3.Position = [x1p_3, y1p_3, x2p_3-x1p_3, y2p_3-y1p_3];                   % Defines position
-arh3.Color = 'green';                                                       % Defines colour for arrowhead
+arh3.Color = Sky_blue;                                                       % Defines colour for arrowhead
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 yyaxis right
@@ -485,11 +490,11 @@ arhd.Color = [.5 .5 .5];                                                    % De
 annotation('textbox', [.15 .60 .1 .1], 'String',["Damjanovic log-", "Acidic"],...% Creating an annotation, textbox, with the rsquare value from the cfit
     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
 annotation('textbox', [.70 .15 .1 .1], 'String',string_array_1,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','red', 'Rotation',55);
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color',Orange, 'Rotation',55);
 annotation('textbox', [.27 .30 .1 .1], 'String',string_array_2,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','blue', 'Rotation',25);
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color',Reddish_purple, 'Rotation',25);
 annotation('textbox', [.25 .69 .1 .1], 'String',string_array_3,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','green', 'Rotation',5);
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color',Sky_blue, 'Rotation',5);
 annotation('textbox', [.725 .46 .1 .1], 'String',string_array_4,...% Creating an annotation, textbox, with the rsquare value from the cfit
     'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',20, 'Color',[.5 .5 .5]);
 
@@ -503,16 +508,16 @@ annotation('textbox', [.725 .46 .1 .1], 'String',string_array_4,...% Creating an
 
 figure('Name', 'Cherevko: theta_2 vs potential')                              % Creating figure
 %yyaxis left
-plot(potential_cherevko_1, gamma_theta_cherevko_1, "Color", "red")               % Plots the line for 1
+plot(potential_cherevko_1, gamma_theta_cherevko_1, "Color", Orange)               % Plots the line for 1
 hold on
 scatter(potential_interpol_acidic, theta_cherevko_interpol_1,...                     % Scatter interpolated values for 1
-    45,"red", 'o')                                                                      
-plot(potential_cherevko_2, gamma_theta_cherevko_2, "Color", "blue")              % Plots the line for 2
+    45,Orange, 'o', 'filled')                                                                      
+plot(potential_cherevko_2, gamma_theta_cherevko_2, "Color", Reddish_purple)              % Plots the line for 2
 scatter(potential_interpol_acidic, theta_cherevko_interpol_2,...                     % Scatter interpolated values for 2
-    45,"blue", 'square')     
-plot(potential_cherevko_3, gamma_theta_cherevko_3, "Color", "green")             % Plots the line for 3
+    45,Reddish_purple, 'square', 'filled')     
+plot(potential_cherevko_3, gamma_theta_cherevko_3, "Color", Sky_blue)             % Plots the line for 3
 scatter(potential_interpol_acidic, theta_cherevko_interpol_3,...                     % Scatter the interpolated values for 3
-    45, "green", 'diamond')  
+    45, Sky_blue, 'diamond', 'filled')  
 %hold off
 ax_cherevko_acidic = gca; % current axes                                    % Creating an ax with gca such that the fontsize can be changed
 ax_cherevko_acidic.XAxis.FontSize = 15;                                     % Changing the tick size on the x-axis
@@ -545,7 +550,7 @@ arh1 = annotation('arrow', 'LineStyle','none',...                               
     'HeadWidth',15, 'HeadStyle','vback2');
 arh1.Units = 'normalized';                                                      % Normalaizing the units
 arh1.Position = [x1p_1, y1p_1, x2p_1-x1p_1, y2p_1-y1p_1];                       % Defines position
-arh1.Color = 'red';                                                             % Defines colour for arrowhead
+arh1.Color = Orange;                                                             % Defines colour for arrowhead
 
 % Arrowhead 2 -------------------------------------------------------------
 x1_2 = potential_interpol_acidic(end-2);                                               % x_begin for arrow
@@ -562,7 +567,7 @@ arh2 = annotation('arrow', 'LineStyle','none',...                               
     'HeadWidth',15, 'HeadStyle','vback2');
 arh2.Units = 'normalized';                                                      % Normalaizing the units
 arh2.Position = [x1p_2, y1p_2, x2p_2-x1p_2, y2p_2-y1p_2];                       % Defines position
-arh2.Color = 'blue';                                                            % Defines colour for arrowhead
+arh2.Color = Reddish_purple;                                                            % Defines colour for arrowhead
 
 % Arrowhead 3 -------------------------------------------------------------
 x1_3 = potential_interpol_acidic(end-2);                                               % x_begin for arrow
@@ -579,7 +584,7 @@ arh3 = annotation('arrow', 'LineStyle','none',...                               
     'HeadWidth',15, 'HeadStyle','vback2');
 arh3.Units = 'normalized';                                                      % Normalaizing the units
 arh3.Position = [x1p_3, y1p_3, x2p_3-x1p_3, y2p_3-y1p_3];                       % Defines position
-arh3.Color = 'green';                                                           % Defines colour for arrowhead
+arh3.Color = Sky_blue;                                                           % Defines colour for arrowhead
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 yyaxis right
 ax_cherevko_acidic.YAxis(2).FontSize = 15;
@@ -621,10 +626,10 @@ arhd.Color = [.5 .5 .5];                                                        
 annotation('textbox', [.15 .60 .1 .1], 'String',["Cherevko-", "Acidic"],...% Creating an annotation, textbox, with the rsquare value from the cfit
     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
 annotation('textbox', [.70 .14 .1 .1], 'String',string_array_1,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','red', 'Rotation',55);
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color',Orange, 'Rotation',55);
 annotation('textbox', [.27 .30 .1 .1], 'String',string_array_2,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','blue', 'Rotation',23);
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color',Reddish_purple, 'Rotation',23);
 annotation('textbox', [.25 .69 .1 .1], 'String',string_array_3,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','green', 'Rotation',5);
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color',Sky_blue, 'Rotation',5);
 annotation('textbox', [.725 .46 .1 .1], 'String',string_array_4,...% Creating an annotation, textbox, with the rsquare value from the cfit
     'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',20, 'Color',[.5 .5 .5]);

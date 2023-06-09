@@ -66,10 +66,16 @@ Mayrhofer_T = 25 + 273.13;                                                  % ma
 potential_interpol_acidic = CV_potential_acidic(Mayrhofer_time, "array");
 
 % Creating a string element for the legends
-string_array_1 = sprintf('$r_{3}$($k^{0}_{4+}$ = %.2f)', round(k_4_0_plus(1), 5));
-string_array_2 = sprintf('$r_{3}$($k^{0}_{4+}$ = %.3f)', round(k_4_0_plus(2), 5));
-string_array_3 = sprintf('$r_{3}$($k^{0}_{4+}$ = %.4f)', round(k_4_0_plus(3), 5));
+string_array_1 = sprintf('$r_{3}$($k^{0}_{4+}$ = %.2f $s^{-1}$)', round(k_4_0_plus(1), 5));
+string_array_2 = sprintf('$r_{3}$($k^{0}_{4+}$ = %.3f $s^{-1}$)', round(k_4_0_plus(2), 5));
+string_array_3 = sprintf('$r_{3}$($k^{0}_{4+}$ = %.4f $s^{-1}$)', round(k_4_0_plus(3), 5));
 string_array_4 = '$\frac{d Ir}{d t}$';
+
+% Colour blind pallette
+Orange          = [.90 .60 .0];                                        % Orange                                        
+Reddish_purple  = [.80 .60 .70];                                       % Reddish purple
+Sky_blue        = [.35 .70 .90];                                       % Sky blue
+
 
 %% ####################     Scohy     ################################
 
@@ -86,16 +92,22 @@ scohy_1_curve = chi_square_acidic(t_scohy_1, gamma_theta_scohy_1, k_4_0_plus(1),
 scohy_2_curve = chi_square_acidic(t_scohy_2, gamma_theta_scohy_2, k_4_0_plus(2), Mayrhofer_time, Mayrhofer_dissolution_mole);
 scohy_3_curve = chi_square_acidic(t_scohy_3, gamma_theta_scohy_3, k_4_0_plus(3), Mayrhofer_time, Mayrhofer_dissolution_mole);
 
-scohy_1_string = sprintf('$k^{0}_{3+}$ = %.3g', scohy_1_curve.k_3_0_plus);
-scohy_2_string = sprintf('$k^{0}_{3+}$ = %.3g', scohy_2_curve.k_3_0_plus);
-scohy_3_string = sprintf('$k^{0}_{3+}$ = %.3g', scohy_3_curve.k_3_0_plus);
+scohy_1_string = sprintf('$k^{0}_{3+}$ = %.3g $s^{-1}$', scohy_1_curve.k_3_0_plus);
+scohy_2_string = sprintf('$k^{0}_{3+}$ = %.3g $s^{-1}$', scohy_2_curve.k_3_0_plus);
+scohy_3_string = sprintf('$k^{0}_{3+}$ = %.3g $s^{-1}$', scohy_3_curve.k_3_0_plus);
 
 % Plotting
 figure('Name','Scohy: r_3')
-fig_scohy_1 = plot(scohy_1_curve, 'red');
+fig_scohy_1 = plot(scohy_1_curve);
 hold on
-fig_scohy_2 = plot(scohy_2_curve, "green");                           % Creating a fig to stor the plot of the curve fit (cfit element)
-fig_scohy_3 = plot(scohy_3_curve, "blue");                            % Creating a fig to stor the plot of the curve fit (cfit element)
+scatter(Mayrhofer_time, scohy_1_curve.k_3_0_plus.*theta_scohy_interpol_1.*a_H2O,...
+    45, Orange, "filled","o")
+fig_scohy_2 = plot(scohy_2_curve);                           % Creating a fig to stor the plot of the curve fit (cfit element)
+scatter(Mayrhofer_time, scohy_2_curve.k_3_0_plus.*theta_scohy_interpol_2.*a_H2O,...
+    45, Reddish_purple, "filled","square")
+fig_scohy_3 = plot(scohy_3_curve);                            % Creating a fig to stor the plot of the curve fit (cfit element)
+scatter(Mayrhofer_time, scohy_3_curve.k_3_0_plus.*theta_scohy_interpol_3.*a_H2O,...
+    45, Sky_blue, "filled","diamond")
 plot(Mayrhofer_time, Mayrhofer_dissolution_mole,...           % Plots the potential regime
     'color', [.5 .5 .5], 'LineWidth', 1, 'LineStyle', '--')
 
@@ -103,13 +115,19 @@ set(fig_scohy_1,'lineWidth',1);                                          % Chang
 set(fig_scohy_2,'lineWidth',1);                                          % Changing the linewidth of the curve of the cfit
 set(fig_scohy_3,'lineWidth',1);                                          % Changing the linewidth of the curve of the cfithold off
 
+% Colour blind pallette
+fig_scohy_1.Color = Orange;                                        % Orange                                        
+fig_scohy_2.Color = Reddish_purple;                                % Reddish purple
+fig_scohy_3.Color = Sky_blue;                                      % Sky blue
+
+
 ax_scohy_acidic = gca; % current axes                                  % Creating an ax with gca such that the fontsize can be changed
 ax_scohy_acidic.XAxis.FontSize = 15;                                   % Changing the tick size on the x-axis
 ax_scohy_acidic.YAxis.FontSize = 15;                                   % Changing the tick size on the y-axis
 
 annotation('textbox', [.15 .80 .1 .1], 'String',["Scohy -", "Acidic"],... % Creating an annotation, textbox, with the rsquare value from the cfit
     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
-legend({string_array_1, string_array_2, string_array_3, ''},...                                                             % Creating a legend for the graphs
+legend({'', string_array_1, '',  string_array_2, '', string_array_3, string_array_4},...                                                             % Creating a legend for the graphs
     'Position', [.67 .77 .1 .1], 'Interpreter','latex', 'FontSize',15)
 
 xlabel('Time t - [s]','Interpreter','latex', 'FontSize', 15)                % Creating x-label
@@ -119,13 +137,13 @@ xlim([Mayrhofer_time(1) Mayrhofer_time(end)])
 ylim([0 3.5*10^(-8)])
 
 annotation('textbox', [.46 .52 .1 .1], 'String',scohy_1_string,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','red', 'Rotation', -10);
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',15, 'Color',Orange, 'Rotation', -10);
 annotation('textbox', [.62 .54 .1 .1], 'String',scohy_2_string,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','blue', 'Rotation', -3);
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',15, 'Color',Reddish_purple, 'Rotation', -20);
 annotation('textbox', [.65 .38 .1 .1], 'String',scohy_3_string,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','green', 'Rotation', -20);
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',15, 'Color',Sky_blue, 'Rotation', -3);
 annotation('textbox', [.37 .65 .1 .1], 'String',string_array_4,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color',[.5 .5 .5]);
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',20, 'Color',[.5 .5 .5]);
 %--------------------------------------------------------------------------
 
 %% #####################     Damjanovic       #############################
@@ -143,16 +161,22 @@ damj_1_curve = chi_square_acidic(t_damj_1, gamma_theta_damj_1, k_4_0_plus(1), Ma
 damj_2_curve = chi_square_acidic(t_damj_2, gamma_theta_damj_2, k_4_0_plus(2), Mayrhofer_time, Mayrhofer_dissolution_mole);
 damj_3_curve = chi_square_acidic(t_damj_3, gamma_theta_damj_3, k_4_0_plus(3), Mayrhofer_time, Mayrhofer_dissolution_mole);
 
-damj_1_string = sprintf('$k^{0}_{3+}$ = %.3g', damj_1_curve.k_3_0_plus);
-damj_2_string = sprintf('$k^{0}_{3+}$ = %.3g', damj_2_curve.k_3_0_plus);
-damj_3_string = sprintf('$k^{0}_{3+}$ = %.3g', damj_3_curve.k_3_0_plus);
+damj_1_string = sprintf('$k^{0}_{3+}$ = %.3g $s^{-1}$', damj_1_curve.k_3_0_plus);
+damj_2_string = sprintf('$k^{0}_{3+}$ = %.3g $s^{-1}$', damj_2_curve.k_3_0_plus);
+damj_3_string = sprintf('$k^{0}_{3+}$ = %.3g $s^{-1}$', damj_3_curve.k_3_0_plus);
 
 % Plotting
 figure('Name', 'Damjanovic: r_3')                                           % Creating figure
-fig_damj_1 = plot(damj_1_curve, 'red');
+fig_damj_1 = plot(damj_1_curve);
 hold on
-fig_damj_2 = plot(damj_2_curve, "green");                                   % Creating a fig to stor the plot of the curve fit (cfit element)
-fig_damj_3 = plot(damj_3_curve, "blue");                                    % Creating a fig to stor the plot of the curve fit (cfit element)
+scatter(Mayrhofer_time, damj_1_curve.k_3_0_plus.*theta_damj_interpol_1.*a_H2O,...
+    45, Orange, "filled","o")
+fig_damj_2 = plot(damj_2_curve);                                   % Creating a fig to stor the plot of the curve fit (cfit element)
+scatter(Mayrhofer_time, damj_2_curve.k_3_0_plus.*theta_damj_interpol_2.*a_H2O,...
+    45, Reddish_purple, "filled","square")
+fig_damj_3 = plot(damj_3_curve);                                    % Creating a fig to stor the plot of the curve fit (cfit element)
+scatter(Mayrhofer_time, damj_3_curve.k_3_0_plus.*theta_damj_interpol_3.*a_H2O,...
+    45, Sky_blue, "filled","diamond")
 plot(Mayrhofer_time, Mayrhofer_dissolution_mole,...           % Plots the potential regime
     'color', [.5 .5 .5], 'LineWidth', 1, 'LineStyle', '--')
 
@@ -160,13 +184,18 @@ set(fig_damj_1,'lineWidth',1);                                              % Ch
 set(fig_damj_2,'lineWidth',1);                                              % Changing the linewidth of the curve of the cfit
 set(fig_damj_3,'lineWidth',1);                                              % Changing the linewidth of the curve of the cfithold off
 
+% Colour blind pallette
+fig_damj_1.Color = Orange;                                        % Orange                                        
+fig_damj_2.Color = Reddish_purple;                                % Reddish purple
+fig_damj_3.Color = Sky_blue;                                      % Sky blue
+
 ax_damj_acidic = gca; % current axes                                      % Creating an ax with gca such that the fontsize can be changed
 ax_damj_acidic.XAxis.FontSize = 15;                                       % Changing the tick size on the x-axis
 ax_damj_acidic.YAxis.FontSize = 15;                                       % Changing the tick size on the y-axis
 
 annotation('textbox', [.15 .80 .1 .1], 'String',["Damjanovic -", "Acidic"],... % Creating an annotation, textbox, with the rsquare value from the cfit
     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
-legend({string_array_1, string_array_2, string_array_3, ''},...                                                             % Creating a legend for the graphs
+legend({'',string_array_1,'', string_array_2,'', string_array_3, string_array_4},...                                                             % Creating a legend for the graphs
     'Position', [.67 .77 .1 .1], 'Interpreter','latex', 'FontSize',15)
 
 xlabel('Time t - [s]','Interpreter','latex', 'FontSize', 15)                % Creating x-label
@@ -175,13 +204,13 @@ ylabel('$r_{3}$ - [$\frac{mol}{m^{2}s}$]',...                               % Cr
 xlim([Mayrhofer_time(1) Mayrhofer_time(end)])
 ylim([0 3.5*10^(-8)])
 annotation('textbox', [.46 .15 .1 .1], 'String',damj_1_string,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','red', 'Rotation', -10);
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',15, 'Color',Orange, 'Rotation', -10);
 annotation('textbox', [.62 .46 .1 .1], 'String',damj_2_string,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','blue', 'Rotation', -3);
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',15, 'Color',Reddish_purple, 'Rotation', -20);
 annotation('textbox', [.62 .30 .1 .1], 'String',damj_3_string,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','green', 'Rotation', -20);
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',15, 'Color',Sky_blue, 'Rotation', -3);
 annotation('textbox', [.37 .65 .1 .1], 'String',string_array_4,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color',[.5 .5 .5]);
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',20, 'Color',[.5 .5 .5]);
 %--------------------------------------------------------------------------
 
 %% ###################    Damjanovic log     ##############################
@@ -199,16 +228,22 @@ damj_log_1_curve = chi_square_acidic(t_damj_log_1, gamma_theta_damj_log_1, k_4_0
 damj_log_2_curve = chi_square_acidic(t_damj_log_2, gamma_theta_damj_log_2, k_4_0_plus(2), Mayrhofer_time, Mayrhofer_dissolution_mole);
 damj_log_3_curve = chi_square_acidic(t_damj_log_3, gamma_theta_damj_log_3, k_4_0_plus(3), Mayrhofer_time, Mayrhofer_dissolution_mole);
 
-damj_log_1_string = sprintf('$k^{0}_{3+}$ = %.3g', damj_log_1_curve.k_3_0_plus);
-damj_log_2_string = sprintf('$k^{0}_{3+}$ = %.3g', damj_log_2_curve.k_3_0_plus);
-damj_log_3_string = sprintf('$k^{0}_{3+}$ = %.3g', damj_log_3_curve.k_3_0_plus);
+damj_log_1_string = sprintf('$k^{0}_{3+}$ = %.3g $s^{-1}$', damj_log_1_curve.k_3_0_plus);
+damj_log_2_string = sprintf('$k^{0}_{3+}$ = %.3g $s^{-1}$', damj_log_2_curve.k_3_0_plus);
+damj_log_3_string = sprintf('$k^{0}_{3+}$ = %.3g $s^{-1}$', damj_log_3_curve.k_3_0_plus);
 
 % Plotting
 figure('Name', 'Damjanovic log: r_3')                                       % Creating figure
-fig_damj_log_1 = plot(damj_log_1_curve, 'red');
+fig_damj_log_1 = plot(damj_log_1_curve);
 hold on
-fig_damj_log_2 = plot(damj_log_2_curve, "green");                           % Creating a fig to stor the plot of the curve fit (cfit element)
-fig_damj_log_3 = plot(damj_log_3_curve, "blue");                            % Creating a fig to stor the plot of the curve fit (cfit element)
+scatter(Mayrhofer_time, damj_log_1_curve.k_3_0_plus.*theta_damj_log_interpol_1.*a_H2O,...
+    45, Orange, "filled","o")
+fig_damj_log_2 = plot(damj_log_2_curve);                           % Creating a fig to stor the plot of the curve fit (cfit element)
+scatter(Mayrhofer_time, damj_log_2_curve.k_3_0_plus.*theta_damj_log_interpol_2.*a_H2O,...
+    45, Reddish_purple, "filled","square")
+fig_damj_log_3 = plot(damj_log_3_curve);                            % Creating a fig to stor the plot of the curve fit (cfit element)
+scatter(Mayrhofer_time, damj_log_3_curve.k_3_0_plus.*theta_damj_log_interpol_3.*a_H2O,...
+    45, Sky_blue, "filled","diamond")
 plot(Mayrhofer_time, Mayrhofer_dissolution_mole,...           % Plots the potential regime
     'color', [.5 .5 .5], 'LineWidth', 1, 'LineStyle', '--')
 
@@ -216,13 +251,18 @@ set(fig_damj_log_1,'lineWidth',1);                                          % Ch
 set(fig_damj_log_2,'lineWidth',1);                                          % Changing the linewidth of the curve of the cfit
 set(fig_damj_log_3,'lineWidth',1);                                          % Changing the linewidth of the curve of the cfithold off
 
+% Colour blind pallette
+fig_damj_log_1.Color = Orange;                                        % Orange                                        
+fig_damj_log_2.Color = Reddish_purple;                                % Reddish purple
+fig_damj_log_3.Color = Sky_blue;                                      % Sky blue
+
 ax_damj_log_acidic = gca; % current axes                                  % Creating an ax with gca such that the fontsize can be changed
 ax_damj_log_acidic.XAxis.FontSize = 15;                                   % Changing the tick size on the x-axis
 ax_damj_log_acidic.YAxis.FontSize = 15;                                   % Changing the tick size on the y-axis
 
 annotation('textbox', [.15 .80 .1 .1], 'String',["Damjanovic log -", "Acidic"],... % Creating an annotation, textbox, with the rsquare value from the cfit
     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
-legend({string_array_1, string_array_2, string_array_3, ''},...                                                             % Creating a legend for the graphs
+legend({'',string_array_1, '', string_array_2, '', string_array_3, string_array_4},...                                                             % Creating a legend for the graphs
     'Position', [.67 .77 .1 .1], 'Interpreter','latex', 'FontSize',15)
 
 xlabel('Time t - [s]','Interpreter','latex', 'FontSize', 15)                % Creating x-label
@@ -232,13 +272,13 @@ xlim([Mayrhofer_time(1) Mayrhofer_time(end)])
 ylim([0 3.5*10^(-8)])
 
 annotation('textbox', [.46 .15 .1 .1], 'String',damj_log_1_string,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','red', 'Rotation', -10);
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',15, 'Color',Orange, 'Rotation', -10);
 annotation('textbox', [.62 .46 .1 .1], 'String',damj_log_2_string,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','blue', 'Rotation', -3);
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',15, 'Color',Reddish_purple, 'Rotation', -20);
 annotation('textbox', [.62 .30 .1 .1], 'String',damj_log_3_string,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','green', 'Rotation', -20);
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',15, 'Color',Sky_blue, 'Rotation', -3);
 annotation('textbox', [.37 .65 .1 .1], 'String',string_array_4,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color',[.5 .5 .5]);
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',20, 'Color',[.5 .5 .5]);
 %--------------------------------------------------------------------------
 
 %% #########################     Cherevko     ##########################
@@ -256,27 +296,40 @@ cherevko_1_curve = chi_square_acidic(t_cherevko_1, gamma_theta_cherevko_1, k_4_0
 cherevko_2_curve = chi_square_acidic(t_cherevko_2, gamma_theta_cherevko_2, k_4_0_plus(2), Mayrhofer_time, Mayrhofer_dissolution_mole);
 cherevko_3_curve = chi_square_acidic(t_cherevko_3, gamma_theta_cherevko_3, k_4_0_plus(3), Mayrhofer_time, Mayrhofer_dissolution_mole);
 
-cherevko_1_string = sprintf('$k^{0}_{3+}$ = %.3g', cherevko_1_curve.k_3_0_plus);
-cherevko_2_string = sprintf('$k^{0}_{3+}$ = %.3g', cherevko_2_curve.k_3_0_plus);
-cherevko_3_string = sprintf('$k^{0}_{3+}$ = %.3g', cherevko_3_curve.k_3_0_plus);
+cherevko_1_string = sprintf('$k^{0}_{3+}$ = %.3g $s^{-1}$', cherevko_1_curve.k_3_0_plus);
+cherevko_2_string = sprintf('$k^{0}_{3+}$ = %.3g $s^{-1}$', cherevko_2_curve.k_3_0_plus);
+cherevko_3_string = sprintf('$k^{0}_{3+}$ = %.3g $s^{-1}$', cherevko_3_curve.k_3_0_plus);
 
 % Plotting
 figure('Name', 'Cherevko: r_3')                                       % Creating figure
-fig_cherevko_1_2 = plot(cherevko_1_curve, 'red');
+fig_cherevko_1 = plot(cherevko_1_curve);
 hold on
-fig_cherevko_2_2 = plot(cherevko_2_curve, "green");                        % Creating a fig to stor the plot of the curve fit (cfit element)
-fig_cherevko_3_2 = plot(cherevko_3_curve, "blue");                         % Creating a fig to stor the plot of the curve fit (cfit element)
-set(fig_cherevko_1_2,'lineWidth',1);                                          % Changing the linewidth of the curve of the cfit
-set(fig_cherevko_2_2,'lineWidth',1);                                          % Changing the linewidth of the curve of the cfit
-set(fig_cherevko_3_2,'lineWidth',1);                                          % Changing the linewidth of the curve of the cfithold off
+scatter(Mayrhofer_time, cherevko_1_curve.k_3_0_plus.*theta_cherevko_interpol_1.*a_H2O,...
+    45, Orange, "filled","o")
+fig_cherevko_2 = plot(cherevko_2_curve);                        % Creating a fig to stor the plot of the curve fit (cfit element)
+scatter(Mayrhofer_time, cherevko_2_curve.k_3_0_plus.*theta_cherevko_interpol_2.*a_H2O,...
+    45, Reddish_purple, "filled","square")
+fig_cherevko_3 = plot(cherevko_3_curve);                         % Creating a fig to stor the plot of the curve fit (cfit element)
+scatter(Mayrhofer_time, cherevko_3_curve.k_3_0_plus.*theta_cherevko_interpol_3.*a_H2O,...
+    45, Sky_blue, "filled","diamond")
 plot(Mayrhofer_time, Mayrhofer_dissolution_mole,...           % Plots the potential regime
     'color', [.5 .5 .5], 'LineWidth', 1, 'LineStyle', '--')
+
+set(fig_cherevko_1,'lineWidth',1);                                          % Changing the linewidth of the curve of the cfit
+set(fig_cherevko_2,'lineWidth',1);                                          % Changing the linewidth of the curve of the cfit
+set(fig_cherevko_3,'lineWidth',1);                                          % Changing the linewidth of the curve of the cfithold off
+
+% Colour blind pallette
+fig_cherevko_1.Color = Orange;                                        % Orange                                        
+fig_cherevko_2.Color = Reddish_purple;                                % Reddish purple
+fig_cherevko_3.Color = Sky_blue;                                      % Sky blue
+
 ax_cherevko_acidic = gca; % current axes                                  % Creating an ax with gca such that the fontsize can be changed
 ax_cherevko_acidic.XAxis.FontSize = 12;                                   % Changing the tick size on the x-axis
 ax_cherevko_acidic.YAxis.FontSize = 12;                                   % Changing the tick size on the y-axis
 annotation('textbox', [.15 .80 .1 .1], 'String',["Cherevko -", "Acidic"],... % Creating an annotation, textbox, with the rsquare value from the cfit
     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
-legend({string_array_1, string_array_2, string_array_3, ''},...                                                             % Creating a legend for the graphs
+legend({'', string_array_1, '', string_array_2, '', string_array_3, string_array_4},...                                                             % Creating a legend for the graphs
     'Position', [.67 .77 .1 .1], 'Interpreter','latex', 'FontSize',15)
 xlabel('Time t - [s]','Interpreter','latex', 'FontSize', 15)                % Creating x-label
 ylabel('Dissolution - [$\frac{mol}{m^{2}s}$]',...                               % Creating y-label
@@ -285,11 +338,11 @@ xlim([Mayrhofer_time(1) Mayrhofer_time(end)])
 ylim([0 3.5*10^(-8)])
 
 annotation('textbox', [.46 .15 .1 .1], 'String',cherevko_1_string,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','red', 'Rotation', -5);
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',15, 'Color',Orange, 'Rotation', -5);
 annotation('textbox', [.62 .46 .1 .1], 'String',cherevko_2_string,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','blue', 'Rotation', -3);
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',15, 'Color',Reddish_purple, 'Rotation', -20);
 annotation('textbox', [.62 .30 .1 .1], 'String',cherevko_3_string,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color','green', 'Rotation', -20);
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',15, 'Color',Sky_blue, 'Rotation', -3);
 annotation('textbox', [.37 .65 .1 .1], 'String',string_array_4,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',17, 'Color',[.5 .5 .5]);
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',20, 'Color',[.5 .5 .5]);
 %--------------------------------------------------------------------------
