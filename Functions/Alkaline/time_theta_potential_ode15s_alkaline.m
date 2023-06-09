@@ -31,7 +31,7 @@ Schalenbach_OH_alkaline = 0.05*1;                                              %
 [curve_alkaline, gof_alkaline] = ...                                        % This is the expression with rds
     r_2_fit_alkaline(E_data, i_data, a_OH, T, data_type);
 %% %%%%%%%%%%%%%%%%% Data for degradation %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Schalenbach_dissolution_CV_linear_data = readmatrix("Data\Alkaline\Schalenbach\Schalenbach_dissolution_linear_alkaline.xlsx");
+Schalenbach_dissolution_CV_linear_data = readmatrix("Data\Alkaline\Schalenbach\Schalenbach_dissolution_alkaline_peak_1.xlsx");
 % Schalenbach dissolution vs time - [ng/cm^2*s]
 
 %Schalenbach_dissolution_CV_linear = Schalenbach_dissolution_CV_linear_data(1:end,2);    % Schalenbach dissolution data - [ng/cm^2*s]
