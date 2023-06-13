@@ -50,10 +50,10 @@ Cherevko_a_H_plus = 0.1*2;                                                  % [-
 %--------------------------------------------------------------------------
 
 Mayrhofer_potential_data = readmatrix("Mayrhofer_potential.xlsx");          % Mayrhofer potential vs time data - Don't really use this... computes it based on scan rate and initial potential
-Mayrhofer_dissolution_data = readmatrix("Mayrhofer_dissolution_2.xlsx");    % Mayrhofer dissolution vs time data - [ng/cm^2s]
+Mayrhofer_dissolution_data = readmatrix("Mayrhofer_dissolution_slow_second.xlsx");    % Mayrhofer dissolution vs time data - [ng/cm^2s]
 
-Mayrhofer_dissolution = Mayrhofer_dissolution_data(5:end,2);                % Mayrhofer dissolution data - [ng/cm^2*s] -- Starting from 5 to remove the tail
-Mayrhofer_time = Mayrhofer_dissolution_data(5:end,1);                       % Mayrhofer time data [s] -- Starting from 5 to remove the tail to be consistent
+Mayrhofer_dissolution = Mayrhofer_dissolution_data(4:end-4,2);                % Mayrhofer dissolution data - [ng/cm^2*s] -- Starting from 5 to remove the tail
+Mayrhofer_time = Mayrhofer_dissolution_data(4:end-4,1);                       % Mayrhofer time data [s] -- Starting from 5 to remove the tail to be consistent
 
 Mayrhofer_dissolution_mole = Mayrhofer_dissolution*10^(-9)*10^(4)/Mm_Ir;    % Changes the units from ng/cm^2*s --> mole/m^2*s
 

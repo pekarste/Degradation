@@ -28,10 +28,10 @@ theta_2_0 = eps;
 [curve_acidic, gof_acidic] = ...                                        % This is the expression with rds
     r_2_fit_acidic(E_data, i_data, a_H, T, data_type);
 %% %%%%%%%%%%%%%%%%% Data for degradation %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Mayrhofer_dissolution_data = readmatrix("Mayrhofer_dissolution_2.xlsx");    % Mayrhofer dissolution vs time data - [ng/cm^2s]
+Mayrhofer_dissolution_data = readmatrix("Mayrhofer_dissolution_slow_second.xlsx");    % Mayrhofer dissolution vs time data - [ng/cm^2s]
 
 %Mayrhofer_dissolution = Mayrhofer_dissolution_data(5:end,2);                % Mayrhofer dissolution data - [ng/cm^2*s] -- Starting from 5 to remove the tail
-Mayrhofer_time = Mayrhofer_dissolution_data(5:end,1);                       % Mayrhofer time data [s] -- Starting from 5 to remove the tail to be consistent
+Mayrhofer_time = Mayrhofer_dissolution_data(4:end-4,1);                       % Mayrhofer time data [s] -- Starting from 5 to remove the tail to be consistent
 
 %Mayrhofer_dissolution_mole = Mayrhofer_dissolution*10^(-9)*10^(4)/Mm_Ir;    % Changes the units from ng/cm^2*s --> mole/m^2*s
 
