@@ -70,6 +70,11 @@ string_array_2 = sprintf('$k^{0}_{4+}$ = %.3f $s^{-1}$', round(k_4_0_plus(2), 5)
 string_array_3 = sprintf('$k^{0}_{4+}$ = %.4f $s^{-1}$', round(k_4_0_plus(3), 5));
 string_array_4 = '$\frac{d Ir}{d t}$';
 
+% Creating string elements for x and y labels
+x_label_string = '$E$ - [V vs RHE]';
+y_label_string = '$\Gamma\theta_{2}$(E) - [mol m$^{-2}$]';
+y_label_string_2 = '$\frac{d Ir}{d t}$ - [mol m$^{-2}$ s$^{-1}$]';
+
 % Colour blind pallette
 Orange          = [.90 .60 .0];                                        % Orange                                        
 Reddish_purple  = [.80 .60 .70];                                       % Reddish purple
@@ -98,8 +103,8 @@ hold off
 ax_cherevko_alkaline = gca; % current axes                                      % Creating an ax with gca such that the fontsize can be changed
 ax_cherevko_alkaline.XAxis.FontSize = 15;                                       % Changing the tick size on the x-axis
 ax_cherevko_alkaline(1).YAxis.FontSize = 15;                                       % Changing the tick size on the y-axis
-xlabel('Potential -E vs RHE [$V$]','Interpreter','latex')
-ylabel('$\Gamma\theta_{2}(t)$ - [$\frac{mol}{m^{2}}$]','Interpreter','latex')
+xlabel(x_label_string,'Interpreter','latex')
+ylabel(y_label_string,'Interpreter','latex')
 xlim([min(potential_interpol) 1.5])
 ylim([min(gamma_theta_cherevko_3)*0 max(gamma_theta_cherevko_3)])
 
@@ -126,7 +131,7 @@ arh1 = annotation('arrow', 'LineStyle','none',...                               
     'HeadWidth',15, 'HeadStyle','vback2');
 arh1.Units = 'normalized';                                                      % Normalaizing the units
 arh1.Position = [x1p_1, y1p_1, x2p_1-x1p_1, y2p_1-y1p_1];                       % Defines position
-arh1.Color = Orange;                                                             % Defines colour for arrowhead
+arh1.Color = 'black';                                                             % Defines colour for arrowhead
 
 % Arrowhead 2 -------------------------------------------------------------
 x1_2 = potential_interpol(end-2);                                               % x_begin for arrow
@@ -143,7 +148,7 @@ arh2 = annotation('arrow', 'LineStyle','none',...                               
     'HeadWidth',15, 'HeadStyle','vback2');
 arh2.Units = 'normalized';                                                      % Normalaizing the units
 arh2.Position = [x1p_2, y1p_2, x2p_2-x1p_2, y2p_2-y1p_2];                       % Defines position
-arh2.Color = Reddish_purple;                                                            % Defines colour for arrowhead
+arh2.Color = 'black';                                                            % Defines colour for arrowhead
 
 % Arrowhead 3 -------------------------------------------------------------
 x1_3 = potential_interpol(end-2);                                               % x_begin for arrow
@@ -160,13 +165,13 @@ arh3 = annotation('arrow', 'LineStyle','none',...                               
     'HeadWidth',15, 'HeadStyle','vback2');
 arh3.Units = 'normalized';                                                      % Normalaizing the units
 arh3.Position = [x1p_3, y1p_3, x2p_3-x1p_3, y2p_3-y1p_3];                       % Defines position
-arh3.Color = Sky_blue;                                                           % Defines colour for arrowhead
+arh3.Color = 'black';                                                           % Defines colour for arrowhead
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 yyaxis right
 plot(potential_interpol, Schalenbach_dissolution_mole,...                         % Plots the potential regime
     'color', [.5 .5 .5], 'LineWidth', 1.5, 'LineStyle', '--')
-ylabel('$\frac{d Ir}{d t}$ - [$\frac{mol}{m^{2}s}$]','Interpreter','latex')        % Label for second y_axis
+ylabel(y_label_string_2,'Interpreter','latex')        % Label for second y_axis
 ax_cherevko_alkaline.YAxis(2).FontSize = 15;
 ax_cherevko_alkaline.YAxis(2).Color = 'black';
 
@@ -239,8 +244,8 @@ scatter(potential_interpol, theta_damj_interpol_3,...                           
 ax_damj_alkaline = gca; % current axes                                          % Creating an ax with gca such that the fontsize can be changed
 ax_damj_alkaline.XAxis.FontSize = 15;                                           % Changing the tick size on the x-axis
 ax_damj_alkaline.YAxis.FontSize = 15;                                           % Changing the tick size on the y-axis
-xlabel('Potential -E vs RHE [$V$]','Interpreter','latex')
-ylabel('$\Gamma\theta_{2}(t)$ - [$\frac{mol}{m^{2}}$]','Interpreter','latex')
+xlabel(x_label_string,'Interpreter','latex')
+ylabel(y_label_string,'Interpreter','latex')
 xlim([min(potential_interpol) 1.5])
 ylim([min(gamma_theta_damj_3)*0 max(gamma_theta_damj_3)])
 
@@ -267,7 +272,7 @@ arh1 = annotation('arrow', 'LineStyle','none',...                               
     'HeadWidth',15, 'HeadStyle','vback2');
 arh1.Units = 'normalized';                                                      % Normalaizing the units
 arh1.Position = [x1p_1, y1p_1, x2p_1-x1p_1, y2p_1-y1p_1];                       % Defines position
-arh1.Color = Orange;                                                             % Defines colour for arrowhead
+arh1.Color = 'black';                                                             % Defines colour for arrowhead
 
 % Arrowhead 2 -------------------------------------------------------------
 x1_2 = potential_interpol(end-2);                                               % x_begin for arrow
@@ -284,7 +289,7 @@ arh2 = annotation('arrow', 'LineStyle','none',...                               
     'HeadWidth',15, 'HeadStyle','vback2');
 arh2.Units = 'normalized';                                                      % Normalaizing the units
 arh2.Position = [x1p_2, y1p_2, x2p_2-x1p_2, y2p_2-y1p_2];                       % Defines position
-arh2.Color = Reddish_purple;                                                            % Defines colour for arrowhead
+arh2.Color = 'black';                                                            % Defines colour for arrowhead
 
 % Arrowhead 3 -------------------------------------------------------------
 x1_3 = potential_interpol(end-2);                                               % x_begin for arrow
@@ -301,13 +306,13 @@ arh3 = annotation('arrow', 'LineStyle','none',...                               
     'HeadWidth',15, 'HeadStyle','vback2');
 arh3.Units = 'normalized';                                                      % Normalaizing the units
 arh3.Position = [x1p_3, y1p_3, x2p_3-x1p_3, y2p_3-y1p_3];                       % Defines position
-arh3.Color = Sky_blue;                                                           % Defines colour for arrowhead
+arh3.Color = 'black';                                                           % Defines colour for arrowhead
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 yyaxis right
 plot(potential_interpol, Schalenbach_dissolution_mole,...                        % Plots the potential regime
     'color', [.5 .5 .5], 'LineWidth', 1.5, 'LineStyle', '--')
-ylabel('$\frac{d Ir}{d t}$ - [$\frac{mol}{m^{2}s}$]','Interpreter','latex')      % Label for second y_axis
+ylabel(y_label_string_2,'Interpreter','latex')      % Label for second y_axis
 ax_damj_alkaline.YAxis(2).FontSize = 15;
 ax_damj_alkaline.YAxis(2).Color = 'black';
 
@@ -381,8 +386,8 @@ scatter(potential_interpol, theta_damj_log_interpol_3,...                       
 ax_damj_log_alkaline = gca; % current axes                                      % Creating an ax with gca such that the fontsize can be changed
 ax_damj_log_alkaline.XAxis.FontSize = 15;                                       % Changing the tick size on the x-axis
 ax_damj_log_alkaline.YAxis.FontSize = 15;                                       % Changing the tick size on the y-axis
-xlabel('Potential -E vs RHE [$V$]','Interpreter','latex')
-ylabel('$\Gamma\theta_{2}(t)$ - [$\frac{mol}{m^{2}}$]','Interpreter','latex')
+xlabel(x_label_string,'Interpreter','latex')
+ylabel(y_label_string,'Interpreter','latex')
 xlim([min(potential_interpol) 1.5])
 ylim([min(gamma_theta_damj_log_3)*0 max(gamma_theta_damj_log_3)])
 
@@ -409,7 +414,7 @@ arh1 = annotation('arrow', 'LineStyle','none',...                               
     'HeadWidth',15, 'HeadStyle','vback2');
 arh1.Units = 'normalized';                                                      % Normalaizing the units
 arh1.Position = [x1p_1, y1p_1, x2p_1-x1p_1, y2p_1-y1p_1];                       % Defines position
-arh1.Color = Orange;                                                             % Defines colour for arrowhead
+arh1.Color = 'black';                                                             % Defines colour for arrowhead
 
 % Arrowhead 2 -------------------------------------------------------------
 x1_2 = potential_interpol(end-2);                                               % x_begin for arrow
@@ -426,7 +431,7 @@ arh2 = annotation('arrow', 'LineStyle','none',...                               
     'HeadWidth',15, 'HeadStyle','vback2');
 arh2.Units = 'normalized';                                                      % Normalaizing the units
 arh2.Position = [x1p_2, y1p_2, x2p_2-x1p_2, y2p_2-y1p_2];                       % Defines position
-arh2.Color = Reddish_purple;                                                            % Defines colour for arrowhead
+arh2.Color = 'black';                                                            % Defines colour for arrowhead
 
 % Arrowhead 3 -------------------------------------------------------------
 x1_3 = potential_interpol(end-2);                                               % x_begin for arrow
@@ -443,13 +448,13 @@ arh3 = annotation('arrow', 'LineStyle','none',...                               
     'HeadWidth',15, 'HeadStyle','vback2');
 arh3.Units = 'normalized';                                                      % Normalaizing the units
 arh3.Position = [x1p_3, y1p_3, x2p_3-x1p_3, y2p_3-y1p_3];                       % Defines position
-arh3.Color = Sky_blue;                                                           % Defines colour for arrowhead
+arh3.Color = 'black';                                                           % Defines colour for arrowhead
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 yyaxis right
 plot(potential_interpol, Schalenbach_dissolution_mole,...                           % Plots the potential regime
     'color', [.5 .5 .5], 'LineWidth', 1.5, 'LineStyle', '--')
-ylabel('$\frac{d Ir}{d t}$ - [$\frac{mol}{m^{2}s}$]','Interpreter','latex')         % Label for second y_axis
+ylabel(y_label_string_2,'Interpreter','latex')         % Label for second y_axis
 ax_damj_log_alkaline.YAxis(2).FontSize = 15;
 ax_damj_log_alkaline.YAxis(2).Color = 'black';
 
@@ -524,8 +529,8 @@ scatter(potential_interpol, theta_schalenbach_interpol_3,...                    
 ax_schalenbach_alkaline = gca; % current axes                                    % Creating an ax with gca such that the fontsize can be changed
 ax_schalenbach_alkaline.XAxis.FontSize = 15;                                     % Changing the tick size on the x-axis
 ax_schalenbach_alkaline.YAxis.FontSize = 15;                                     % Changing the tick size on the y-axis
-xlabel('Potential -E vs RHE [$V$]','Interpreter','latex')
-ylabel('$\Gamma\theta_{2}(t)$ - [$\frac{mol}{m^{2}}$]','Interpreter','latex')
+xlabel(x_label_string,'Interpreter','latex')
+ylabel(y_label_string,'Interpreter','latex')
 xlim([min(potential_interpol) 1.5])
 ylim([min(gamma_theta_schalenbach_3)*0 max(gamma_theta_schalenbach_3)])
 
@@ -552,7 +557,7 @@ arh1 = annotation('arrow', 'LineStyle','none',...                               
     'HeadWidth',15, 'HeadStyle','vback2');
 arh1.Units = 'normalized';                                                      % Normalaizing the units
 arh1.Position = [x1p_1, y1p_1, x2p_1-x1p_1, y2p_1-y1p_1];                       % Defines position
-arh1.Color = Orange;                                                             % Defines colour for arrowhead
+arh1.Color = 'black';                                                             % Defines colour for arrowhead
 
 % Arrowhead 2 -------------------------------------------------------------
 x1_2 = potential_interpol(end-2);                                               % x_begin for arrow
@@ -569,7 +574,7 @@ arh2 = annotation('arrow', 'LineStyle','none',...                               
     'HeadWidth',15, 'HeadStyle','vback2');
 arh2.Units = 'normalized';                                                      % Normalaizing the units
 arh2.Position = [x1p_2, y1p_2, x2p_2-x1p_2, y2p_2-y1p_2];                       % Defines position
-arh2.Color = Reddish_purple;                                                            % Defines colour for arrowhead
+arh2.Color = 'black';                                                            % Defines colour for arrowhead
 
 % Arrowhead 3 -------------------------------------------------------------
 x1_3 = potential_interpol(end-2);                                               % x_begin for arrow
@@ -586,12 +591,12 @@ arh3 = annotation('arrow', 'LineStyle','none',...                               
     'HeadWidth',15, 'HeadStyle','vback2');
 arh3.Units = 'normalized';                                                      % Normalaizing the units
 arh3.Position = [x1p_3, y1p_3, x2p_3-x1p_3, y2p_3-y1p_3];                       % Defines position
-arh3.Color = Sky_blue;                                                           % Defines colour for arrowhead
+arh3.Color = 'black';                                                           % Defines colour for arrowhead
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 yyaxis right
 plot(potential_interpol, Schalenbach_dissolution_mole,...                        % Plots the potential regime
     'color', [.5 .5 .5], 'LineWidth', 1.5, 'LineStyle', '--')
-ylabel('$\frac{d Ir}{d t}$ - [$\frac{mol}{m^{2}s}$]','Interpreter','latex')      % Label for second y_axis
+ylabel(y_label_string_2,'Interpreter','latex')      % Label for second y_axis
 ax_schalenbach_alkaline.YAxis(2).FontSize = 15;
 ax_schalenbach_alkaline.YAxis(2).Color = 'black';
 %%%%%%%%%%%%%%%%%%%%%%%%% creating arrowhead %%%%%%%%%%%%%%%%%%%%%%%%%%%%%

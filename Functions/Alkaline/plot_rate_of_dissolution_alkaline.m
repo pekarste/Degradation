@@ -71,6 +71,11 @@ string_array_2 = sprintf('$r_{3}$($k^{0}_{4+}$ = %.3f $s^{-1}$)', round(k_4_0_pl
 string_array_3 = sprintf('$r_{3}$($k^{0}_{4+}$ = %.4f $s^{-1}$)', round(k_4_0_plus(3), 5));
 string_array_4 = '$\frac{d Ir}{d t}$';
 
+% Creating string elements for x and y labels
+x_label_string = '$t$ - [s]';
+y_label_string = '$r_{Diss}$ - [mol m$^{-2}$ s$^{-1}$]';
+y_label_string_2 = '$E(t)$ - [V vs RHE]';
+
 % Colour blind pallette
 Orange          = [.90 .60 .0];                                        % Orange                                        
 Reddish_purple  = [.80 .60 .70];                                       % Reddish purple
@@ -130,8 +135,8 @@ legend({'',string_array_1, '', string_array_2, '' string_array_3, string_array_4
     'Position', [.67 .77 .1 .1], 'Interpreter','latex', 'FontSize',15)
 
 
-xlabel('Time t - [s]','Interpreter','latex', 'FontSize', 15)                % Creating x-label
-ylabel('$r_{3}$ - [$\frac{mol}{m^{2}s}$]',...                               % Creating y-label
+xlabel(x_label_string,'Interpreter','latex', 'FontSize', 15)                % Creating x-label
+ylabel(y_label_string,...                               % Creating y-label
     'Interpreter','latex', 'FontSize', 15)
 xlim([Schalenbach_time_CV_linear(1) Schalenbach_time_CV_linear(end)])
 ylim([0 17*10^(-9)])
@@ -198,8 +203,8 @@ annotation('textbox', [.15 .80 .1 .1], 'String',["Damjanovic -", "Alkaline"],...
 legend({'', string_array_1, '', string_array_2, '', string_array_3, string_array_4},...                                                             % Creating a legend for the graphs
     'Position', [.67 .77 .1 .1], 'Interpreter','latex', 'FontSize',15)
 
-xlabel('Time t - [s]','Interpreter','latex', 'FontSize', 15)                % Creating x-label
-ylabel('$r_{3}$ - [$\frac{mol}{m^{2}s}$]',...                               % Creating y-label
+xlabel(x_label_string,'Interpreter','latex', 'FontSize', 15)                % Creating x-label
+ylabel(y_label_string,...                               % Creating y-label
     'Interpreter','latex', 'FontSize', 15)
 xlim([Schalenbach_time_CV_linear(1) Schalenbach_time_CV_linear(end)])
 ylim([0 17*10^(-9)])
@@ -266,8 +271,8 @@ annotation('textbox', [.15 .80 .1 .1], 'String',["Damjanovic log -", "Alkaline"]
 legend({'', string_array_1, '', string_array_2, '', string_array_3, string_array_4},...                                                             % Creating a legend for the graphs
     'Position', [.67 .77 .1 .1], 'Interpreter','latex', 'FontSize',15)
 
-xlabel('Time t - [s]','Interpreter','latex', 'FontSize', 15)                % Creating x-label
-ylabel('$r_{3}$ - [$\frac{mol}{m^{2}s}$]',...                               % Creating y-label
+xlabel(x_label_string,'Interpreter','latex', 'FontSize', 15)                % Creating x-label
+ylabel(y_label_string,...                               % Creating y-label
     'Interpreter','latex', 'FontSize', 15)
 xlim([Schalenbach_time_CV_linear(1) Schalenbach_time_CV_linear(end)])
 ylim([0 17*10^(-9)])
@@ -314,7 +319,7 @@ fig_schalenbach_3 = plot(schalenbach_3_curve);                         % Creatin
 scatter(Schalenbach_time_CV_linear, schalenbach_3_curve.k_3_0_plus.*theta_schalenbach_interpol_3*Schalenbach_OH_alkaline^(2),...
     45, Sky_blue, "filled","diamond")
 plot(Schalenbach_time_CV_linear, Schalenbach_dissolution_mole,...           % Plots the potential regime
-    'color', [.5 .5 .5], 'LineWidth', 1, 'LineStyle', '--')
+    'color', [.0 .0 .0], 'LineWidth', 1, 'LineStyle', '--')
 
 set(fig_schalenbach_1,'lineWidth',1);                                          % Changing the linewidth of the curve of the cfit
 set(fig_schalenbach_2,'lineWidth',1);                                          % Changing the linewidth of the curve of the cfit
@@ -333,11 +338,21 @@ annotation('textbox', [.15 .80 .1 .1], 'String',["Schalenbach -", "Alkaline"],..
     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
 legend({'', string_array_1, '',  string_array_2, '', string_array_3, string_array_4},...                                                             % Creating a legend for the graphs
     'Position', [.67 .77 .1 .1], 'Interpreter','latex', 'FontSize',15)
-xlabel('Time t - [s]','Interpreter','latex', 'FontSize', 15)                % Creating x-label
-ylabel('Dissolution - [$\frac{mol}{m^{2}s}$]',...                               % Creating y-label
+xlabel(x_label_string,'Interpreter','latex', 'FontSize', 15)                % Creating x-label
+ylabel(y_label_string,...                               % Creating y-label
     'Interpreter','latex', 'FontSize', 15)
 xlim([Schalenbach_time_CV_linear(1) Schalenbach_time_CV_linear(end)])
 ylim([0 17*10^(-9)])
+
+yyaxis right
+plot(Schalenbach_time_CV_linear, potential_interpol,...                          % Plots the potential regime
+    'color', [.5 .5 .5], 'LineWidth', 1.5, 'LineStyle', '--')
+ax_schalenbach_alkaline.YAxis(2).FontSize = 15;                                        % Changing the tick size on the y-axis
+ax_schalenbach_alkaline.YAxis(2).Color = 'black';                                        % Changing the tick size on the y-axis
+ylabel(y_label_string_2,'Interpreter','latex')                              % Label for second y_axis
+legend({'', string_array_1, '', string_array_2, '', string_array_3, string_array_4,''},...                                                             % Creating a legend for the graphs
+    'Position', [.67 .77 .1 .1], 'Interpreter','latex', 'FontSize',15)
+ylim([min(potential_interpol) max(potential_interpol)])
 
 annotation('textbox', [.46 .15 .1 .1], 'String',schalenbach_1_string,...% Creating an annotation, textbox, with the rsquare value from the cfit
     'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',15, 'Color',Orange, 'Rotation', 0);
@@ -346,5 +361,7 @@ annotation('textbox', [.62 .46 .1 .1], 'String',schalenbach_2_string,...% Creati
 annotation('textbox', [.62 .30 .1 .1], 'String',schalenbach_3_string,...% Creating an annotation, textbox, with the rsquare value from the cfit
     'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',15, 'Color',Sky_blue, 'Rotation', -5);
 annotation('textbox', [.37 .65 .1 .1], 'String',string_array_4,...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',20, 'Color',[.5 .5 .5]);
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',20, 'Color',[.0 .0 .0]);
+annotation('textbox', [.46 .15 .1 .1], 'String','E(t)',...% Creating an annotation, textbox, with the rsquare value from the cfit
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',20, 'Color',[.5 .5 .5], 'Rotation', -5);
 %--------------------------------------------------------------------------

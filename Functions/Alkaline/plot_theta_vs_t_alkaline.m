@@ -58,6 +58,11 @@ Schalenbach_dissolution_CV_linear = Schalenbach_dissolution_CV_linear_data(1:end
 Schalenbach_time_CV_linear = Schalenbach_dissolution_CV_linear_data(1:end,1);           % Schalenbach time data - [s]
 Schalenbach_dissolution_mole = Schalenbach_dissolution_CV_linear*10^(-9)*10^(4)/Mm_Ir;  % Changes the units from ng/cm^2*s --> mole/m^2*s
 
+% Creating string elements for x and y labels
+x_label_string = '$t$ - [s]';
+y_label_string = '$\Gamma\theta_{2}$(t) - [mol m$^{-2}$]';
+y_label_string_2 = '$E$ - [V vs RHE]';
+
 % Colour blind pallette
 Orange          = [.90 .60 .0];                                        % Orange                                        
 Reddish_purple  = [.80 .60 .70];                                       % Reddish purple
@@ -98,8 +103,8 @@ scatter(Schalenbach_time_CV_linear, theta_cherevko_interpol_3,...               
 ax_cherevko_alkaline = gca; % current axes                                      % Creating an ax with gca such that the fontsize can be changed
 ax_cherevko_alkaline.XAxis.FontSize = 15;                                       % Changing the tick size on the x-axis
 ax_cherevko_alkaline(1).YAxis.FontSize = 15;                                       % Changing the tick size on the y-axis
-xlabel('Time -t [$s$]','Interpreter','latex')
-ylabel('$\Gamma\theta_{2}(t)$ - [$\frac{mol}{m^{2}}$]','Interpreter','latex')
+xlabel(x_label_string,'Interpreter','latex')
+ylabel(y_label_string,'Interpreter','latex')
 xlim([Schalenbach_time_CV_linear(1) Schalenbach_time_CV_linear(end)])
 ylim([min(gamma_theta_cherevko_3)*0 max(gamma_theta_cherevko_3)])
 
@@ -108,7 +113,7 @@ ax_cherevko_alkaline.YAxis(2).FontSize = 15;
 ax_cherevko_alkaline.YAxis(2).Color = 'black';
 plot(Schalenbach_time_CV_linear, potential_interpol_alkaline,...                         % Plots the potential regime
     'color', [.5 .5 .5], 'LineWidth', 1.5, 'LineStyle', '--')
-ylabel('E - [$V vs RHE$]','Interpreter','latex')                                % Label for second y_axis
+ylabel(y_label_string_2,'Interpreter','latex')                                % Label for second y_axis
 %ylim([min(potential_interpol_alkaline)*0 max(potential_interpol_alkaline)])
 % annotation('textbox', [.15 .80 .1 .1], 'String',["Cherevko -", "Alkaline"],...  % Creating an annotation, textbox, with the rsquare value from the cfit
 %     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
@@ -152,8 +157,8 @@ scatter(Schalenbach_time_CV_linear, theta_damj_interpol_3,...                   
 ax_damj_alkaline = gca; % current axes                                          % Creating an ax with gca such that the fontsize can be changed
 ax_damj_alkaline.XAxis.FontSize = 15;                                           % Changing the tick size on the x-axis
 ax_damj_alkaline.YAxis.FontSize = 15;                                           % Changing the tick size on the y-axis
-xlabel('Time -t [$s$]','Interpreter','latex')
-ylabel('$\Gamma\theta_{2}(t)$ - [$\frac{mol}{m^{2}}$]','Interpreter','latex')
+xlabel(x_label_string,'Interpreter','latex')
+ylabel(y_label_string,'Interpreter','latex')
 xlim([Schalenbach_time_CV_linear(1) Schalenbach_time_CV_linear(end)])
 ylim([min(gamma_theta_damj_3)*0 max(gamma_theta_damj_3)])
 
@@ -162,7 +167,7 @@ ax_damj_alkaline.YAxis(2).FontSize = 15;
 ax_damj_alkaline.YAxis(2).Color = 'black';
 plot(Schalenbach_time_CV_linear, potential_interpol_alkaline,...                         % Plots the potential regime
     'color', [.5 .5 .5], 'LineWidth', 1.5, 'LineStyle', '--')
-ylabel('E - [$V vs RHE$]','Interpreter','latex')                                % Label for second y_axis
+ylabel(y_label_string_2,'Interpreter','latex')                                % Label for second y_axis
 % annotation('textbox', [.15 .80 .1 .1], 'String',["Damjanovic -", "Alkaline"],...% Creating an annotation, textbox, with the rsquare value from the cfit
 %     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
 % legend({'',string_array_1, '', string_array_2, '', string_array_3, "E(t)"},...  % Creating a legend for the graphs
@@ -205,8 +210,8 @@ scatter(Schalenbach_time_CV_linear, theta_damj_log_interpol_3,...               
 ax_damj_log_alkaline = gca; % current axes                                          % Creating an ax with gca such that the fontsize can be changed
 ax_damj_log_alkaline.XAxis.FontSize = 15;                                           % Changing the tick size on the x-axis
 ax_damj_log_alkaline.YAxis(1).FontSize = 15;                                           % Changing the tick size on the y-axis
-xlabel('Time -t [$s$]','Interpreter','latex')
-ylabel('$\Gamma\theta_{2}(t)$ - [$\frac{mol}{m^{2}}$]','Interpreter','latex')
+xlabel(x_label_string,'Interpreter','latex')
+ylabel(y_label_string,'Interpreter','latex')
 xlim([Schalenbach_time_CV_linear(1) Schalenbach_time_CV_linear(end)])
 ylim([min(gamma_theta_damj_log_3)*0 max(gamma_theta_damj_log_3)])
 
@@ -215,7 +220,7 @@ ax_damj_log_alkaline.YAxis(2).FontSize = 15;
 ax_damj_log_alkaline.YAxis(2).Color = 'black';
 plot(Schalenbach_time_CV_linear, potential_interpol_alkaline,...                         % Plots the potential regime
     'color', [.5 .5 .5], 'LineWidth', 1.5, 'LineStyle', '--')
-ylabel('E - [$V vs RHE$]','Interpreter','latex')                                % Label for second y_axis
+ylabel(y_label_string_2,'Interpreter','latex')                                % Label for second y_axis
 % annotation('textbox', [.15 .80 .1 .1], 'String',["Damjanovic log-", "Alkaline"],...% Creating an annotation, textbox, with the rsquare value from the cfit
 %     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
 % legend({'',string_array_1, '', string_array_2, '', string_array_3, "E(t)"},...  % Creating a legend for the graphs
@@ -258,8 +263,8 @@ scatter(Schalenbach_time_CV_linear, theta_schalenbach_interpol_3,...            
 ax_schalenbach_alkaline = gca; % current axes                                    % Creating an ax with gca such that the fontsize can be changed
 ax_schalenbach_alkaline.XAxis.FontSize = 15;                                     % Changing the tick size on the x-axis
 ax_schalenbach_alkaline.YAxis(1).FontSize = 15;                                     % Changing the tick size on the y-axis
-xlabel('Time -t [$s$]','Interpreter','latex')
-ylabel('$\Gamma\theta_{2}(t)$ - [$\frac{mol}{m^{2}}$]','Interpreter','latex')
+xlabel(x_label_string,'Interpreter','latex')
+ylabel(y_label_string,'Interpreter','latex')
 xlim([Schalenbach_time_CV_linear(1) Schalenbach_time_CV_linear(end)])
 ylim([min(gamma_theta_schalenbach_3)*0 max(gamma_theta_schalenbach_3)])
 
@@ -268,7 +273,7 @@ ax_schalenbach_alkaline.YAxis(2).FontSize = 15;                                 
 ax_schalenbach_alkaline.YAxis(2).Color = 'black';                                     % Changing the tick size on the y-axis
 plot(Schalenbach_time_CV_linear, potential_interpol_alkaline,...                         % Plots the potential regime
     'color', [.5 .5 .5], 'LineWidth', 1.5, 'LineStyle', '--')
-ylabel('E - [$V vs RHE$]','Interpreter','latex')                                % Label for second y_axis
+ylabel(y_label_string_2,'Interpreter','latex')                                % Label for second y_axis
 % annotation('textbox', [.15 .80 .1 .1], 'String',["Schalenbach-", "Alkaline"],...% Creating an annotation, textbox, with the rsquare value from the cfit
 %     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
 % legend({'',string_array_1, '', string_array_2, '', string_array_3, "E(t)"},...  % Creating a legend for the graphs
@@ -304,8 +309,8 @@ hold off
 ax_schalenbach_alkaline = gca; % current axes                                    % Creating an ax with gca such that the fontsize can be changed
 ax_schalenbach_alkaline.XAxis.FontSize = 12;                                     % Changing the tick size on the x-axis
 ax_schalenbach_alkaline.YAxis.FontSize = 12;                                     % Changing the tick size on the y-axis
-xlabel('Time -t [$s$]','Interpreter','latex')
-ylabel('$\Gamma\theta_{2}(t)$ - [$-$]','Interpreter','latex')
+xlabel(x_label_string,'Interpreter','latex')
+ylabel(y_label_string,'Interpreter','latex')
 xlim([Schalenbach_time_CV_linear(1) Schalenbach_time_CV_linear(end)])
 ylim([min(gamma_theta_schalenbach_3)*0 max(gamma_theta_schalenbach_3)])
 
