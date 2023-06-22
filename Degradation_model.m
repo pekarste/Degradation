@@ -83,134 +83,202 @@ Mayrhofer_a_H_plus = 0.1*2;                                                 % Co
 % Cherevko - Acidic
 [Mayrhofer_curve_acidic, Mayrhofer_gof_acidic] = ...                                              % This is the expression with rds
     r_2_fit_acidic(Mayrhofer_E_acidic, Mayrhofer_i_acidic, Mayrhofer_a_H_plus, Mayrhofer_T_acidic, "Linear");
-%% Plotting the fitting with the data
-% 
-% % Scohy - Acidic
-% figure("Name", "Scohy Fitting Acidic")                                                                    % Creates figure
-% %plot(Scohy_curve_fit)
-% scatter(Scohy_potential, Scohy_current_density, 45, "filled", "blue", 'o')  % Scatter plot of the sampled values from Scohy
-% hold on
-% fig_scohy_fit = plot(Scohy_curve, "black");                                 % Creating a fig to stor the plot of the curve fit (cfit element)
-% set(fig_scohy_fit,'lineWidth',1);                                           % Changing the linewidth of the curve of the cfit
-% hold off
-% ax_scohy = gca; % current axes                                              % Creating an ax with gca such that the fontsize can be changed
-% legend({'Data', 'Fitting'},...                                              % Creating a legend for the graphs
-%     'Position', [.2 .65 .1 .1], 'Interpreter','latex', 'FontSize',15)
-% str_scohy = sprintf("$R^{2}$ = %.5f", round(Scohy_gof.rsquare, 5));         % Creating a string element for the annotation
-% annotation('textbox', [.15 .8 .1 .1], 'String',str_scohy,...                % Creating an annotation, textbox, with the rsquare value from the cfit
-%     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
-% ax_scohy.XAxis.FontSize = 15;                                               % Changing the tick size on the x-axis
-% ax_scohy.YAxis.FontSize = 15;                                               % Changing the tick size on the y-axis
-% xlabel('Potential - E/[$V$] vs RHE','Interpreter','latex', 'FontSize', 15)  % Creating x-label
-% ylabel('Current density - i/[$Am^{-2}$]',...                                % Creating y-label
-%     'Interpreter','latex', 'FontSize', 15)
-% annotation('textbox', [.15 .80 .1 .1], 'String',["Scohy -", "Acidic"],... % Creating an annotation, textbox, with the rsquare value from the cfit
-%     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
-% xlim([Scohy_potential(1) Scohy_potential(end)])
-% ylim([Scohy_current_density(1)*0 Scohy_current_density(end)])
-% 
+% Plotting the fitting with the data
+
+%-------------------------------------------------------------------------
+% Scohy - Acidic
+figure("Name", "Scohy Fitting Acidic")                                                                    % Creates figure
+
+scatter(Scohy_potential, Scohy_current_density, 45, "filled", "blue", 'o')  % Scatter plot of the sampled values from Scohy
+hold on
+fig_scohy_fit = plot(Scohy_curve, "black");                                 % Creating a fig to stor the plot of the curve fit (cfit element)
+set(fig_scohy_fit,'lineWidth',1);                                           % Changing the linewidth of the curve of the cfit
+box on
+ax_scohy = gca; % current axes                                              % Creating an ax with gca such that the fontsize can be changed
+ax_scohy.TickDir = 'out';
+
+hold off
+
+legend({'Data', 'Fitting'},...                                              % Creating a legend for the graphs
+    'Position', [.2 .65 .1 .1], 'Interpreter','latex', 'FontSize',15)
+
+str_scohy = sprintf("$R^{2}$ = %.5f", round(Scohy_gof.rsquare, 5));         % Creating a string element for the annotation
+annotation('textbox', [.15 .8 .1 .1], 'String',str_scohy,...                % Creating an annotation, textbox, with the rsquare value from the cfit
+    'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
+ax_scohy.XAxis.FontSize = 15;                                               % Changing the tick size on the x-axis
+ax_scohy.YAxis.FontSize = 15;                                               % Changing the tick size on the y-axis
+
+xlabel('Potential - E/[$V$] vs RHE','Interpreter','latex', 'FontSize', 15)  % Creating x-label
+ylabel('Current density - i/[$Am^{-2}$]',...                                % Creating y-label
+    'Interpreter','latex', 'FontSize', 15)
+annotation('textbox', [.15 .80 .1 .1], 'String',["Scohy -", "Acidic"],... % Creating an annotation, textbox, with the rsquare value from the cfit
+    'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
+xlim([Scohy_potential(1) Scohy_potential(end)])
+ylim([Scohy_current_density(1)*0 Scohy_current_density(end)])
+
+yyaxis right
+ax_scohy.YAxis(2).Color = 'k';
+set(ax_scohy, 'YTick', []);
+set(ax_scohy, 'XTick', []);
+
 % Damjanovic - Acidic
-% figure("Name", "Damjanovic Fitting Acidic")                                                                    % Creates figure
-% %plot(Damjanovic_curve_fit) 
-% scatter(Damjanovic_potential, Damjanovic_current_density, 45,...            % Scatter plot of the sampled values from Damjanovic
-%     [0.4940 0.1840 0.5560], "^", "filled")
-% hold on
-% fig_damjanovic = plot(Damjanovic_curve, "black");                           % Creating a fig to stor the plot of the curve fit (cfit element)
-% set(fig_damjanovic,'lineWidth',1);                                          % Changing the linewidth of the curve of the cfit
-% hold off
-% ax_damjanovic = gca; % current axes                                         % Creating an ax with gca such that the fontsize can be changed
-% legend({'Data', 'Fitting'},...                                              % Creating a legend for the graphs
-%     'Position', [.2 .65 .1 .1], 'Interpreter','latex', 'FontSize',15)
-% str_damjanovic = ...                                                        % Creating a string element for the annotation
-%     sprintf("$R^{2}$ = %.5f", round(Damjanovic_gof.rsquare, 5));
-% annotation('textbox', [.15 .8 .1 .1], 'String',str_damjanovic,...           % Creating an annotation, textbox, with the rsquare value from the cfit
-%     'Interpreter', 'latex','FitBoxToText','on', 'FontSize',15);
-% ax_damjanovic.XAxis.FontSize = 15;                                          % Changing the tick size on the x-axis
-% ax_damjanovic.YAxis.FontSize = 15;                                          % Changing the tick size on the y-axis
-% xlabel('Potential - E/[$V$] vs RHE','Interpreter','latex', 'FontSize',15)   % Creating x-label
-% ylabel('Current density - i/[$Am^{-2}$]',...                                % Creating y-label
-%     'Interpreter','latex', 'FontSize',15)
-% annotation('textbox', [.15 .80 .1 .1], 'String',["Damjanovic -", "Acidic"],... % Creating an annotation, textbox, with the rsquare value from the cfit
-%     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
-% xlim([Damjanovic_potential(1) Damjanovic_potential(end)])
-% ylim([Damjanovic_current_density(1)*0 Damjanovic_current_density(end)])
-% 
-% % Damjanovic log - Acidic
-% figure("Name", "Damjanovic log Fitting Acidic")                                                                    % Creating figure
-% %plot(Damjanovic_log_curve_fit)
-% scatter(Damjanovic_potential, log10(Damjanovic_current_density), 45,...     % Scatter plot of the sampled values from Damjanovic
-%     [0.9290 0.6940 0.1250],"v", "filled")
-% hold on
-% fig_damjanovic_log = plot(Damjanovic_log_curve, "black");                   % Creating a fig to stor the plot of the curve fit (cfit element)
-% set(fig_damjanovic_log,'lineWidth',1);                                      % Changing the linewidth of the curve of the cfit
-% hold off
-% ax_damjanovic_log = gca; % current axes                                     % Creating an ax with gca such that the fontsize can be changed
-% legend({'Data', 'Fitting'}, 'Position', [.2 .65 .1 .1],...                  % Creating a legend for the graphs
-%     'Interpreter','latex', 'FontSize',15)
-% str_damjanovic_log = ...                                                    % Creating a string element for the annotation
-%     sprintf("$R^{2}$ = %.5f", round(Damjanovic_log_gof.rsquare, 5));
-% annotation('textbox', [.15 .8 .1 .1], 'String',str_damjanovic_log,...       % Creating an annotation, textbox, with the rsquare value from the cfit
-%     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
-% ax_damjanovic_log.XAxis.FontSize = 12;                                      % Changing the tick size on the x-axis
-% ax_damjanovic_log.YAxis.FontSize = 12;                                      % Changing the tick size on the y-axis
-% xlabel('Potential - E/[$V$] vs RHE','Interpreter','latex', 'FontSize',15)   % Creating x-label
-% ylabel('$\log_{10}$ of current density - $\log{i}$/[$Am^{-2}$]',...         % Creating y-label
-%     'Interpreter','latex', 'FontSize',15)
-% annotation('textbox', [.15 .80 .1 .1], 'String',["Damjanovic log -", "Acidic"],... % Creating an annotation, textbox, with the rsquare value from the cfit
-%     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
-% xlim([Damjanovic_potential(1) Damjanovic_potential(end)])
-% ylim([-5 log10(Damjanovic_current_density(end))])
-%
-% % Cherevko - Acidic
-% figure("Name", "Cherevko Fitting Acidic")                                                                    % Creating figure
-% scatter(Cherevko_E_acidic, Cherevko_i_acidic, 45,...     % Scatter plot of the sampled values from Damjanovic
-%     "filled", "red", "square")
-% hold on
-% xlim([Cherevko_E_acidic(1) Cherevko_E_acidic(end)])
-% fig_cherevko_acidic = plot(Cherevko_curve_acidic, "black");                   % Creating a fig to stor the plot of the curve fit (cfit element)
-% set(fig_cherevko_acidic,'lineWidth',1);                                      % Changing the linewidth of the curve of the cfit
-% hold off
-% ax_cherevko_acidic = gca; % current axes                                     % Creating an ax with gca such that the fontsize can be changed
-% legend({'Data', 'Fitting'}, 'Position', [.2 .65 .1 .1],...                  % Creating a legend for the graphs
-%     'Interpreter','latex', 'FontSize',15)
-% str_cherevko_acidic = ...                                                    % Creating a string element for the annotation
-%     sprintf("$R^{2}$ = %.5f", round(Cherevko_gof_acidic.rsquare, 5));
-% annotation('textbox', [.15 .8 .1 .1], 'String',str_cherevko_acidic,...       % Creating an annotation, textbox, with the rsquare value from the cfit
-%     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
-% ax_cherevko_acidic.XAxis.FontSize = 12;                                      % Changing the tick size on the x-axis
-% ax_cherevko_acidic.YAxis.FontSize = 12;                                      % Changing the tick size on the y-axis
-% xlabel('Potential - E/[$V$] vs RHE','Interpreter','latex', 'FontSize',15)   % Creating x-label
-% ylabel('Current density - i/[$Am^{-2}$]',...                                % Creating y-label
-%     'Interpreter','latex', 'FontSize',15)
-% annotation('textbox', [.15 .80 .1 .1], 'String',["Cherevko -", "Acidic"],... % Creating an annotation, textbox, with the rsquare value from the cfit
-%     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
-% xlim([Cherevko_E_acidic(1) Cherevko_E_acidic(end)])
-% ylim([Cherevko_i_acidic(1)*0 Cherevko_i_acidic(end)])
+figure("Name", "Damjanovic Fitting Acidic")                                                                    % Creates figure
+
+scatter(Damjanovic_potential, Damjanovic_current_density, 45,...            % Scatter plot of the sampled values from Damjanovic
+    [0.4940 0.1840 0.5560], "^", "filled")
+hold on
+fig_damjanovic = plot(Damjanovic_curve, "black");                           % Creating a fig to stor the plot of the curve fit (cfit element)
+set(fig_damjanovic,'lineWidth',1);                                          % Changing the linewidth of the curve of the cfit
+
+box on
+ax_damjanovic = gca; % current axes                                         % Creating an ax with gca such that the fontsize can be changed
+ax_damjanovic.TickDir = 'out';
+
+hold off
+
+legend({'Data', 'Fitting'},...                                              % Creating a legend for the graphs
+    'Position', [.2 .65 .1 .1], 'Interpreter','latex', 'FontSize',15)
+str_damjanovic = ...                                                        % Creating a string element for the annotation
+    sprintf("$R^{2}$ = %.5f", round(Damjanovic_gof.rsquare, 5));
+annotation('textbox', [.15 .8 .1 .1], 'String',str_damjanovic,...           % Creating an annotation, textbox, with the rsquare value from the cfit
+    'Interpreter', 'latex','FitBoxToText','on', 'FontSize',15);
+
+ax_damjanovic.XAxis.FontSize = 15;                                          % Changing the tick size on the x-axis
+ax_damjanovic.YAxis.FontSize = 15;                                          % Changing the tick size on the y-axis
+
+xlabel('Potential - E/[$V$] vs RHE','Interpreter','latex', 'FontSize',15)   % Creating x-label
+ylabel('Current density - i/[$Am^{-2}$]',...                                % Creating y-label
+    'Interpreter','latex', 'FontSize',15)
+annotation('textbox', [.15 .80 .1 .1], 'String',["Damjanovic -", "Acidic"],... % Creating an annotation, textbox, with the rsquare value from the cfit
+    'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
+xlim([Damjanovic_potential(1) Damjanovic_potential(end)])
+ylim([Damjanovic_current_density(1)*0 Damjanovic_current_density(end)])
+
+yyaxis right
+ax_damjanovic.YAxis(2).Color = 'k';
+set(ax_damjanovic, 'YTick', []);
+set(ax_damjanovic, 'XTick', []);
+
+% Damjanovic log - Acidic
+figure("Name", "Damjanovic log Fitting Acidic")                                                                    % Creating figure
+
+scatter(Damjanovic_potential, log10(Damjanovic_current_density), 45,...     % Scatter plot of the sampled values from Damjanovic
+    [0.9290 0.6940 0.1250],"v", "filled")
+hold on
+fig_damjanovic_log = plot(Damjanovic_log_curve, "black");                   % Creating a fig to stor the plot of the curve fit (cfit element)
+set(fig_damjanovic_log,'lineWidth',1);                                      % Changing the linewidth of the curve of the cfit
+
+box on
+ax_damjanovic_log = gca; % current axes                                         % Creating an ax with gca such that the fontsize can be changed
+ax_damjanovic_log.TickDir = 'out';
+
+hold off
+
+legend({'Data', 'Fitting'}, 'Position', [.2 .65 .1 .1],...                  % Creating a legend for the graphs
+    'Interpreter','latex', 'FontSize',15)
+str_damjanovic_log = ...                                                    % Creating a string element for the annotation
+    sprintf("$R^{2}$ = %.5f", round(Damjanovic_log_gof.rsquare, 5));
+annotation('textbox', [.15 .8 .1 .1], 'String',str_damjanovic_log,...       % Creating an annotation, textbox, with the rsquare value from the cfit
+    'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
+
+ax_damjanovic_log.XAxis.FontSize = 12;                                      % Changing the tick size on the x-axis
+ax_damjanovic_log.YAxis.FontSize = 12;                                      % Changing the tick size on the y-axis
+
+xlabel('Potential - E/[$V$] vs RHE','Interpreter','latex', 'FontSize',15)   % Creating x-label
+ylabel('$\log_{10}$ of current density - $\log{i}$/[$Am^{-2}$]',...         % Creating y-label
+    'Interpreter','latex', 'FontSize',15)
+
+annotation('textbox', [.15 .80 .1 .1], 'String',["Damjanovic log -", "Acidic"],... % Creating an annotation, textbox, with the rsquare value from the cfit
+    'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
+xlim([Damjanovic_potential(1) Damjanovic_potential(end)])
+ylim([-5 log10(Damjanovic_current_density(end))])
+
+yyaxis right
+ax_damjanovic_log.YAxis(2).Color = 'k';
+set(ax_damjanovic_log, 'YTick', []);
+set(ax_damjanovic_log, 'XTick', []);
+
+% Cherevko - Acidic
+figure("Name", "Cherevko Fitting Acidic")                                                                    % Creating figure
+scatter(Cherevko_E_acidic, Cherevko_i_acidic, 45,...     % Scatter plot of the sampled values from Damjanovic
+    "filled", "red", "square")
+
+box on
+ax_cherevko_acidic = gca; % current axes                                         % Creating an ax with gca such that the fontsize can be changed
+ax_cherevko_acidic.TickDir = 'out';
+
+hold on
+fig_cherevko_acidic = plot(Cherevko_curve_acidic, "black");                   % Creating a fig to stor the plot of the curve fit (cfit element)
+set(fig_cherevko_acidic,'lineWidth',1);                                      % Changing the linewidth of the curve of the cfit
+
+hold off
+
+legend({'Data', 'Fitting'}, 'Position', [.2 .65 .1 .1],...                  % Creating a legend for the graphs
+    'Interpreter','latex', 'FontSize',15)
+str_cherevko_acidic = ...                                                    % Creating a string element for the annotation
+    sprintf("$R^{2}$ = %.5f", round(Cherevko_gof_acidic.rsquare, 5));
+annotation('textbox', [.15 .8 .1 .1], 'String',str_cherevko_acidic,...       % Creating an annotation, textbox, with the rsquare value from the cfit
+    'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
+
+ax_cherevko_acidic.XAxis.FontSize = 12;                                      % Changing the tick size on the x-axis
+ax_cherevko_acidic.YAxis.FontSize = 12;                                      % Changing the tick size on the y-axis
+
+xlabel('Potential - E/[$V$] vs RHE','Interpreter','latex', 'FontSize',15)   % Creating x-label
+ylabel('Current density - i/[$Am^{-2}$]',...                                % Creating y-label
+    'Interpreter','latex', 'FontSize',15)
+annotation('textbox', [.15 .80 .1 .1], 'String',["Cherevko -", "Acidic"],... % Creating an annotation, textbox, with the rsquare value from the cfit
+    'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
+
+xlim([Cherevko_E_acidic(1) Cherevko_E_acidic(end)])
+ylim([Cherevko_i_acidic(1)*0 Cherevko_i_acidic(end)])
+
+yyaxis right
+ax_cherevko_acidic.YAxis(2).Color = 'k';
+set(ax_cherevko_acidic, 'YTick', []);
+set(ax_cherevko_acidic, 'XTick', []);
 
 % Mayrhofer - Acidic
 figure("Name", "Mayrhofer Fitting Acidic")                                                                    % Creating figure
 scatter(Mayrhofer_E_acidic, Mayrhofer_i_acidic, 45,...     % Scatter plot of the sampled values from Damjanovic
     "filled", "red", "square")
+
+box on
+ax_mayrhofer_acidic = gca; % current axes                                     % Creating an ax with gca such that the fontsize can be changed
+ax_mayrhofer_acidic.TickDir = 'out';
+
 hold on
+
 fig_mayrhofer_acidic = plot(Mayrhofer_curve_acidic, "black");                   % Creating a fig to stor the plot of the curve fit (cfit element)
 set(fig_mayrhofer_acidic,'lineWidth',1);                                      % Changing the linewidth of the curve of the cfit
+
 hold off
-ax_mayrhofer_acidic = gca; % current axes                                     % Creating an ax with gca such that the fontsize can be changed
+
 legend({'Data', 'Fitting'}, 'Position', [.2 .65 .1 .1],...                  % Creating a legend for the graphs
     'Interpreter','latex', 'FontSize',15)
 str_mayrhofer_acidic = ...                                                    % Creating a string element for the annotation
     sprintf("$R^{2}$ = %.5f", round(Mayrhofer_gof_acidic.rsquare, 5));
 annotation('textbox', [.15 .8 .1 .1], 'String',str_mayrhofer_acidic,...       % Creating an annotation, textbox, with the rsquare value from the cfit
     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
+
 ax_mayrhofer_acidic.XAxis.FontSize = 12;                                      % Changing the tick size on the x-axis
 ax_mayrhofer_acidic.YAxis.FontSize = 12;                                      % Changing the tick size on the y-axis
+
+
 xlabel('Potential - E/[$V$] vs RHE','Interpreter','latex', 'FontSize',15)   % Creating x-label
 ylabel('Current density - i/[$Am^{-2}$]',...                                % Creating y-label
     'Interpreter','latex', 'FontSize',15)
+
 annotation('textbox', [.15 .80 .1 .1], 'String',["Mayrhofer -", "Acidic"],... % Creating an annotation, textbox, with the rsquare value from the cfit
     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
+set(ax_mayrhofer_acidic, 'TickDir', 'out')
+
 xlim([Mayrhofer_E_acidic(1) Mayrhofer_E_acidic(end)])
 ylim([Mayrhofer_i_acidic(1)*0 Mayrhofer_i_acidic(end)])
+
+yyaxis right
+ax_mayrhofer_acidic.YAxis(2).Color = 'k';
+set(ax_mayrhofer_acidic, 'YTick', []);
+set(ax_mayrhofer_acidic, 'XTick', []);
 
 
 %% %%%%%%%%%%% The data from the Mayrhofer article %%%%%%%%%%%%%%%%%%%%%%
