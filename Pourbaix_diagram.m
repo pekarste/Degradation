@@ -89,7 +89,7 @@ ax = gca;
 ax.XAxis.FontSize = 12;                                                     % Changing the tick size on the x-axis
 ax.YAxis.FontSize = 12;                                                     % Changing the tick size on the y-axis
 xlabel('pH','Interpreter','latex', 'FontSize', 15)                          % Creating x-label
-ylabel('Potential vs SHEH - E/[$V$]',...                                    % Creating y-label
+ylabel('$E$ vs [V vs SHE]',...                                    % Creating y-label
     'Interpreter','latex', 'FontSize', 15)
 xlim([pH(1) pH(end)])
 ylim([min(E_HER) max(E_4)])
