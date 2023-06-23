@@ -99,22 +99,29 @@ scatter(Schalenbach_time_CV_linear, theta_cherevko_interpol_2,...               
 plot(t_cherevko_3, gamma_theta_cherevko_3, "Color", Sky_blue)                          % Plots the line for 3
 scatter(Schalenbach_time_CV_linear, theta_cherevko_interpol_3,...               % Scatter the interpolated values for 3
     45, Sky_blue, 'diamond', 'filled')  
-%hold off
+
 ax_cherevko_alkaline = gca; % current axes                                      % Creating an ax with gca such that the fontsize can be changed
+ax_cherevko_alkaline.TickDir = "out";
+box off
+%hold off
+
 ax_cherevko_alkaline.XAxis.FontSize = 15;                                       % Changing the tick size on the x-axis
 ax_cherevko_alkaline(1).YAxis.FontSize = 15;                                       % Changing the tick size on the y-axis
 xlabel(x_label_string,'Interpreter','latex')
 ylabel(y_label_string,'Interpreter','latex')
 xlim([Schalenbach_time_CV_linear(1) Schalenbach_time_CV_linear(end)])
 ylim([min(gamma_theta_cherevko_3)*0 max(gamma_theta_cherevko_3)])
+yline(max(gamma_theta_cherevko_3))
 
 yyaxis right
 ax_cherevko_alkaline.YAxis(2).FontSize = 15;
 ax_cherevko_alkaline.YAxis(2).Color = 'black';
 plot(Schalenbach_time_CV_linear, potential_interpol_alkaline,...                         % Plots the potential regime
     'color', [.5 .5 .5], 'LineWidth', 1.5, 'LineStyle', '--')
+
 ylabel(y_label_string_2,'Interpreter','latex')                                % Label for second y_axis
 %ylim([min(potential_interpol_alkaline)*0 max(potential_interpol_alkaline)])
+
 % annotation('textbox', [.15 .80 .1 .1], 'String',["Cherevko -", "Alkaline"],...  % Creating an annotation, textbox, with the rsquare value from the cfit
 %     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
 % legend({'',string_array_1, '', string_array_2, '', string_array_3, "E(t)"},...  % Creating a legend for the graphs
@@ -155,18 +162,23 @@ scatter(Schalenbach_time_CV_linear, theta_damj_interpol_3,...                   
     45, Sky_blue, 'diamond', 'filled')  
 %hold off
 ax_damj_alkaline = gca; % current axes                                          % Creating an ax with gca such that the fontsize can be changed
+ax_damj_alkaline.TickDir = 'out';
+box off
 ax_damj_alkaline.XAxis.FontSize = 15;                                           % Changing the tick size on the x-axis
 ax_damj_alkaline.YAxis.FontSize = 15;                                           % Changing the tick size on the y-axis
+
 xlabel(x_label_string,'Interpreter','latex')
 ylabel(y_label_string,'Interpreter','latex')
 xlim([Schalenbach_time_CV_linear(1) Schalenbach_time_CV_linear(end)])
-ylim([min(gamma_theta_damj_3)*0 max(gamma_theta_damj_3)])
+ylim([0, max(gamma_theta_damj_3)])
+yline(max(gamma_theta_damj_3))
 
 yyaxis right
 ax_damj_alkaline.YAxis(2).FontSize = 15;
 ax_damj_alkaline.YAxis(2).Color = 'black';
 plot(Schalenbach_time_CV_linear, potential_interpol_alkaline,...                         % Plots the potential regime
     'color', [.5 .5 .5], 'LineWidth', 1.5, 'LineStyle', '--')
+%ylim([min(gamma_theta_damj_3)*0 max(gamma_theta_damj_3)])
 ylabel(y_label_string_2,'Interpreter','latex')                                % Label for second y_axis
 % annotation('textbox', [.15 .80 .1 .1], 'String',["Damjanovic -", "Alkaline"],...% Creating an annotation, textbox, with the rsquare value from the cfit
 %     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
@@ -208,12 +220,15 @@ scatter(Schalenbach_time_CV_linear, theta_damj_log_interpol_3,...               
     45, Sky_blue, 'diamond', 'filled')  
 %hold off
 ax_damj_log_alkaline = gca; % current axes                                          % Creating an ax with gca such that the fontsize can be changed
+ax_damj_log_alkaline.TickDir = 'out';
+box off
 ax_damj_log_alkaline.XAxis.FontSize = 15;                                           % Changing the tick size on the x-axis
 ax_damj_log_alkaline.YAxis(1).FontSize = 15;                                           % Changing the tick size on the y-axis
 xlabel(x_label_string,'Interpreter','latex')
 ylabel(y_label_string,'Interpreter','latex')
 xlim([Schalenbach_time_CV_linear(1) Schalenbach_time_CV_linear(end)])
 ylim([min(gamma_theta_damj_log_3)*0 max(gamma_theta_damj_log_3)])
+yline(max(gamma_theta_damj_log_3))
 
 yyaxis right
 ax_damj_log_alkaline.YAxis(2).FontSize = 15;
@@ -261,12 +276,15 @@ scatter(Schalenbach_time_CV_linear, theta_schalenbach_interpol_3,...            
     45, Sky_blue, 'diamond', 'filled')  
 %hold off
 ax_schalenbach_alkaline = gca; % current axes                                    % Creating an ax with gca such that the fontsize can be changed
+ax_schalenbach_alkaline.TickDir = 'out';
+box off
 ax_schalenbach_alkaline.XAxis.FontSize = 15;                                     % Changing the tick size on the x-axis
 ax_schalenbach_alkaline.YAxis(1).FontSize = 15;                                     % Changing the tick size on the y-axis
 xlabel(x_label_string,'Interpreter','latex')
 ylabel(y_label_string,'Interpreter','latex')
 xlim([Schalenbach_time_CV_linear(1) Schalenbach_time_CV_linear(end)])
 ylim([min(gamma_theta_schalenbach_3)*0 max(gamma_theta_schalenbach_3)])
+yline(max(gamma_theta_schalenbach_3))
 
 yyaxis right
 ax_schalenbach_alkaline.YAxis(2).FontSize = 15;                                     % Changing the tick size on the y-axis

@@ -107,16 +107,20 @@ scatter(potential_interpol_acidic, theta_scohy_interpol_2,...               % Sc
 plot(potential_scohy_3, gamma_theta_scohy_3, "Color", Sky_blue)              % Plots the line for 3
 scatter(potential_interpol_acidic, theta_scohy_interpol_3,...               % Scatter the interpolated values for 3
    45, Sky_blue, 'diamond', 'filled')  
-hold off
+%hold off
 xlabel(x_label_string,'Interpreter','latex',...
     'FontSize',15)
 ylabel(y_label_string',...
     'FontSize', 15,'Interpreter','latex')
+
 ax_scohy_acidic = gca; % current axes                                       % Creating an ax with gca such that the fontsize can be changed
+ax_scohy_acidic.TickDir = 'out';
+box off
 ax_scohy_acidic.XAxis.FontSize = 15;                                        % Changing the tick size on the x-axis
 ax_scohy_acidic.YAxis(1).FontSize = 15;                                        % Changing the tick size on the y-axis
 xlim([min(potential_interpol_acidic) 1.6])
 ylim([min(gamma_theta_scohy_3)*0 max(gamma_theta_scohy_3)])
+yline(max(gamma_theta_scohy_3))
 
 %%%%%%%%%%%%%%%%%%%  Creating arrowheads %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 xL = xlim;                                                                  % x_lim for normalising position
@@ -252,12 +256,15 @@ scatter(potential_interpol_acidic, theta_damj_interpol_3,...                % Sc
     45, Sky_blue, 'diamond', 'filled')  
 %hold off
 ax_damj_acidic = gca; % current axes                                        % Creating an ax with gca such that the fontsize can be changed
+ax_damj_acidic.TickDir = 'out';
+box off
 ax_damj_acidic.XAxis.FontSize = 15;                                         % Changing the tick size on the x-axis
 ax_damj_acidic.YAxis(1).FontSize = 15;                                         % Changing the tick size on the y-axis
 xlabel(x_label_string,'Interpreter','latex')
 ylabel(y_label_string,'Interpreter','latex')
 xlim([min(potential_interpol_acidic) 1.6])
 ylim([min(gamma_theta_damj_3)*0 max(gamma_theta_damj_3)])
+yline(max(gamma_theta_damj_3))
 
 %%%%%%%%%%%%%%%%%%%  Creating arrowheads %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 xL = xlim;                                                                  % x_lim for normalising position
@@ -392,12 +399,15 @@ scatter(potential_interpol_acidic, theta_damj_log_interpol_3,...            % Sc
     45, Sky_blue, 'diamond', 'filled')  
 %hold off
 ax_damj_log_acidic = gca; % current axes                                    % Creating an ax with gca such that the fontsize can be changed
+ax_damj_log_acidic.TickDir = 'out';
+box off
 ax_damj_log_acidic.XAxis.FontSize = 15;                                     % Changing the tick size on the x-axis
 ax_damj_log_acidic.YAxis.FontSize = 15;                                     % Changing the tick size on the y-axis
 xlabel(x_label_string,'Interpreter','latex')
 ylabel(y_label_string,'Interpreter','latex')
 xlim([min(potential_interpol_acidic) 1.6])
 ylim([min(gamma_theta_damj_log_3)*0 max(gamma_theta_damj_log_3)])
+yline(max(gamma_theta_damj_log_3))
 
 %%%%%%%%%%%%%%%%%%%  Creating arrowheads %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 xL = xlim;                                                                  % x_lim for normalising position
@@ -531,13 +541,15 @@ scatter(potential_interpol_acidic, theta_cherevko_interpol_3,...                
     45, Sky_blue, 'diamond', 'filled')  
 %hold off
 ax_cherevko_acidic = gca; % current axes                                    % Creating an ax with gca such that the fontsize can be changed
+ax_cherevko_acidic.TickDir = 'out';
+box off
 ax_cherevko_acidic.XAxis.FontSize = 15;                                     % Changing the tick size on the x-axis
 ax_cherevko_acidic.YAxis(1).FontSize = 15;                                     % Changing the tick size on the y-axis
 xlabel(x_label_string,'Interpreter','latex')
 ylabel(y_label_string,'Interpreter','latex')
 xlim([min(potential_interpol_acidic) 1.6])
 ylim([min(gamma_theta_cherevko_3)*0 max(gamma_theta_cherevko_3)])
-
+yline(max(gamma_theta_cherevko_3))
 %%%%%%%%%%%%%%%%%%%  Creating arrowheads %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 xL = xlim;                                                                      % x_lim for normalising position
 yL = ylim;                                                                      % y_lim for normalasing position
@@ -667,13 +679,15 @@ scatter(potential_interpol_acidic, theta_mayrhofer_interpol_3,...               
     45, Sky_blue, 'diamond', 'filled')  
 %hold off
 ax_mayrhofer_acidic = gca; % current axes                                    % Creating an ax with gca such that the fontsize can be changed
+ax_mayrhofer_acidic.TickDir = 'out';
+box off
 ax_mayrhofer_acidic.XAxis.FontSize = 15;                                     % Changing the tick size on the x-axis
 ax_mayrhofer_acidic.YAxis(1).FontSize = 15;                                     % Changing the tick size on the y-axis
 xlabel(x_label_string,'Interpreter','latex')
 ylabel(y_label_string,'Interpreter','latex')
 xlim([min(potential_interpol_acidic) 1.6])
 ylim([min(gamma_theta_mayrhofer_3)*0 max(gamma_theta_mayrhofer_3)])
-
+yline(max(gamma_theta_mayrhofer_3))
 %%%%%%%%%%%%%%%%%%%  Creating arrowheads %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 xL = xlim;                                                                      % x_lim for normalising position
 yL = ylim;                                                                      % y_lim for normalasing position

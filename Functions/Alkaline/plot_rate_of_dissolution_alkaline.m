@@ -126,6 +126,8 @@ set(fig_cherevko_2,'lineWidth',1);                                          % Ch
 set(fig_cherevko_3,'lineWidth',1);                                          % Changing the linewidth of the curve of the cfithold off
 
 ax_cherevko_alkaline = gca; % current axes                                  % Creating an ax with gca such that the fontsize can be changed
+ax_cherevko_alkaline.TickDir = "out";
+box off
 ax_cherevko_alkaline.XAxis.FontSize = 15;                                   % Changing the tick size on the x-axis
 ax_cherevko_alkaline.YAxis.FontSize = 15;                                   % Changing the tick size on the y-axis
 
@@ -140,6 +142,8 @@ ylabel(y_label_string,...                               % Creating y-label
     'Interpreter','latex', 'FontSize', 15)
 xlim([Schalenbach_time_CV_linear(1) Schalenbach_time_CV_linear(end)])
 ylim([0 17*10^(-9)])
+yline(17*10^(-9))
+xline(Schalenbach_time_CV_linear(end))
 
 annotation('textbox', [.46 .52 .1 .1], 'String',cherevko_1_string,...% Creating an annotation, textbox, with the rsquare value from the cfit
     'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',15, 'Color',Orange, 'Rotation', 0);
@@ -195,6 +199,8 @@ set(fig_damj_2,'lineWidth',1);                                              % Ch
 set(fig_damj_3,'lineWidth',1);                                              % Changing the linewidth of the curve of the cfithold off
 
 ax_damj_alkaline = gca; % current axes                                      % Creating an ax with gca such that the fontsize can be changed
+ax_damj_alkaline.TickDir = 'out';
+box off
 ax_damj_alkaline.XAxis.FontSize = 15;                                       % Changing the tick size on the x-axis
 ax_damj_alkaline.YAxis.FontSize = 15;                                       % Changing the tick size on the y-axis
 
@@ -208,6 +214,8 @@ ylabel(y_label_string,...                               % Creating y-label
     'Interpreter','latex', 'FontSize', 15)
 xlim([Schalenbach_time_CV_linear(1) Schalenbach_time_CV_linear(end)])
 ylim([0 17*10^(-9)])
+yline(17*10^(-9))
+xline(Schalenbach_time_CV_linear(end))
 
 annotation('textbox', [.46 .15 .1 .1], 'String',damj_1_string,...% Creating an annotation, textbox, with the rsquare value from the cfit
     'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',15, 'Color',Orange, 'Rotation', 0);
@@ -263,6 +271,8 @@ set(fig_damj_log_2,'lineWidth',1);                                          % Ch
 set(fig_damj_log_3,'lineWidth',1);                                          % Changing the linewidth of the curve of the cfithold off
 
 ax_damj_log_alkaline = gca; % current axes                                  % Creating an ax with gca such that the fontsize can be changed
+ax_damj_log_alkaline.TickDir = 'out';
+box off
 ax_damj_log_alkaline.XAxis.FontSize = 15;                                   % Changing the tick size on the x-axis
 ax_damj_log_alkaline.YAxis.FontSize = 15;                                   % Changing the tick size on the y-axis
 
@@ -276,6 +286,8 @@ ylabel(y_label_string,...                               % Creating y-label
     'Interpreter','latex', 'FontSize', 15)
 xlim([Schalenbach_time_CV_linear(1) Schalenbach_time_CV_linear(end)])
 ylim([0 17*10^(-9)])
+yline(17*10^(-9))
+xline(Schalenbach_time_CV_linear(end))
 
 annotation('textbox', [.46 .15 .1 .1], 'String',damj_log_1_string,...% Creating an annotation, textbox, with the rsquare value from the cfit
     'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',15, 'Color',Orange, 'Rotation', 0);
@@ -332,6 +344,8 @@ fig_schalenbach_3.Color = Sky_blue;                                      % Sky b
 
 
 ax_schalenbach_alkaline = gca; % current axes                                  % Creating an ax with gca such that the fontsize can be changed
+ax_schalenbach_alkaline.TickDir = 'out';
+box off
 ax_schalenbach_alkaline.XAxis.FontSize = 15;                                   % Changing the tick size on the x-axis
 ax_schalenbach_alkaline.YAxis.FontSize = 15;                                   % Changing the tick size on the y-axis
 annotation('textbox', [.15 .80 .1 .1], 'String',["Schalenbach -", "Alkaline"],... % Creating an annotation, textbox, with the rsquare value from the cfit
@@ -343,6 +357,7 @@ ylabel(y_label_string,...                               % Creating y-label
     'Interpreter','latex', 'FontSize', 15)
 xlim([Schalenbach_time_CV_linear(1) Schalenbach_time_CV_linear(end)])
 ylim([0 17*10^(-9)])
+yline(17*10^(-9))
 
 yyaxis right
 plot(Schalenbach_time_CV_linear, potential_interpol,...                          % Plots the potential regime

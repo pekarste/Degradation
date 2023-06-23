@@ -99,15 +99,17 @@ scatter(potential_interpol, theta_cherevko_interpol_2,...                       
 plot(potential_cherevko_3, gamma_theta_cherevko_3, "Color", Sky_blue)                  % Plots the line for 3
 scatter(potential_interpol, theta_cherevko_interpol_3,...                       % Scatter the interpolated values for 3
    45, Sky_blue, 'diamond','filled')  
-hold off
+%hold off
 ax_cherevko_alkaline = gca; % current axes                                      % Creating an ax with gca such that the fontsize can be changed
+ax_cherevko_alkaline.TickDir = 'out';
+box off
 ax_cherevko_alkaline.XAxis.FontSize = 15;                                       % Changing the tick size on the x-axis
 ax_cherevko_alkaline(1).YAxis.FontSize = 15;                                       % Changing the tick size on the y-axis
 xlabel(x_label_string,'Interpreter','latex')
 ylabel(y_label_string,'Interpreter','latex')
 xlim([min(potential_interpol) 1.5])
 ylim([min(gamma_theta_cherevko_3)*0 max(gamma_theta_cherevko_3)])
-
+yline(max(gamma_theta_cherevko_3))
 %%%%%%%%%%%%%%%%%%%  Creating arrowheads %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 xL = xlim;                                                                      % x_lim for normalising position
 yL = ylim;                                                                      % y_lim for normalasing position
@@ -242,13 +244,15 @@ scatter(potential_interpol, theta_damj_interpol_3,...                           
     45, Sky_blue, 'diamond','filled')  
 %hold off
 ax_damj_alkaline = gca; % current axes                                          % Creating an ax with gca such that the fontsize can be changed
+ax_damj_alkaline.TickDir = "out";
+box off
 ax_damj_alkaline.XAxis.FontSize = 15;                                           % Changing the tick size on the x-axis
 ax_damj_alkaline.YAxis.FontSize = 15;                                           % Changing the tick size on the y-axis
 xlabel(x_label_string,'Interpreter','latex')
 ylabel(y_label_string,'Interpreter','latex')
 xlim([min(potential_interpol) 1.5])
 ylim([min(gamma_theta_damj_3)*0 max(gamma_theta_damj_3)])
-
+yline(max(gamma_theta_damj_3))
 %%%%%%%%%%%%%%%%%%%  Creating arrowheads %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 xL = xlim;                                                                      % x_lim for normalising position
 yL = ylim;                                                                      % y_lim for normalasing position
@@ -384,13 +388,15 @@ scatter(potential_interpol, theta_damj_log_interpol_3,...                       
     45, Sky_blue, 'diamond','filled')  
 %hold off
 ax_damj_log_alkaline = gca; % current axes                                      % Creating an ax with gca such that the fontsize can be changed
+ax_damj_log_alkaline.TickDir = "out";
+box off
 ax_damj_log_alkaline.XAxis.FontSize = 15;                                       % Changing the tick size on the x-axis
 ax_damj_log_alkaline.YAxis.FontSize = 15;                                       % Changing the tick size on the y-axis
 xlabel(x_label_string,'Interpreter','latex')
 ylabel(y_label_string,'Interpreter','latex')
 xlim([min(potential_interpol) 1.5])
 ylim([min(gamma_theta_damj_log_3)*0 max(gamma_theta_damj_log_3)])
-
+yline(max(gamma_theta_damj_log_3))
 %%%%%%%%%%%%%%%%%%%  Creating arrowheads %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 xL = xlim;                                                                      % x_lim for normalising position
 yL = ylim;                                                                      % y_lim for normalasing position
@@ -527,13 +533,15 @@ scatter(potential_interpol, theta_schalenbach_interpol_3,...                    
     45, Sky_blue, 'diamond','filled')  
 %hold off
 ax_schalenbach_alkaline = gca; % current axes                                    % Creating an ax with gca such that the fontsize can be changed
+ax_schalenbach_alkaline.TickDir = "out";
+box off
 ax_schalenbach_alkaline.XAxis.FontSize = 15;                                     % Changing the tick size on the x-axis
 ax_schalenbach_alkaline.YAxis.FontSize = 15;                                     % Changing the tick size on the y-axis
 xlabel(x_label_string,'Interpreter','latex')
 ylabel(y_label_string,'Interpreter','latex')
 xlim([min(potential_interpol) 1.5])
 ylim([min(gamma_theta_schalenbach_3)*0 max(gamma_theta_schalenbach_3)])
-
+yline(max(gamma_theta_schalenbach_3))
 %%%%%%%%%%%%%%%%%%%  Creating arrowheads %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 xL = xlim;                                                                      % x_lim for normalising position
 yL = ylim;                                                                      % y_lim for normalasing position

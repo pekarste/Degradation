@@ -133,6 +133,8 @@ fig_scohy_3.Color = Sky_blue;                                      % Sky blue
 
 
 ax_scohy_acidic = gca; % current axes                                  % Creating an ax with gca such that the fontsize can be changed
+ax_scohy_acidic.TickDir = 'out';
+box off
 ax_scohy_acidic.XAxis.FontSize = 15;                                   % Changing the tick size on the x-axis
 ax_scohy_acidic.YAxis.FontSize = 15;                                   % Changing the tick size on the y-axis
 
@@ -146,6 +148,8 @@ ylabel(y_label_string,...                               % Creating y-label
     'Interpreter','latex', 'FontSize', 15)
 xlim([Mayrhofer_time(1) Mayrhofer_time(end)])
 ylim([0 4*10^(-8)])
+yline(4*10^(-8))
+xline(Mayrhofer_time(end))
 
 annotation('textbox', [.46 .52 .1 .1], 'String',scohy_1_string,...% Creating an annotation, textbox, with the rsquare value from the cfit
     'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',15, 'Color',Orange, 'Rotation', -10);
@@ -201,6 +205,8 @@ fig_damj_2.Color = Reddish_purple;                                % Reddish purp
 fig_damj_3.Color = Sky_blue;                                      % Sky blue
 
 ax_damj_acidic = gca; % current axes                                      % Creating an ax with gca such that the fontsize can be changed
+ax_damj_acidic.TickDir = 'out';
+box off
 ax_damj_acidic.XAxis.FontSize = 15;                                       % Changing the tick size on the x-axis
 ax_damj_acidic.YAxis.FontSize = 15;                                       % Changing the tick size on the y-axis
 
@@ -214,6 +220,9 @@ ylabel(y_label_string,...                               % Creating y-label
     'Interpreter','latex', 'FontSize', 15)
 xlim([Mayrhofer_time(1) Mayrhofer_time(end)])
 ylim([0 4*10^(-8)])
+yline(4*10^(-8))
+xline(Mayrhofer_time(end))
+
 annotation('textbox', [.46 .15 .1 .1], 'String',damj_1_string,...% Creating an annotation, textbox, with the rsquare value from the cfit
     'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',15, 'Color',Orange, 'Rotation', -10);
 annotation('textbox', [.62 .46 .1 .1], 'String',damj_2_string,...% Creating an annotation, textbox, with the rsquare value from the cfit
@@ -268,6 +277,8 @@ fig_damj_log_2.Color = Reddish_purple;                                % Reddish 
 fig_damj_log_3.Color = Sky_blue;                                      % Sky blue
 
 ax_damj_log_acidic = gca; % current axes                                  % Creating an ax with gca such that the fontsize can be changed
+ax_damj_log_acidic.TickDir = 'out';
+box off
 ax_damj_log_acidic.XAxis.FontSize = 15;                                   % Changing the tick size on the x-axis
 ax_damj_log_acidic.YAxis.FontSize = 15;                                   % Changing the tick size on the y-axis
 
@@ -281,6 +292,8 @@ ylabel(y_label_string,...                               % Creating y-label
     'Interpreter','latex', 'FontSize', 15)
 xlim([Mayrhofer_time(1) Mayrhofer_time(end)])
 ylim([0 4*10^(-8)])
+yline(4*10^(-8))
+xline(Mayrhofer_time(end))
 
 annotation('textbox', [.46 .15 .1 .1], 'String',damj_log_1_string,...% Creating an annotation, textbox, with the rsquare value from the cfit
     'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',15, 'Color',Orange, 'Rotation', -10);
@@ -336,6 +349,8 @@ fig_cherevko_2.Color = Reddish_purple;                                % Reddish 
 fig_cherevko_3.Color = Sky_blue;                                      % Sky blue
 
 ax_cherevko_acidic = gca; % current axes                                  % Creating an ax with gca such that the fontsize can be changed
+ax_cherevko_acidic.TickDir = 'out';
+box off
 ax_cherevko_acidic.XAxis.FontSize = 12;                                   % Changing the tick size on the x-axis
 ax_cherevko_acidic.YAxis.FontSize = 12;                                   % Changing the tick size on the y-axis
 annotation('textbox', [.15 .80 .1 .1], 'String',["Cherevko -", "Acidic"],... % Creating an annotation, textbox, with the rsquare value from the cfit
@@ -347,6 +362,8 @@ ylabel(y_label_string,...                               % Creating y-label
     'Interpreter','latex', 'FontSize', 15)
 xlim([Mayrhofer_time(1) Mayrhofer_time(end)])
 ylim([0 4*10^(-8)])
+yline(4*10^(-8))
+xline(Mayrhofer_time(end))
 
 annotation('textbox', [.46 .15 .1 .1], 'String',cherevko_1_string,...% Creating an annotation, textbox, with the rsquare value from the cfit
     'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',15, 'Color',Orange, 'Rotation', -5);
@@ -402,6 +419,8 @@ fig_mayrhofer_2.Color = Reddish_purple;                                % Reddish
 fig_mayrhofer_3.Color = Sky_blue;                                      % Sky blue
 
 ax_mayrhofer_acidic = gca; % current axes                                  % Creating an ax with gca such that the fontsize can be changed
+ax_mayrhofer_acidic.TickDir = 'out';
+box off
 ax_mayrhofer_acidic.XAxis.FontSize = 12;                                   % Changing the tick size on the x-axis
 ax_mayrhofer_acidic.YAxis.FontSize = 12;                                   % Changing the tick size on the y-axis
 annotation('textbox', [.15 .80 .1 .1], 'String',["Mayrhofer -", "Acidic"],... % Creating an annotation, textbox, with the rsquare value from the cfit
@@ -411,7 +430,8 @@ xlabel(x_label_string,'Interpreter','latex', 'FontSize', 15)                % Cr
 ylabel(y_label_string,...                               % Creating y-label
     'Interpreter','latex', 'FontSize', 15)
 xlim([Mayrhofer_time(1) Mayrhofer_time(end)])
-%ylim([0 3.5*10^(-8)])
+ylim([0 3*10^(-8)])
+yline(3*10^(-8))
 
 
 yyaxis right

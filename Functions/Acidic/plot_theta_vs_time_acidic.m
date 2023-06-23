@@ -109,12 +109,15 @@ scatter(Mayrhofer_time, gamma_theta_scohy_interpol_3,...                    % Sc
     45, Sky_blue, 'diamond', 'filled')  
 %hold off
 ax_scohy_acidic = gca; % current axes                                       % Creating an ax with gca such that the fontsize can be changed
+ax_scohy_acidic.TickDir = 'out';
+box off
 ax_scohy_acidic.XAxis.FontSize = 15;                                        % Changing the tick size on the x-axis
 ax_scohy_acidic.YAxis(1).FontSize = 15;                                        % Changing the tick size on the y-axis
 xlabel(x_label_string,'Interpreter','latex')
 ylabel(y_label_string,'Interpreter','latex')
 xlim([Mayrhofer_time(1) Mayrhofer_time(end)])
 ylim([min(gamma_theta_scohy_3)*0 max(gamma_theta_scohy_3)])
+yline(max(gamma_theta_scohy_3))
 
 yyaxis right
 plot(Mayrhofer_time, potential_interpol_acidic,...                          % Plots the potential regime
@@ -161,12 +164,15 @@ scatter(Mayrhofer_time, gamma_theta_damj_interpol_3,...                     % Sc
     45, Sky_blue, 'diamond', 'filled')  
 %hold off
 ax_damj_acidic = gca; % current axes                                        % Creating an ax with gca such that the fontsize can be changed
+ax_damj_acidic.TickDir = 'out';
+box off
 ax_damj_acidic.XAxis.FontSize = 15;                                         % Changing the tick size on the x-axis
 ax_damj_acidic.YAxis(1).FontSize = 15;                                         % Changing the tick size on the y-axis
 xlabel(x_label_string,'Interpreter','latex')
 ylabel(y_label_string,'Interpreter','latex')
 xlim([Mayrhofer_time(1) Mayrhofer_time(end)])
 ylim([min(gamma_theta_damj_3)*0 max(gamma_theta_damj_3)])
+yline(max(gamma_theta_damj_3))
 
 yyaxis right
 plot(Mayrhofer_time, potential_interpol_acidic,...                          % Plots the potential regime
@@ -215,12 +221,15 @@ scatter(Mayrhofer_time, gamma_theta_damj_log_interpol_3,...                 % Sc
     45, Sky_blue, 'diamond', 'filled')  
 %hold off
 ax_damj_log_acidic = gca; % current axes                                    % Creating an ax with gca such that the fontsize can be changed
+ax_damj_log_acidic.TickDir = 'out';
+box off
 ax_damj_log_acidic.XAxis.FontSize = 15;                                     % Changing the tick size on the x-axis
 ax_damj_log_acidic.YAxis(1).FontSize = 15;                                     % Changing the tick size on the y-axis
 xlabel(x_label_string,'Interpreter','latex')
 ylabel(y_label_string,'Interpreter','latex')
 xlim([Mayrhofer_time(1) Mayrhofer_time(end)])
 ylim([min(gamma_theta_damj_log_3)*0 max(gamma_theta_damj_log_3)])
+yline(max(gamma_theta_damj_log_3))
 
 yyaxis right
 plot(Mayrhofer_time, potential_interpol_acidic,...                          % Plots the potential regime
@@ -270,6 +279,8 @@ scatter(Mayrhofer_time, gamma_theta_cherevko_interpol_3,...                 % Sc
     45, Sky_blue, 'diamond', 'filled')  
 %hold off
 ax_cherevko_acidic = gca; % current axes                                    % Creating an ax with gca such that the fontsize can be changed
+ax_cherevko_acidic.TickDir = 'out';
+box off
 ax_cherevko_acidic.XAxis.FontSize = 15;                                     % Changing the tick size on the x-axis
 ax_cherevko_acidic.YAxis(1).FontSize = 15;                                     % Changing the tick size on the y-axis
 xlabel(x_label_string,'Interpreter','latex')
@@ -284,6 +295,7 @@ ax_cherevko_acidic.YAxis(2).FontSize = 15;                                     %
 ax_cherevko_acidic.YAxis(2).Color = 'black';                                     % Changing the tick size on the y-axis
 ylabel(y_label_string_2,'Interpreter','latex')                              % Label for second y_axis
 ylim([min(potential_interpol_acidic) max(potential_interpol_acidic)])
+yline(max(potential_interpol_acidic))
 % annotation('textbox', [.15 .80 .1 .1], 'String',["Cherevko-", "Acidic"],... % Creating an annotation, textbox, with the rsquare value from the cfit
 %     'Interpreter', 'latex', 'FitBoxToText','on', 'FontSize',15);
 % legend({'',string_array_1, '', string_array_2, '', string_array_3, "E(t)"},... % Creating a legend for the graphs
@@ -317,12 +329,15 @@ scatter(Mayrhofer_time, gamma_theta_cherevko_interpol_3,...                 % Sc
     45, Sky_blue, 'diamond', 'filled')  
 hold off
 ax_cherevko_acidic = gca; % current axes                                    % Creating an ax with gca such that the fontsize can be changed
-ax_cherevko_acidic.XAxis.FontSize = 12;                                     % Changing"green" the tick size on the x-axis
-ax_cherevko_acidic.YAxis.FontSize = 12;                                     % Changing the tick size on the y-axis
+ax_cherevko_acidic.TickDir = 'out';
+box off
+ax_cherevko_acidic.XAxis.FontSize = 15;                                     % Changing"green" the tick size on the x-axis
+ax_cherevko_acidic.YAxis.FontSize = 15;                                     % Changing the tick size on the y-axis
 xlabel(x_label_string,'Interpreter','latex')
 ylabel(y_label_string,'Interpreter','latex')
 xlim([Mayrhofer_time(1) Mayrhofer_time(end)])
-%ylim([min(gamma_theta_cherevko_3)*0 max(gamma_theta_cherevko_3)])
+ylim([min(gamma_theta_cherevko_3)*0 max(gamma_theta_cherevko_3)])
+yline(max(gamma_theta_cherevko_3))
 
 yyaxis right
 %ax_2_damj_alkaline = gca;
@@ -360,13 +375,15 @@ scatter(Mayrhofer_time, gamma_theta_mayrhofer_interpol_3,...                    
     45, Sky_blue, 'diamond', 'filled')  
 %hold off
 ax_mayrhofer_acidic = gca; % current axes                                       % Creating an ax with gca such that the fontsize can be changed
+ax_mayrhofer_acidic.TickDir = 'out';
+box off
 ax_mayrhofer_acidic.XAxis.FontSize = 15;                                        % Changing the tick size on the x-axis
 ax_mayrhofer_acidic.YAxis(1).FontSize = 15;                                        % Changing the tick size on the y-axis
 xlabel(x_label_string,'Interpreter','latex')
 ylabel(y_label_string,'Interpreter','latex')
 xlim([Mayrhofer_time(1) Mayrhofer_time(end)])
 ylim([min(gamma_theta_mayrhofer_3)*0 max(gamma_theta_mayrhofer_3)])
-
+yline(max(gamma_theta_mayrhofer_3))
 yyaxis right
 plot(Mayrhofer_time, potential_interpol_acidic,...                          % Plots the potential regime
     'color', [.5 .5 .5], 'LineWidth', 1.5, 'LineStyle', '--')
