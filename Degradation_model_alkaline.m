@@ -81,7 +81,7 @@ hold on
 fig_cherevko_fit_alkaline = plot(Cherevko_curve_alkaline, "black");                        % Creating a fig to stor the plot of the curve fit (cfit element)
 set(fig_cherevko_fit_alkaline,'lineWidth',1);                                              % Changing the linewidth of the curve of the cfit
 
-box on
+%box on
 ax_cherevko_alkaline = gca; % current axes                                                 % Creating an ax with gca such that the fontsize can be changed
 ax_cherevko_alkaline.TickDir = 'out';
 hold off
@@ -104,18 +104,20 @@ annotation('textbox', [.15 .80 .1 .1], 'String',["Cherevko -", "Alkaline"],... %
 
 xlim([min(Cherevko_E_alkaline) max(Cherevko_E_alkaline)])
 ylim([min(Cherevko_i_alkaline)*0 max(Cherevko_i_alkaline)])
+yline(max(Cherevko_i_alkaline))
 
 yyaxis right
 ax_cherevko_alkaline.YAxis(2).Color = 'k';
 set(ax_cherevko_alkaline, 'YTick', []);
-set(ax_cherevko_alkaline, 'XTick', []);
+%set(ax_cherevko_alkaline, 'XTick', []);
+
 
 % Damjanovic - Alkaline
 figure("Name","Damjanovic Alkaline Fitting")                                               % Creates figure
 scatter(Damjanovic_E_alkaline, Damjanovic_i_alkaline, 45,...                               % Scatter plot of the sampled values from Damjanovic
     [0.4940 0.1840 0.5560], "^", "filled")
 
-box on
+%box on
 ax_damjanovic_alkaline = gca; % current axes                                               % Creating an ax with gca such that the fontsize can be changed
 ax_damjanovic_alkaline.TickDir = "out";
 
@@ -143,11 +145,12 @@ annotation('textbox', [.15 .80 .1 .1], 'String',["Damjanovic -", "Alkaline"],...
 
 xlim([min(Damjanovic_E_alkaline) max(Damjanovic_E_alkaline)])
 ylim([min(Damjanovic_i_alkaline)*0 max(Damjanovic_i_alkaline)])
+yline(max(Damjanovic_i_alkaline))
 
 yyaxis right
 ax_damjanovic_alkaline.YAxis(2).Color = 'k';
 set(ax_damjanovic_alkaline, 'YTick', []);
-set(ax_damjanovic_alkaline, 'XTick', []);
+%set(ax_damjanovic_alkaline, 'XTick', []);
 
 % Damjanovic log - Alkaline
 figure("Name", "Damjanovic Alkaline Fitting Log")                                          % Creating figure
@@ -155,7 +158,7 @@ scatter(Damjanovic_E_alkaline, log10(Damjanovic_i_alkaline), 45,...             
     [0.9290 0.6940 0.1250],"v", "filled")
 hold on
 
-box on
+%box on
 ax_damjanovic_log_alkaline = gca; % current axes                                               % Creating an ax with gca such that the fontsize can be changed
 ax_damjanovic_log_alkaline.TickDir = "out";
 
@@ -181,18 +184,19 @@ annotation('textbox', [.15 .80 .1 .1], 'String',["Damjanovic log -", "Alkaline"]
 
 xlim([min(Damjanovic_E_alkaline) max(Damjanovic_E_alkaline)])
 ylim([-4 max(log10(Damjanovic_i_alkaline))])
+yline(max(log10(Damjanovic_i_alkaline)))
 
 yyaxis right
 ax_damjanovic_log_alkaline.YAxis(2).Color = 'k';
 set(ax_damjanovic_log_alkaline, 'YTick', []);
-set(ax_damjanovic_log_alkaline, 'XTick', []);
+%set(ax_damjanovic_log_alkaline, 'XTick', []);
 
 %--------------------------------------------------------------------------
 % Schalenbach - Alkaline
 figure("Name","Schalenbach fitting")                                                % Creates figure
 scatter(Schalenbach_E_alkaline, Schalenbach_i_alkaline, 45, "filled", "magenta", "diamond")  % Scatter plot of the sampled values from Scohy
 
-box on
+%box on
 ax_schalenbach_alkaline = gca; % current axes                                       % Creating an ax with gca such that the fontsize can be changed
 ax_schalenbach_alkaline.TickDir = "out";
 
@@ -219,11 +223,12 @@ annotation('textbox', [.15 .80 .1 .1], 'String',["Schalenbach -", "Alkaline"],..
 
 xlim([min(Schalenbach_E_alkaline) max(Schalenbach_E_alkaline)])
 ylim([min(Schalenbach_i_alkaline)*0 max(Schalenbach_i_alkaline)])
+yline(max(Schalenbach_i_alkaline))
 
 yyaxis right
 ax_schalenbach_alkaline.YAxis(2).Color = 'k';
 set(ax_schalenbach_alkaline, 'YTick', []);
-set(ax_schalenbach_alkaline, 'XTick', []);
+%set(ax_schalenbach_alkaline, 'XTick', []);
 %--------------------------------------------------------------------------
 %% %%%%%%%%%%% The data from the Schalenbach article %%%%%%%%%%%%%%%%%%%%%%
 % These data is based on the highest anodic peak
