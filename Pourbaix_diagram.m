@@ -80,16 +80,16 @@ text(0.35, 0.85, Label_3, 'HorizontalAlignment', 'center', 'Units', 'normalized'
 text(0.9, 0.8, Label_4, 'HorizontalAlignment', 'center', 'Units', 'normalized', 'FontSize', 15, 'Interpreter','latex', 'Rotation', -90);
 text(0.10, 0.225, Label_HER, 'HorizontalAlignment', 'center', 'Units', 'normalized', 'FontSize', 15, 'Interpreter','latex', 'Rotation', -12);
 text(0.10, 0.675, Label_OER, 'HorizontalAlignment', 'center', 'Units', 'normalized', 'FontSize', 15, 'Interpreter','latex', 'Rotation', -12);
-text(0.60, 0.9, Label_activities(1), 'HorizontalAlignment', 'center', 'Units', 'normalized', 'FontSize', 10, 'Interpreter','latex', 'Rotation', -90);
-text(0.67, 0.9, Label_activities(2), 'HorizontalAlignment', 'center', 'Units', 'normalized', 'FontSize', 10, 'Interpreter','latex', 'Rotation', -90);
-text(0.74, 0.9, Label_activities(3), 'HorizontalAlignment', 'center', 'Units', 'normalized', 'FontSize', 10, 'Interpreter','latex', 'Rotation', -90);
-text(0.81, 0.9, Label_activities(4), 'HorizontalAlignment', 'center', 'Units', 'normalized', 'FontSize', 10, 'Interpreter','latex', 'Rotation', -90);
+text(0.805, 0.9, Label_activities(1), 'HorizontalAlignment', 'center', 'Units', 'normalized', 'FontSize', 12, 'Interpreter','latex', 'Rotation', -90);
+text(0.735, 0.9, Label_activities(2), 'HorizontalAlignment', 'center', 'Units', 'normalized', 'FontSize', 12, 'Interpreter','latex', 'Rotation', -90);
+text(0.665, 0.9, Label_activities(3), 'HorizontalAlignment', 'center', 'Units', 'normalized', 'FontSize', 12, 'Interpreter','latex', 'Rotation', -90);
+text(0.595, 0.9, Label_activities(4), 'HorizontalAlignment', 'center', 'Units', 'normalized', 'FontSize', 12, 'Interpreter','latex', 'Rotation', -90);
 
 ax = gca;
 ax.XAxis.FontSize = 12;                                                     % Changing the tick size on the x-axis
 ax.YAxis.FontSize = 12;                                                     % Changing the tick size on the y-axis
 xlabel('pH','Interpreter','latex', 'FontSize', 15)                          % Creating x-label
-ylabel('Potential vs SHEH - E/[$V$]',...                                    % Creating y-label
+ylabel('$E$ vs [V vs SHE]',...                                    % Creating y-label
     'Interpreter','latex', 'FontSize', 15)
 xlim([pH(1) pH(end)])
 ylim([min(E_HER) max(E_4)])
