@@ -1,0 +1,33 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: Microkinetic model for degradation of IrO2
+message: >-
+  Code developed for microkinetic modelling of degradation
+  of the anode catalyst in an AEM-WE.
+type: software
+authors:
+  - given-names: Pål Emil
+    family-names: England Karstensen
+    email: england1501@gmail.com
+    affiliation: NTNU
+identifiers:
+  - type: url
+    value: 'https://github.com/pekarste/Degradation/tree/main'
+    description: >-
+      The URL to the main branch containing the last updated
+      branch
+repository-code: 'https://github.com/pekarste/Degradation'
+abstract: >-
+  The code developer as a part of TMT4900 at NTNU. It is a
+  part of the masters thesis and is a microkinetic model for
+  simulating degradation of IrO2 in acidic and alkaline
+  solutions by the use of two sets of degradation data. The
+  results are put into a larger model
+keywords:
+  - Simulation
+  - Degradation
+  - Microkinetic modelling
+  - IrO2
+date-released: '2023-06-24'
