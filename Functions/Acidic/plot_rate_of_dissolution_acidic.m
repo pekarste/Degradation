@@ -126,6 +126,9 @@ set(fig_scohy_1,'lineWidth',1);                                          % Chang
 set(fig_scohy_2,'lineWidth',1);                                          % Changing the linewidth of the curve of the cfit
 set(fig_scohy_3,'lineWidth',1);                                          % Changing the linewidth of the curve of the cfithold off
 
+yline(3*10^(-8))
+xline(Mayrhofer_time(end))
+
 % Colour blind pallette
 fig_scohy_1.Color = Orange;                                        % Orange                                        
 fig_scohy_2.Color = Reddish_purple;                                % Reddish purple
@@ -147,9 +150,7 @@ xlabel(x_label_string,'Interpreter', 'latex', 'FontSize', 15)                % C
 ylabel(y_label_string,...                               % Creating y-label
     'Interpreter','latex', 'FontSize', 15)
 xlim([Mayrhofer_time(1) Mayrhofer_time(end)])
-ylim([0 4*10^(-8)])
-yline(4*10^(-8))
-xline(Mayrhofer_time(end))
+ylim([0 3*10^(-8)])
 
 annotation('textbox', [.46 .52 .1 .1], 'String',scohy_1_string,...% Creating an annotation, textbox, with the rsquare value from the cfit
     'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',15, 'Color',Orange, 'Rotation', -10);
@@ -199,6 +200,9 @@ set(fig_damj_1,'lineWidth',1);                                              % Ch
 set(fig_damj_2,'lineWidth',1);                                              % Changing the linewidth of the curve of the cfit
 set(fig_damj_3,'lineWidth',1);                                              % Changing the linewidth of the curve of the cfithold off
 
+yline(3*10^(-8))
+xline(Mayrhofer_time(end))
+
 % Colour blind pallette
 fig_damj_1.Color = Orange;                                        % Orange                                        
 fig_damj_2.Color = Reddish_purple;                                % Reddish purple
@@ -219,9 +223,7 @@ xlabel(x_label_string,'Interpreter','latex', 'FontSize', 15)                % Cr
 ylabel(y_label_string,...                               % Creating y-label
     'Interpreter','latex', 'FontSize', 15)
 xlim([Mayrhofer_time(1) Mayrhofer_time(end)])
-ylim([0 4*10^(-8)])
-yline(4*10^(-8))
-xline(Mayrhofer_time(end))
+ylim([0 3*10^(-8)])
 
 annotation('textbox', [.46 .15 .1 .1], 'String',damj_1_string,...% Creating an annotation, textbox, with the rsquare value from the cfit
     'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',15, 'Color',Orange, 'Rotation', -10);
@@ -271,6 +273,9 @@ set(fig_damj_log_1,'lineWidth',1);                                          % Ch
 set(fig_damj_log_2,'lineWidth',1);                                          % Changing the linewidth of the curve of the cfit
 set(fig_damj_log_3,'lineWidth',1);                                          % Changing the linewidth of the curve of the cfithold off
 
+yline(3*10^(-8))
+xline(Mayrhofer_time(end))
+
 % Colour blind pallette
 fig_damj_log_1.Color = Orange;                                        % Orange                                        
 fig_damj_log_2.Color = Reddish_purple;                                % Reddish purple
@@ -291,9 +296,8 @@ xlabel(x_label_string,'Interpreter','latex', 'FontSize', 15)                % Cr
 ylabel(y_label_string,...                               % Creating y-label
     'Interpreter','latex', 'FontSize', 15)
 xlim([Mayrhofer_time(1) Mayrhofer_time(end)])
-ylim([0 4*10^(-8)])
-yline(4*10^(-8))
-xline(Mayrhofer_time(end))
+ylim([0 3*10^(-8)])
+
 
 annotation('textbox', [.46 .15 .1 .1], 'String',damj_log_1_string,...% Creating an annotation, textbox, with the rsquare value from the cfit
     'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',15, 'Color',Orange, 'Rotation', -10);
@@ -343,6 +347,9 @@ set(fig_cherevko_1,'lineWidth',1);                                          % Ch
 set(fig_cherevko_2,'lineWidth',1);                                          % Changing the linewidth of the curve of the cfit
 set(fig_cherevko_3,'lineWidth',1);                                          % Changing the linewidth of the curve of the cfithold off
 
+yline(3*10^(-8))
+xline(Mayrhofer_time(end))
+
 % Colour blind pallette
 fig_cherevko_1.Color = Orange;                                        % Orange                                        
 fig_cherevko_2.Color = Reddish_purple;                                % Reddish purple
@@ -361,9 +368,8 @@ xlabel(x_label_string,'Interpreter','latex', 'FontSize', 15)                % Cr
 ylabel(y_label_string,...                               % Creating y-label
     'Interpreter','latex', 'FontSize', 15)
 xlim([Mayrhofer_time(1) Mayrhofer_time(end)])
-ylim([0 4*10^(-8)])
-yline(4*10^(-8))
-xline(Mayrhofer_time(end))
+ylim([0 3*10^(-8)])
+
 
 annotation('textbox', [.46 .15 .1 .1], 'String',cherevko_1_string,...% Creating an annotation, textbox, with the rsquare value from the cfit
     'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',15, 'Color',Orange, 'Rotation', -5);
@@ -432,7 +438,6 @@ ylabel(y_label_string,...                               % Creating y-label
 xlim([Mayrhofer_time(1) Mayrhofer_time(end)])
 ylim([0 3*10^(-8)])
 yline(3*10^(-8))
-
 
 yyaxis right
 plot(Mayrhofer_time, potential_interpol_acidic,...                          % Plots the potential regime

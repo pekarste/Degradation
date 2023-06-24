@@ -114,6 +114,8 @@ scatter(Schalenbach_time_CV_linear, cherevko_3_curve.k_3_0_plus.*theta_cherevko_
     45, Sky_blue, "filled", "diamond")
 plot(Schalenbach_time_CV_linear, Schalenbach_dissolution_mole,...           % Plots the potential regime
     'color', [.5 .5 .5], 'LineWidth', 1, 'LineStyle', '--')
+yline(17*10^(-9))
+xline(Schalenbach_time_CV_linear(end))
 
 % Colour blind pallette
 fig_cherevko_1.Color = Orange;                                        % Orange                                        
@@ -142,8 +144,7 @@ ylabel(y_label_string,...                               % Creating y-label
     'Interpreter','latex', 'FontSize', 15)
 xlim([Schalenbach_time_CV_linear(1) Schalenbach_time_CV_linear(end)])
 ylim([0 17*10^(-9)])
-yline(17*10^(-9))
-xline(Schalenbach_time_CV_linear(end))
+
 
 annotation('textbox', [.46 .52 .1 .1], 'String',cherevko_1_string,...% Creating an annotation, textbox, with the rsquare value from the cfit
     'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',15, 'Color',Orange, 'Rotation', 0);
@@ -189,6 +190,9 @@ scatter(Schalenbach_time_CV_linear, damj_3_curve.k_3_0_plus.*theta_damj_interpol
 plot(Schalenbach_time_CV_linear, Schalenbach_dissolution_mole,...           % Plots the potential regime
     'color', [.5 .5 .5], 'LineWidth', 1, 'LineStyle', '--')
 
+yline(17*10^(-9))
+xline(Schalenbach_time_CV_linear(end))
+
 % Colour blind pallette
 fig_damj_1.Color = Orange;                                        % Orange                                        
 fig_damj_2.Color = Reddish_purple;                                % Reddish purple
@@ -214,8 +218,7 @@ ylabel(y_label_string,...                               % Creating y-label
     'Interpreter','latex', 'FontSize', 15)
 xlim([Schalenbach_time_CV_linear(1) Schalenbach_time_CV_linear(end)])
 ylim([0 17*10^(-9)])
-yline(17*10^(-9))
-xline(Schalenbach_time_CV_linear(end))
+
 
 annotation('textbox', [.46 .15 .1 .1], 'String',damj_1_string,...% Creating an annotation, textbox, with the rsquare value from the cfit
     'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',15, 'Color',Orange, 'Rotation', 0);
@@ -261,6 +264,9 @@ scatter(Schalenbach_time_CV_linear, damj_log_3_curve.k_3_0_plus.*theta_damj_log_
 plot(Schalenbach_time_CV_linear, Schalenbach_dissolution_mole,...           % Plots the potential regime
     'color', [.5 .5 .5], 'LineWidth', 1, 'LineStyle', '--')
 
+yline(17*10^(-9))
+xline(Schalenbach_time_CV_linear(end))
+
 % Colour blind pallette
 fig_damj_log_1.Color = Orange;                                        % Orange                                        
 fig_damj_log_2.Color = Reddish_purple;                                % Reddish purple
@@ -286,8 +292,6 @@ ylabel(y_label_string,...                               % Creating y-label
     'Interpreter','latex', 'FontSize', 15)
 xlim([Schalenbach_time_CV_linear(1) Schalenbach_time_CV_linear(end)])
 ylim([0 17*10^(-9)])
-yline(17*10^(-9))
-xline(Schalenbach_time_CV_linear(end))
 
 annotation('textbox', [.46 .15 .1 .1], 'String',damj_log_1_string,...% Creating an annotation, textbox, with the rsquare value from the cfit
     'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',15, 'Color',Orange, 'Rotation', 0);
@@ -378,5 +382,5 @@ annotation('textbox', [.62 .30 .1 .1], 'String',schalenbach_3_string,...% Creati
 annotation('textbox', [.37 .65 .1 .1], 'String',string_array_4,...% Creating an annotation, textbox, with the rsquare value from the cfit
     'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',20, 'Color',[.0 .0 .0]);
 annotation('textbox', [.46 .15 .1 .1], 'String','E(t)',...% Creating an annotation, textbox, with the rsquare value from the cfit
-    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',20, 'Color',[.5 .5 .5], 'Rotation', -5);
+    'Interpreter', 'latex', 'FitBoxToText', 'on', 'EdgeColor','none' ,'FontSize',20, 'Color',[.5 .5 .5], 'Rotation', 0);
 %--------------------------------------------------------------------------
